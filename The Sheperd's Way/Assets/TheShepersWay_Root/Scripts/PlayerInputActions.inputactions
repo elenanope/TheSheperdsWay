@@ -1,0 +1,62 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "Gameplay1",
+            "id": "89bd756f-ad72-4a43-ba96-c0345b8ec97c",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "43ddea1a-1a2e-40cc-9563-b91a2339d7fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f07af37c-527a-4be8-a5cb-487ce39fad06",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Gameplay2",
+            "id": "c74c4c16-be0d-4a6f-912a-e7505a6b1e47",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "c36f8aa3-76a0-4dbf-a8b9-e3452014ace5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "47cbd91f-570a-4939-bc42-700cb1e570cc",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
