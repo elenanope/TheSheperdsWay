@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Scripting.APIUpdating;
 
-public class PlayerController : MonoBehaviour
+public class DogController : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float dogSpeed;
     Vector2 moveInput;
     Rigidbody2D rb;
 
@@ -23,18 +22,22 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = moveInput * speed;
+        rb.velocity = moveInput * dogSpeed;
     }
 
 
     #region Input Methods
-    
-    public void OnMove(InputAction.CallbackContext context)
+
+    public void OnMoveDog(InputAction.CallbackContext context)
     {
-            moveInput = context.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnBark1(InputAction.CallbackContext context)
+    {
+
+    }
+    public void OnBark2(InputAction.CallbackContext context)
     {
 
     }
