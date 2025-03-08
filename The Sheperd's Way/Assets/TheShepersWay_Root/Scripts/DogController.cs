@@ -10,6 +10,8 @@ public class DogController : MonoBehaviour
     [SerializeField] bool canBark1;
     Vector2 moveInput;
     Rigidbody2D dogRb;
+    [SerializeField] float distance;
+    [SerializeField] float barkForce;
 
     // Start is called before the first frame update
     void Start()
@@ -22,33 +24,30 @@ public class DogController : MonoBehaviour
         Move();
     }
     public float sheepPushDistance = 5f; // How far the object will move toward the hit point
-
+    float rayDistance = 10f; // Ajusta la distancia del rayo
     void Update()
     {
         if (canBark1)
         {
-            //Arreglar todo
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right);
-            Debug.DrawRay(transform.position, transform.right * 30f, Color.red);
-            canBark1 = false;
-            // Verifica si el objeto golpeado tiene el tag especificado
-            if (hit.collider.CompareTag("Sheep"))
-                {
-                    Vector2 direction = (hit.point - (Vector2)transform.position).normalized;
-                    // Si el objeto golpeado tiene un Rigidbody2D, mueve el objeto con su Rigidbody2D
-                    Rigidbody2D sheepRb = hit.collider.GetComponent<Rigidbody2D>();
-                    if (sheepRb != null)
-                    {
-                        // Mueve el objeto "Sheep" usando su Rigidbody2D
-                        sheepRb.velocity = direction * sheepPushDistance;
-                    }
-                    else
-                    {
-                        Debug.Log("No hay rigidbody");
-                    }
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.right, rayDistance) ;
+            Debug.DrawRay(transform.position, transform.right * rayDistance, Color.yellow);
 
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null)
+                {
+                    Debug.Log("Ray hit: " + hit.collider.gameObject.name);
+                    if (hit.collider.CompareTag("Sheep"))
+                    {
+                        hit.collider.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    }
                 }
-            
+            }
+                
+            canBark1 = false;
+
+
+
         }
     }
 
@@ -70,6 +69,7 @@ public class DogController : MonoBehaviour
         if(context.performed)
         {
             canBark1 = true;
+            
             Debug.Log("You barked!");
         }
     }
