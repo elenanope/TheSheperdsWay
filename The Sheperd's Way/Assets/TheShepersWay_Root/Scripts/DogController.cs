@@ -12,6 +12,7 @@ public class DogController : MonoBehaviour
     Rigidbody2D dogRb;
     [SerializeField] float distance;
     [SerializeField] float barkForce;
+    [SerializeField] float frenoOvejas =2f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,14 @@ public class DogController : MonoBehaviour
                     Debug.Log("Ray hit: " + hit.collider.gameObject.name);
                     if (hit.collider.CompareTag("Sheep"))
                     {
-                        hit.collider.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
+                        Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
+                        
+                        
+                        //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
+                        hitRb.AddForce(transform.right * rayDistance, ForceMode2D.Impulse);
+                        // Establece un valor de drag para que se frene
+                        hitRb.drag = frenoOvejas;
                     }
                 }
             }
