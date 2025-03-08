@@ -2,7 +2,7 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "Gameplay1",
+            "name": "P1",
             "id": "89bd756f-ad72-4a43-ba96-c0345b8ec97c",
             "actions": [
                 {
@@ -13,68 +13,64 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "bf429484-3af5-4374-92d1-60c74a53edce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GrabSheep",
+                    "type": "Button",
+                    "id": "144565ca-c7e0-415c-811d-97ae0c8b54f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "f1a8b4f2-e9a7-4a5f-9d7e-1e827314c60c",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "2255c2f5-fd77-477c-8737-31086c70eb13",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
+                    "action": "Attack",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "d6c67f0d-6017-4901-8800-28977ad81823",
-                    "path": "<Keyboard>/w",
+                    "name": "",
+                    "id": "80440a94-0da7-4482-9f1a-a0dcab7a4eeb",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "GrabSheep",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "down",
-                    "id": "58c9ab15-1072-4170-86ac-32aa5548cade",
-                    "path": "<Keyboard>/s",
+                    "name": "",
+                    "id": "2b2b34da-1086-4ea5-9f48-2439c05e88ec",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "9cc37533-8c5b-4295-98b6-f1ff40fc3bea",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "fff604e5-a7c8-4219-8740-dfeb23722976",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Gameplay2",
+            "name": "P2",
             "id": "c74c4c16-be0d-4a6f-912a-e7505a6b1e47",
             "actions": [
                 {
@@ -85,6 +81,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Bark1",
+                    "type": "Button",
+                    "id": "b72625d7-f1c7-4c53-b041-ca38fc1c1253",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Bark2",
+                    "type": "Button",
+                    "id": "6d2483ba-fdcf-4c69-ac38-fcc2159d31bc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -142,6 +156,28 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ddc3b1ac-ce7c-4447-8b59-d015ba2b66fe",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bark1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e358abd-1ddb-4a33-a2d2-4d0c6a5d6886",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bark2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
