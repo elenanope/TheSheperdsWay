@@ -43,7 +43,8 @@ public class DogController : MonoBehaviour
                         //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
                         Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
                         
-                        
+                        //Si es posible hacer que se desvíen minimamente o que haya posibilidad de ello
+
                         //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
                         hitRb.AddForce(transform.right * rayDistance, ForceMode2D.Impulse);
                         // Establece un valor de drag para que se frene
