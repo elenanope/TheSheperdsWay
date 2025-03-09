@@ -5,8 +5,13 @@ using UnityEngine.InputSystem;
 
 public class DogController : MonoBehaviour
 {
-    [SerializeField] float dogSpeed;
+
+    [SerializeField] float dogLife = 1;
+    [SerializeField] float healingTime = 5;
+    [SerializeField] float timePassed;
     public bool isFainted;
+
+    [SerializeField] float dogSpeed;
     [SerializeField] bool canBark1;
     [SerializeField] bool isFacingRight;
     Vector2 moveInput;
@@ -23,39 +28,38 @@ public class DogController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(!isFainted) Move();
     }
     public float sheepPushDistance = 5f; // How far the object will move toward the hit point
     float rayDistance = 10f; // Ajusta la distancia del rayo
     void Update()
     {
-        if (moveInput.x > 0 && !isFacingRight) DogFlip();
-        else if (moveInput.x < 0 && isFacingRight) DogFlip();
 
-        if (canBark1)
+        if (isFainted)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.right, rayDistance) ;
-            Debug.DrawRay(transform.position, transform.right * rayDistance, Color.yellow);
-
-            foreach (RaycastHit2D hit in hits)
+            timePassed += Time.deltaTime;
+        }
+        if (timePassed >= healingTime)
+        {
+            isFainted = false;
+            dogLife = 1;
+        }
+        
+        if (!isFainted)
+        {
+            if (dogLife <= 0)
             {
-                if (hit.collider != null)
-                {
-                    Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-                    if (hit.collider.CompareTag("Sheep"))
-                    {
-                        //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
-                        Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
-                        
-                        //Si es posible hacer que se desvíen minimamente o que haya posibilidad de ello
-
-                        //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
-                        hitRb.AddForce(transform.right * rayDistance, ForceMode2D.Impulse);
-                        hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
-                    }
-                }
+                dogLife = 0;
+                isFainted = true;
             }
-            canBark1 = false;
+
+            if (moveInput.x > 0 && !isFacingRight) DogFlip();
+            else if (moveInput.x < 0 && isFacingRight) DogFlip();
+
+            if (canBark1)
+            {
+                Bark1();
+            }
         }
     }
 
@@ -69,6 +73,35 @@ public class DogController : MonoBehaviour
         currentScale.x *= -1;
         transform.localScale = currentScale;
         isFacingRight = !isFacingRight;
+    }
+    void Bark1()
+    {
+        RaycastHit2D[] hits= Physics2D.RaycastAll(transform.position, transform.right * transform.localScale.x, rayDistance);
+        Debug.DrawRay(transform.position, transform.right * transform.localScale.x * rayDistance, Color.yellow);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null)
+            {
+                Debug.Log("Ray hit: " + hit.collider.gameObject.name);
+                if (hit.collider.CompareTag("Sheep"))
+                {
+                    //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
+                    Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
+
+                    //Si es posible hacer que se desvíen minimamente al correr o que haya posibilidad de ello
+
+                    Vector2 pushDirection = hit.point.x < hitRb.transform.position.x ? transform.right : -transform.right; //Si la pregunta esa es true se hace lo primero, sino lo otro
+
+                    // Aplica la fuerza en la dirección opuesta al lado donde se impactó
+                    hitRb.AddForce(pushDirection * rayDistance, ForceMode2D.Impulse);
+                    //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
+                    
+                    hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
+                }
+            }
+        }
+        canBark1 = false;
     }
 
     #region Input Methods
