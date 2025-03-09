@@ -8,6 +8,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float dogSpeed;
     public bool isFainted;
     [SerializeField] bool canBark1;
+    [SerializeField] bool isFacingRight;
     Vector2 moveInput;
     Rigidbody2D dogRb;
     [SerializeField] float distance;
@@ -28,6 +29,9 @@ public class DogController : MonoBehaviour
     float rayDistance = 10f; // Ajusta la distancia del rayo
     void Update()
     {
+        if (moveInput.x > 0 && !isFacingRight) DogFlip();
+        else if (moveInput.x < 0 && isFacingRight) DogFlip();
+
         if (canBark1)
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.right, rayDistance) ;
@@ -47,16 +51,11 @@ public class DogController : MonoBehaviour
 
                         //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
                         hitRb.AddForce(transform.right * rayDistance, ForceMode2D.Impulse);
-                        // Establece un valor de drag para que se frene
-                        hitRb.drag = frenoOvejas;
+                        hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
                     }
                 }
             }
-                
             canBark1 = false;
-
-
-
         }
     }
 
@@ -64,7 +63,13 @@ public class DogController : MonoBehaviour
     {
         dogRb.velocity = moveInput * dogSpeed;
     }
-
+    void DogFlip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+        isFacingRight = !isFacingRight;
+    }
 
     #region Input Methods
 

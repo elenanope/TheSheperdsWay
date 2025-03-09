@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Scripting.APIUpdating;
@@ -7,6 +8,7 @@ using UnityEngine.Scripting.APIUpdating;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] bool isFacingRight;
     Vector2 moveInput;
     Rigidbody2D rb;
 
@@ -14,6 +16,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+    private void Update()
+    {
+        if (moveInput.x > 0 && !isFacingRight) Flip();
+        else if (moveInput.x < 0 && isFacingRight) Flip();
     }
 
     private void FixedUpdate()
@@ -25,10 +32,17 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = moveInput * speed;
     }
+    void Flip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+        isFacingRight = !isFacingRight;
+    }
 
 
     #region Input Methods
-    
+
     public void OnMove(InputAction.CallbackContext context)
     {
             moveInput = context.ReadValue<Vector2>();

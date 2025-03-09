@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 1640022474}
   - component: {fileID: 1640022473}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: loadingPlayParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

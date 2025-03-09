@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5356597224543085730
 SpriteRenderer:
@@ -254,6 +254,7 @@ MonoBehaviour:
   dogSpeed: 6
   isFainted: 0
   canBark1: 0
+  isFacingRight: 1
   distance: 0
   barkForce: 0
   frenoOvejas: 2
