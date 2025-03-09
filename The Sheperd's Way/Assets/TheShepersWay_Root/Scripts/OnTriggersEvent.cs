@@ -8,6 +8,7 @@ public class OnTriggersEvent : MonoBehaviour
     [SerializeField] int secondsToWait = 1;
     float contadorTiempo;
     bool isPressed;
+    [SerializeField] GameObject chargingSymbol;
 
     public UnityEvent OnTrigger; // Se verá en el inspector
 
@@ -22,12 +23,16 @@ public class OnTriggersEvent : MonoBehaviour
     {
         contadorTiempo = 0f;
         isPressed = true;
+
+        //Opción para botones TSW
+        chargingSymbol.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         contadorTiempo = 0f;
         isPressed = false;
+        chargingSymbol.SetActive(false);
     }
 
 
