@@ -8,6 +8,15 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     public int specificSceneToLoad; int sceneToLoad;
 
+    private void Update()
+    {
+        /* poner esto de manera que no pase constantly o no ponerlo así
+        if(GameManager.Instance.currentGameState == 0)
+        {
+            SceneManager.LoadScene(3);
+        }
+        */
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

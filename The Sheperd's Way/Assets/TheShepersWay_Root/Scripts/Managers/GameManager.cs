@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public float totalLife = 1;
+    public int sheepsAlive = 10;
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
     public GameState currentGameState = GameState.gameStarted;
 
@@ -30,8 +31,15 @@ public class GameManager : MonoBehaviour
         {
             totalLife = 0;
             currentGameState = GameState.gameOver;
-            Debug.Log("Has perdido!");
+            Debug.Log("No tienes más vida!");
         }
+        if (sheepsAlive <= 0)
+        {
+            sheepsAlive = 0;
+            currentGameState = GameState.gameOver;
+            Debug.Log("Se han muerto todas las ovejas!");
+        }
+
     }
 
 }
