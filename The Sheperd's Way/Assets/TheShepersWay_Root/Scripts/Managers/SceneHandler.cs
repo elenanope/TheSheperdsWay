@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement; //Librería que permite la carga/descarga de e
     
 public class SceneHandler : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource;
+    //[SerializeField] AudioSource audioSource;
     public int specificSceneToLoad; int sceneToLoad;
 
     private void Update()
@@ -21,7 +21,7 @@ public class SceneHandler : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            audioSource.Stop();
+            //audioSource.Stop();
             SceneManager.LoadScene(specificSceneToLoad);
         }
     }
@@ -32,7 +32,7 @@ public class SceneHandler : MonoBehaviour
     }
     public void SceneLoaderOnPlay()
     {
-        audioSource.Stop();
+        //audioSource.Stop();
         SceneManager.LoadScene(specificSceneToLoad);
     }
     public void ExitGame()
