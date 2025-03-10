@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isFacingRight;
     Vector2 moveInput;
     Rigidbody2D rb;
+    Animator shepherdAnim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        shepherdAnim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -36,6 +38,10 @@ public class PlayerController : MonoBehaviour
         currentScale.x *= -1;
         transform.localScale = currentScale;
         isFacingRight = !isFacingRight;
+    }
+    void Attack()
+    {
+        shepherdAnim.SetTrigger("Attack");
     }
 
 
