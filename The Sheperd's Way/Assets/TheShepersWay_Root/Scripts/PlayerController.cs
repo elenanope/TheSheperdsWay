@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         shepherdAnim = GetComponent<Animator>();
-        canAttack = true;
     }
     private void Update()
     {

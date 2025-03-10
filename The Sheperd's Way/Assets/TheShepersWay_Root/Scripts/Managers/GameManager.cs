@@ -21,7 +21,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Mantiene el objeto al cambiar de escena
+        }
+        else Destroy(gameObject); // Si ya hay un GameManager, destruye el nuevo
+        
     }
 
     private void Update()
