@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-    public float totalLife = 1;
+    public int totalLife = 100;
     public int sheepsAlive = 10;
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
     public GameState currentGameState = GameState.gameStarted;

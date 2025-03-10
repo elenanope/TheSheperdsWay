@@ -11,16 +11,32 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator shepherdAnim;
 
+    [Header("Attack references")]
+    [SerializeField] Transform attackPoint;
+    [SerializeField] float attackRange;
+    [SerializeField] LayerMask enemyLayer;
+    [SerializeField] int attackDamage = 10;
+    [SerializeField] bool canAttack;
+
+    [SerializeField] float attackRate = 2f;
+    float nextAttackTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         shepherdAnim = GetComponent<Animator>();
+        canAttack = true;
     }
     private void Update()
     {
-        if (moveInput.x > 0 && !isFacingRight) Flip();
-        else if (moveInput.x < 0 && isFacingRight) Flip();
+        if ((moveInput.x > 0 && !isFacingRight) || (moveInput.x < 0 && isFacingRight)) Flip();
+        if (Time.time >= nextAttackTime && canAttack)
+        {
+            Attack();
+            canAttack = false;
+            nextAttackTime = Time.time + 1f / attackRate;
+        }
     }
 
     private void FixedUpdate()
@@ -42,6 +58,18 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         shepherdAnim.SetTrigger("Attack");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<WolfAI>().TakeDamage(attackDamage);
+            Debug.Log("You hit " + enemy.name);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
 
@@ -54,7 +82,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-
+        if(context.performed) canAttack = true;
+        if(context.canceled) canAttack = false;
     }
 
     #endregion

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DogController : MonoBehaviour
 {
 
-    [SerializeField] float dogLife = 1;
+    [SerializeField] int dogLife = 100;
     [SerializeField] float healingTime = 5;
     [SerializeField] float timePassed;
     public bool isFainted;
@@ -42,7 +42,7 @@ public class DogController : MonoBehaviour
         if (timePassed >= healingTime)
         {
             isFainted = false;
-            dogLife = 1;
+            dogLife = 100;
         }
         
         if (!isFainted)
