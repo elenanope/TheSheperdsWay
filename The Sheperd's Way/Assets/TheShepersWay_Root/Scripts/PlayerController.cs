@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator shepherdAnim;
 
-    [Header("Attack references")]
+    [Header("Attack Variables")]
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange;
     [SerializeField] LayerMask enemyLayer;

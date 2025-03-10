@@ -6,16 +6,16 @@ using UnityEngine.InputSystem;
 public class DogController : MonoBehaviour
 {
 
-    [SerializeField] int dogLife = 100;
-    [SerializeField] float healingTime = 5;
-    [SerializeField] float timePassed;
-    public bool isFainted;
-
-    [SerializeField] float dogSpeed;
-    [SerializeField] bool canBark1;
-    [SerializeField] bool isFacingRight;
     Vector2 moveInput;
     Rigidbody2D dogRb;
+    [SerializeField] int dogLife = 100;
+    [SerializeField] float dogSpeed;
+    [SerializeField] bool isFacingRight;
+    public bool isFainted;
+    [SerializeField] float healingTime = 5;
+    [SerializeField] float timePassed;
+
+    [SerializeField] bool canBark1;
     [SerializeField] float distance;
     [SerializeField] float barkForce;
     [SerializeField] float frenoOvejas =2f;
@@ -25,12 +25,11 @@ public class DogController : MonoBehaviour
     {
         dogRb = GetComponent<Rigidbody2D>();
     }
-
     private void FixedUpdate()
     {
         if(!isFainted) Move();
     }
-    public float sheepPushDistance = 5f; // How far the object will move toward the hit point
+    //[SerializeField] float sheepPushDistance = 5f; // How far the object will move toward the hit point
     float rayDistance = 10f; // Ajusta la distancia del rayo
     void Update()
     {
