@@ -8,6 +8,7 @@ public class DogController : MonoBehaviour
 
     Vector2 moveInput;
     Rigidbody2D dogRb;
+    Animator dogAnim;
     [SerializeField] int dogLife = 100;
     [SerializeField] float dogSpeed;
     [SerializeField] bool isFacingRight;
@@ -24,6 +25,7 @@ public class DogController : MonoBehaviour
     void Start()
     {
         dogRb = GetComponent<Rigidbody2D>();
+        dogAnim = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
@@ -125,4 +127,10 @@ public class DogController : MonoBehaviour
     }
 
     #endregion
+
+    public void P2TakesDamage(int damage)
+    {
+        dogLife -= damage;
+        dogAnim.SetTrigger("Hurt");
+    }
 }

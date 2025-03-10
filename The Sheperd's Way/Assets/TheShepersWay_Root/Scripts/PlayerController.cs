@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static GameManager;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class PlayerController : MonoBehaviour
             canAttack = false;
             nextAttackTime = Time.time + 1f / attackRate;
         }
+        if(GameManager.Instance.totalLife <= 0) P1Death();
+
+        // Seguramente acabe poniendo la P1Life aquí en vez del GameManager
     }
 
     private void FixedUpdate()
@@ -87,4 +91,13 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    void P1Death()
+    {
+        Debug.Log("P1 died");
+        shepherdAnim.SetTrigger("Death");
+        GetComponent<Collider2D>().enabled = false;
+        GameManager.Instance.currentGameState = GameState.gameOver;
+        this.enabled = false;
+    }
 }
