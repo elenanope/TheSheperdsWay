@@ -14,7 +14,12 @@ public class OnTriggersEvent : MonoBehaviour
 
     private void Update()
     {
-        if(contadorTiempo >= secondsToWait) OnTrigger.Invoke();
+        if (contadorTiempo >= secondsToWait)
+        {
+            OnTrigger.Invoke();
+            contadorTiempo = 0f;
+            isPressed = false;
+        }
 
         if (isPressed) contadorTiempo += Time.deltaTime;
     }
