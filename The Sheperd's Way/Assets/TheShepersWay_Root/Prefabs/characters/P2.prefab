@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6618268479661747568}
   - component: {fileID: 3136634806769774642}
   - component: {fileID: 3354525872764531709}
+  - component: {fileID: 3671474978162934113}
   m_Layer: 0
   m_Name: P2
   m_TagString: Player
@@ -282,3 +283,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3671474978162934113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025729966514146915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dde23cc62b11c4287f845a5089db42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceBetweenSheeps: 2

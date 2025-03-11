@@ -37,7 +37,7 @@ public class OnTriggersEvent : MonoBehaviour
     {
         contadorTiempo = 0f;
         isPressed = false;
-        chargingSymbol.SetActive(false);
+        //me da error  chargingSymbol.SetActive(false);
     }
 
 

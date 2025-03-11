@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SheepAI : MonoBehaviour
@@ -8,6 +9,7 @@ public class SheepAI : MonoBehaviour
     [SerializeField] int sheepLife = 30;
     [SerializeField] float sheepSpeed;
     [SerializeField] bool sheepCanDie;
+    public bool sheepInLine;
     public bool dogOrder;
 
     //Autoreferences
@@ -43,8 +45,10 @@ public class SheepAI : MonoBehaviour
 
     }
 
-    void FollowingDog()
+    public void FollowingDog (Transform objectToFollow)
     {
+        transform.position = Vector3.MoveTowards(transform.position, objectToFollow.position, sheepSpeed * Time.deltaTime);
+
         //Quizá: si el perro las recoge en fila, que se sigan una a otra
     }
 
@@ -76,4 +80,6 @@ public class SheepAI : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
     }
+
+
 }
