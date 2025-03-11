@@ -66,12 +66,13 @@ public class SheepAI : MonoBehaviour
 
     public void SheepTakesDamage(int damage)
     {
+        sheepAnim.SetTrigger("Hurt");
         sheepLife -= damage;
     }
     void SheepDeath()
     {
         Debug.Log("A sheep died");
-        //sheepAnim.SetTrigger("Death");
+        sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
     }

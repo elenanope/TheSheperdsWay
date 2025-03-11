@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1227675839, guid: 40efaff5d31373f4d859dceedba4bf33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -251,14 +251,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e185a49e3798e447bc62c52513abbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dogLife: 100
   dogSpeed: 6
-  isFainted: 0
-  canBark1: 0
   isFacingRight: 1
+  isFainted: 0
+  healingTime: 5
+  timePassed: 0
+  canBark1: 0
   distance: 0
   barkForce: 0
   frenoOvejas: 2
-  sheepPushDistance: 5
 --- !u!95 &3354525872764531709
 Animator:
   serializedVersion: 5
