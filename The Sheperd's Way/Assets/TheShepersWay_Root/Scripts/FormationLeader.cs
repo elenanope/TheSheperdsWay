@@ -20,9 +20,14 @@ public class FormationLeader : MonoBehaviour
             if(!collision.GetComponent<SheepAI>().sheepInLine)
             {
                 sheepsInLine[nextSheepIndex] = collision.GetComponent<Transform>();
-                nextSheepIndex++;
                 Debug.Log("Nueva oveja al array, en el espacio " + (nextSheepIndex - 1));
                 collision.GetComponent<SheepAI>().sheepInLine = true;
+                //if (collision.GetComponent<Transform>() == sheepsInLine[0]) collision.GetComponent<SheepAI>().objectToFollow = transform;
+                if (nextSheepIndex == 0) collision.GetComponent<SheepAI>().objectToFollow = transform;
+                else collision.GetComponent<SheepAI>().objectToFollow = sheepsInLine[nextSheepIndex-1];
+                nextSheepIndex++;
+                Debug.Log("Meta cambiada");
+
             }
             else Debug.Log("Esta oveja ya te sigue");
         }

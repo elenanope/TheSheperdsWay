@@ -99,7 +99,7 @@ public class DogController : MonoBehaviour
                     hitRb.AddForce(pushDirection * rayDistance, ForceMode2D.Impulse);
                     //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
                     
-                    hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
+                    //hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
                 }
             }
         }

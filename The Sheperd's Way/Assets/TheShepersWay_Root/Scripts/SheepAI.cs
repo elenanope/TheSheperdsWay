@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class SheepAI : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class SheepAI : MonoBehaviour
     [SerializeField] float sheepSpeed;
     [SerializeField] bool sheepCanDie;
     public bool sheepInLine;
+    public Transform objectToFollow;
+    [SerializeField] float distanceBetween =2f;
     public bool dogOrder;
 
     //Autoreferences
@@ -24,6 +28,7 @@ public class SheepAI : MonoBehaviour
         sheepRb = GetComponent<Rigidbody2D>();
         sheepAnim = GetComponent<Animator>();
         sheepCanDie = true;
+        objectToFollow = null;
     }
 
     // Update is called once per frame
@@ -31,6 +36,7 @@ public class SheepAI : MonoBehaviour
     {
         if (!sheepCanDie) sheepCol.enabled = false;
         if (sheepLife <= 0) SheepDeath();
+        if (sheepInLine) FollowingDog();
 
     }
 
@@ -45,9 +51,21 @@ public class SheepAI : MonoBehaviour
 
     }
 
-    public void FollowingDog (Transform objectToFollow)
+    void FollowingDog ()
     {
-        transform.position = Vector3.MoveTowards(transform.position, objectToFollow.position, sheepSpeed * Time.deltaTime);
+        if (objectToFollow != null)
+        {
+            float currentDistance = Vector2.Distance(transform.position, objectToFollow.position);
+
+            // Si estamos demasiado cerca, mantenemos la distancia
+            if (currentDistance >= distanceBetween)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, objectToFollow.position, sheepSpeed * Time.deltaTime);
+            }
+            else transform.position = transform.position;
+            
+        }
+        
 
         //Quizá: si el perro las recoge en fila, que se sigan una a otra
     }
@@ -79,7 +97,7 @@ public class SheepAI : MonoBehaviour
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
-    }
+    } 
 
 
 }
