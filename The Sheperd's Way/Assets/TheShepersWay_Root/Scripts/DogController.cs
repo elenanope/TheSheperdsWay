@@ -79,6 +79,7 @@ public class DogController : MonoBehaviour
     {
         RaycastHit2D[] hits= Physics2D.RaycastAll(transform.position, transform.right * transform.localScale.x, rayDistance);
         Debug.DrawRay(transform.position, transform.right * transform.localScale.x * rayDistance, Color.yellow);
+        dogAnim.SetTrigger("Bark1");
 
         foreach (RaycastHit2D hit in hits)
         {
