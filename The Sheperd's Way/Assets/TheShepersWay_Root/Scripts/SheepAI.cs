@@ -13,22 +13,45 @@ public class SheepAI : MonoBehaviour
     [SerializeField] bool sheepCanDie;
     public bool sheepInLine;
     public Transform objectToFollow;
-    [SerializeField] float distanceBetween =2f;
+    [SerializeField] float distanceBetween = 2f;
     public bool dogOrder;
-
+    FormationLeader leader;
     //Autoreferences
     BoxCollider2D sheepCol;
     Rigidbody2D sheepRb;
     Animator sheepAnim;
 
+    private void OnEnable()
+    {
+        
+        
+        
+    }
+    private void OnDisable()
+    {
+        sheepInLine = false;
+        objectToFollow = null;
+        if (leader != null)
+        {
+            List<Transform> tempList = new List<Transform>(leader.sheepsInLine);  // Convertimos el array a lista
+
+            // Buscar el Transform y eliminarlo de la lista, asegurándonos de que no sea null
+            tempList.RemoveAll(sheep => sheep != null && sheep.gameObject.name == gameObject.name);
+
+
+            // Si deseas volver a un array después de eliminar
+            leader.sheepsInLine = tempList.ToArray();  // Convertimos la lista de nuevo a array
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        BoxCollider2D sheepCol = GetComponent<BoxCollider2D>();
+        leader = FindObjectOfType<FormationLeader>();
+        sheepCol = GetComponent<BoxCollider2D>();
         sheepRb = GetComponent<Rigidbody2D>();
         sheepAnim = GetComponent<Animator>();
         sheepCanDie = true;
-        objectToFollow = null;
+        
     }
 
     // Update is called once per frame

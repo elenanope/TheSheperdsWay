@@ -180,13 +180,13 @@ MonoBehaviour:
     m_ActionName: P1/Attack[/XInputControllerWindows1/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 7959022819495471361}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnGrabSheep
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -202,6 +202,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 6d2483ba-fdcf-4c69-ac38-fcc2159d31bc
     m_ActionName: P2/Bark2[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7959022819495471361}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLeaveSheep
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 81705f61-d561-4e14-978c-027e0ee8b458
+    m_ActionName: P1/LeaveSheep[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: P1
@@ -228,6 +244,8 @@ MonoBehaviour:
     m_Bits: 8
   attackDamage: 10
   canAttack: 0
+  canSheep: 0
+  heldSheep: {fileID: 0}
   attackRate: 2
 --- !u!61 &6997521228524715640
 BoxCollider2D:

@@ -5,13 +5,18 @@ using UnityEngine;
 public class FormationLeader : MonoBehaviour
 {
     [SerializeField] float distanceBetweenSheeps = 2;
+    [SerializeField] bool isEmpty = true;
     //[SerializeField] bool inLine;
-    [SerializeField] Transform[] sheepsInLine;
-    int nextSheepIndex;
+    public Transform[] sheepsInLine; //publico para que cuando una oveja deje de estar inLine pueda salirse del array para evitar problemas de seguimiento
+    [SerializeField] int nextSheepIndex;
 
     private void Start()
     {
         sheepsInLine = new Transform[10];
+    }
+    private void Update()
+    {
+        if(isEmpty) nextSheepIndex = 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,17 +24,32 @@ public class FormationLeader : MonoBehaviour
         {
             if(!collision.GetComponent<SheepAI>().sheepInLine)
             {
+                IsArrayEmpty();
                 sheepsInLine[nextSheepIndex] = collision.GetComponent<Transform>();
-                Debug.Log("Nueva oveja al array, en el espacio " + (nextSheepIndex - 1));
+                Debug.Log("Nueva oveja al array, en el espacio " + (nextSheepIndex));
                 collision.GetComponent<SheepAI>().sheepInLine = true;
                 //if (collision.GetComponent<Transform>() == sheepsInLine[0]) collision.GetComponent<SheepAI>().objectToFollow = transform;
                 if (nextSheepIndex == 0) collision.GetComponent<SheepAI>().objectToFollow = transform;
                 else collision.GetComponent<SheepAI>().objectToFollow = sheepsInLine[nextSheepIndex-1];
                 nextSheepIndex++;
                 Debug.Log("Meta cambiada");
+                isEmpty = false;
 
             }
             else Debug.Log("Esta oveja ya te sigue");
+        }
+    }
+
+    void IsArrayEmpty()
+    {
+        // Recorrer el array y comprobar si hay algún elemento null
+        foreach (Transform sheep in sheepsInLine)
+        {
+            if (sheep != null)  // Si algún elemento no es null
+            {
+                isEmpty = false;  // Se detecta un hueco vacío
+                break;  // Si ya encontramos un hueco, podemos salir del bucle
+            }
         }
     }
     /*
@@ -59,4 +79,11 @@ public class FormationLeader : MonoBehaviour
         array de followers? el primero que toques se almacena en la posición 1, el segundo en la 2, etc., despues cada uno sigue a su numero en el array -1
 
          */
+
+    public void ResetFormation()
+    {
+        nextSheepIndex = 0;
+        sheepsInLine = null;
+        sheepsInLine = new Transform[10];
+    }
 }

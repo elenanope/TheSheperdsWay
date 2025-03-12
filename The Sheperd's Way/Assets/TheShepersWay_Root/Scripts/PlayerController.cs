@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] int attackDamage = 10;
     [SerializeField] bool canAttack;
+    [SerializeField] int canSheep; // 0 = no sheep near and none grabbed, 1 = sheep near, 2 = sheep grabbed
 
+    [SerializeField] GameObject heldSheep;
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
 
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         shepherdAnim = GetComponent<Animator>();
+        heldSheep = null;
     }
     private void Update()
     {
@@ -37,8 +40,7 @@ public class PlayerController : MonoBehaviour
             canAttack = false;
             nextAttackTime = Time.time + 1f / attackRate;
         }
-        if(GameManager.Instance.totalLife <= 0) P1Death();
-
+        if(GameManager.Instance != null) if (GameManager.Instance.totalLife <= 0) P1Death();
         // Seguramente acabe poniendo la P1Life aquí en vez del GameManager
     }
 
@@ -75,6 +77,18 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Sheep"))
+        {
+            canSheep = 1;
+            heldSheep = collision.gameObject; 
+            
+
+        }
+
+    }
+
 
     #region Input Methods
 
@@ -88,9 +102,57 @@ public class PlayerController : MonoBehaviour
         if(context.performed) canAttack = true;
         if(context.canceled) canAttack = false;
     }
+    public void OnGrabSheep(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (canSheep == 1)
+            {
+                shepherdAnim.SetBool("GrabSheep", true);
+                heldSheep.transform.SetParent(transform);
+                heldSheep.SetActive(false);
+                canSheep = 2;
+            }
+            else Debug.Log("You are currently holding a sheep");
+        }
+        if (context.canceled)
+        {
+            if (canSheep != 2)
+            {
+                canSheep = 0;
+            }
+        }
+            
+        
+            //if (context.performed) canSheep = 1;
+            //if (context.canceled) canSheep = 0;
+        
+        //else Debug.Log("You are currently holding a sheep");
+        
+    }
+    public void OnLeaveSheep(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            if (canSheep == 2)
+            {
+                heldSheep.SetActive(true);
+                heldSheep.transform.SetParent(null);
+                shepherdAnim.SetBool("GrabSheep", false);
+                canSheep = 0;
+            }
+            else Debug.Log("NOT currently holding a sheep");
+        }
+        
+    }
 
     #endregion
 
+
+    void GrabTheSheep()
+    {
+
+    }
     void P1Death()
     {
         Debug.Log("P1 died");
