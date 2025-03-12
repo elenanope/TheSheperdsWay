@@ -31,17 +31,7 @@ public class SheepAI : MonoBehaviour
     {
         sheepInLine = false;
         objectToFollow = null;
-        if (leader != null)
-        {
-            List<Transform> tempList = new List<Transform>(leader.sheepsInLine);  // Convertimos el array a lista
-
-            // Buscar el Transform y eliminarlo de la lista, asegurándonos de que no sea null
-            tempList.RemoveAll(sheep => sheep != null && sheep.gameObject.name == gameObject.name);
-
-
-            // Si deseas volver a un array después de eliminar
-            leader.sheepsInLine = tempList.ToArray();  // Convertimos la lista de nuevo a array
-        }
+        leader.RemoveSheep(transform);
     }
     // Start is called before the first frame update
     void Start()

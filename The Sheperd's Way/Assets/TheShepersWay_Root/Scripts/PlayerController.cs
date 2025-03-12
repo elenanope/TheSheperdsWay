@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] int attackDamage = 10;
     [SerializeField] bool canAttack;
+    [SerializeField] bool sheepHeld;
     [SerializeField] int canSheep; // 0 = no sheep near and none grabbed, 1 = sheep near, 2 = sheep grabbed
 
     [SerializeField] GameObject heldSheep;
@@ -79,14 +80,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Sheep"))
+        if (collision.CompareTag("Sheep") && canSheep == 0)
+            {
+                canSheep = 1;
+                heldSheep = collision.gameObject;
+            }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Sheep") && !sheepHeld)
         {
-            canSheep = 1;
-            heldSheep = collision.gameObject; 
-            
-
+            canSheep = 0;
+            heldSheep = null;
         }
-
     }
 
 
@@ -104,23 +110,13 @@ public class PlayerController : MonoBehaviour
     }
     public void OnGrabSheep(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && canSheep == 1)
         {
-            if (canSheep == 1)
-            {
-                shepherdAnim.SetBool("GrabSheep", true);
-                heldSheep.transform.SetParent(transform);
-                heldSheep.SetActive(false);
-                canSheep = 2;
-            }
-            else Debug.Log("You are currently holding a sheep");
-        }
-        if (context.canceled)
-        {
-            if (canSheep != 2)
-            {
-                canSheep = 0;
-            }
+            sheepHeld = true;
+            shepherdAnim.SetBool("GrabSheep", true);
+            heldSheep.transform.SetParent(transform);
+            heldSheep.SetActive(false);
+            canSheep = 2;
         }
             
         
@@ -134,12 +130,13 @@ public class PlayerController : MonoBehaviour
     {
         if(context.performed)
         {
-            if (canSheep == 2)
+            if (heldSheep != null)
             {
                 heldSheep.SetActive(true);
                 heldSheep.transform.SetParent(null);
                 shepherdAnim.SetBool("GrabSheep", false);
                 canSheep = 0;
+                sheepHeld = false;
             }
             else Debug.Log("NOT currently holding a sheep");
         }

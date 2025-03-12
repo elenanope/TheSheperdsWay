@@ -29,6 +29,8 @@ public class OnTriggersEvent : MonoBehaviour
         contadorTiempo = 0f;
         isPressed = true;
 
+        if (chargingSymbol != null) chargingSymbol.SetActive(false);
+
         //Opción para botones TSW
         chargingSymbol.SetActive(true);
     }
@@ -39,6 +41,5 @@ public class OnTriggersEvent : MonoBehaviour
         isPressed = false;
         //me da error  chargingSymbol.SetActive(false);
     }
-
 
 }
