@@ -15,6 +15,7 @@ public class DogController : MonoBehaviour
     public bool isFainted;
     [SerializeField] float healingTime = 5;
     [SerializeField] float timePassed;
+    [SerializeField] float detectionRadius;
 
     [SerializeField] bool canBark1;
     public bool bark2;
@@ -31,22 +32,16 @@ public class DogController : MonoBehaviour
     {
         if(!isFainted) Move();
     }
-    //[SerializeField] float sheepPushDistance = 5f; // How far the object will move toward the hit point
-    float rayDistance = 10f; // Ajusta la distancia del rayo
     void Update()
     {
-
-        if (isFainted)
-        {
-            timePassed += Time.deltaTime;
-        }
+        if (isFainted) timePassed += Time.deltaTime;
         if (timePassed >= healingTime)
         {
             isFainted = false;
             dogLife = 100;
         }
         
-        if (!isFainted)
+        if (!isFainted)// Hacer que no pueda hacer NADA
         {
             if (dogLife <= 0)
             {
@@ -57,10 +52,7 @@ public class DogController : MonoBehaviour
             if (moveInput.x > 0 && !isFacingRight) DogFlip();
             else if (moveInput.x < 0 && isFacingRight) DogFlip();
 
-            if (canBark1)
-            {
-                Bark1();
-            }
+            if (canBark1) Bark1();
         }
     }
 
@@ -77,9 +69,20 @@ public class DogController : MonoBehaviour
     }
     void Bark1()
     {
-        RaycastHit2D[] hits= Physics2D.RaycastAll(transform.position, transform.right * transform.localScale.x, rayDistance);
-        Debug.DrawRay(transform.position, transform.right * transform.localScale.x * rayDistance, Color.yellow);
         dogAnim.SetTrigger("Bark1");
+        Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+        foreach (Collider2D sheep in sheeps)
+        {
+            if(sheep != null && sheep.CompareTag("Sheep"))
+            {
+                if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
+                else sheep.gameObject.GetComponent<SheepAI>().Running(4);
+            }
+        }
+
+        /*
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.right * transform.localScale.x, rayDistance);
+        Debug.DrawRay(transform.position, transform.right * transform.localScale.x * rayDistance, Color.yellow);
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -90,19 +93,10 @@ public class DogController : MonoBehaviour
                 {
                     //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
                     Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
-
-                    //Si es posible hacer que se desvíen minimamente al correr o que haya posibilidad de ello
-
-                    Vector2 pushDirection = hit.point.x < hitRb.transform.position.x ? transform.right : -transform.right; //Si la pregunta esa es true se hace lo primero, sino lo otro
-
-                    // Aplica la fuerza en la dirección opuesta al lado donde se impactó
-                    hitRb.AddForce(pushDirection * rayDistance, ForceMode2D.Impulse);
-                    //Activar bool en script oveja respectivo, que se mueva cierta distancia en un move towards(transform.position, transform.position + 5f, ...)
-                    
-                    //hitRb.drag = frenoOvejas; // Establece un valor de drag para que se frene
                 }
             }
         }
+        */
         canBark1 = false;
     }
 
@@ -115,46 +109,11 @@ public class DogController : MonoBehaviour
 
     public void OnBark1(InputAction.CallbackContext context)
     {
-        if(context.performed)
-        {
-            canBark1 = true;
-            
-            Debug.Log("You barked!");
-        }
+        if(context.performed) canBark1 = true;
     }
     public void OnBark2(InputAction.CallbackContext context)
     {
-        if(context.performed)
-        {
-            bark2 = !bark2;
-        }
-        /*
-         hacer que la primera oveja haga un move towards hasta que esté a x distancia, pero constantly
-        cuando entres en el radio de las otras, cada una empieza a seguir a la última con los mismos parámetros
-
-        public Transform leader;  // El objeto líder (el primero en la fila)
-        public float distance = 2.0f;  // Distancia entre los seguidores
-        public float speed = 3.0f;  // Velocidad de movimiento del seguidor
-
-        private void Update()
-        {
-            if (leader != null)
-            {
-                // Calculamos la dirección hacia el líder
-                Vector3 direction = leader.position - transform.position;
-
-                // Si estamos demasiado cerca, mantenemos la distancia
-                if (direction.magnitude > distance)
-                {
-                    direction.Normalize();  // Normalizamos para obtener solo la dirección
-                    transform.position += direction * speed * Time.deltaTime;  // Movimiento hacia el líder
-                }
-            }
-        }
-
-        array de followers? el primero que toques se almacena en la posición 1, el segundo en la 2, etc., despues cada uno sigue a su numero en el array -1
-
-         */
+        if(context.performed) bark2 = !bark2;
     }
 
     #endregion
@@ -163,5 +122,10 @@ public class DogController : MonoBehaviour
     {
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
