@@ -21,9 +21,7 @@ public class SheepAI : MonoBehaviour
 
     private void OnDisable()
     {
-        sheepInLine = false;
-        objectToFollow = null;
-        leader.RemoveSheep(transform);
+        StopFollowing();
     }
     void Start()
     {
@@ -39,6 +37,7 @@ public class SheepAI : MonoBehaviour
         if (!sheepCanDie) sheepCol.enabled = false;
         if (sheepLife <= 0) SheepDeath();
         if (sheepInLine) FollowingDog();
+        if (leader.sheepsInLine.Count == 0) StopFollowing();
     }
 
     #region Sheep Behaviours
@@ -64,6 +63,13 @@ public class SheepAI : MonoBehaviour
             }
             else transform.position = transform.position;
         }
+    }
+
+    void StopFollowing()
+    {
+        sheepInLine = false;
+        objectToFollow = null;
+        leader.RemoveSheep(transform);
     }
 
     void FleeingFromEnemy()

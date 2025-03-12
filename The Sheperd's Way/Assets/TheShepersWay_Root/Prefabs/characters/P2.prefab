@@ -187,9 +187,25 @@ MonoBehaviour:
     m_ActionId: b72625d7-f1c7-4c53-b041-ca38fc1c1253
     m_ActionName: P2/Bark1[/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3136634806769774642}
+        m_TargetAssemblyTypeName: DogController, Assembly-CSharp
+        m_MethodName: OnBark2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6d2483ba-fdcf-4c69-ac38-fcc2159d31bc
     m_ActionName: P2/Bark2[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81705f61-d561-4e14-978c-027e0ee8b458
+    m_ActionName: P1/LeaveSheep[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: P2
@@ -259,9 +275,9 @@ MonoBehaviour:
   healingTime: 5
   timePassed: 0
   canBark1: 0
+  bark2: 0
   distance: 0
   barkForce: 0
-  frenoOvejas: 2
 --- !u!95 &3354525872764531709
 Animator:
   serializedVersion: 5
@@ -295,4 +311,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dde23cc62b11c4287f845a5089db42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceBetweenSheeps: 2
+  sheepsInLine: []
+  dogController: {fileID: 3136634806769774642}

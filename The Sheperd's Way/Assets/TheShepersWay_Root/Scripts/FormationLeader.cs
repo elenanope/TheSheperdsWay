@@ -5,10 +5,18 @@ using UnityEngine;
 public class FormationLeader : MonoBehaviour
 {
     public List<Transform> sheepsInLine = new List<Transform>();
+    [SerializeField] DogController dogController;
 
+    private void Update()
+    {
+        if (!dogController.bark2)
+        {
+            sheepsInLine.Clear();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Sheep"))
+        if (collision.gameObject.CompareTag("Sheep") && dogController.bark2)
         {
             SheepAI sheepAI = collision.GetComponent<SheepAI>();
 

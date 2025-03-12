@@ -17,6 +17,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float timePassed;
 
     [SerializeField] bool canBark1;
+    public bool bark2;
     [SerializeField] float distance;
     [SerializeField] float barkForce;
 
@@ -123,6 +124,10 @@ public class DogController : MonoBehaviour
     }
     public void OnBark2(InputAction.CallbackContext context)
     {
+        if(context.performed)
+        {
+            bark2 = !bark2;
+        }
         /*
          hacer que la primera oveja haga un move towards hasta que esté a x distancia, pero constantly
         cuando entres en el radio de las otras, cada una empieza a seguir a la última con los mismos parámetros
