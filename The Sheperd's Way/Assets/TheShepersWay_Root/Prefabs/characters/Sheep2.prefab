@@ -134,7 +134,14 @@ MonoBehaviour:
   sheepInLine: 0
   objectToFollow: {fileID: 0}
   distanceBetween: 2
-  dogOrder: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  detectionRadius: 3.5
+  wanderingSpeed: 5
+  isWandering: 0
+  isWalking: 0
+  isFacingRight: 1
 --- !u!61 &892554415207555840
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -16,8 +16,12 @@ public class SheepAI : MonoBehaviour
     FormationLeader leader;
     int direction = 1; // 1 = derecha, -1 = izquierda
 
+    [SerializeField] LayerMask enemyLayer;
+    [SerializeField] float detectionRadius;
+
     [SerializeField] float wanderingSpeed = 5;
     [SerializeField] bool isWandering;
+    [SerializeField] bool isFleeing;
     [SerializeField] bool isWalking;
     [SerializeField] bool isFacingRight = true;
 
@@ -43,7 +47,7 @@ public class SheepAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!sheepInLine)
+        if (!sheepInLine && !isFleeing)
         {
             if (!isWandering) StartCoroutine(Wander());
 
@@ -71,6 +75,7 @@ public class SheepAI : MonoBehaviour
         if (sheepInLine) FollowingDog();
         if (leader.sheepsInLine.Count == 0) StopFollowing();
 
+        FleeingFromEnemy();
         
         if (isWalking) sheepAnim.SetBool("Walk", true);
         else sheepAnim.SetBool("Walk", false);
@@ -120,18 +125,37 @@ public class SheepAI : MonoBehaviour
 
     void FleeingFromEnemy()
     {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
+
+        if (enemies.Length > 0)
+        {
+            Vector2 fleeDirection = (transform.position - enemies[0].transform.position).normalized;
+            isWandering = false;
+            isFleeing = true;
+            StopFollowing();
+            if (enemies[0].transform.position.x > transform.position.x && isFacingRight) Flip();
+            else if (enemies[0].transform.position.x < transform.position.x && !isFacingRight) Flip();
+            sheepRb.velocity = fleeDirection * sheepSpeed;
+            isWalking = true; //cambiar por velocidad fleeing y que sea más rápida?
+        }
+        else
+        {
+            sheepRb.velocity = Vector2.zero; // Se detiene si no hay enemigos
+            isWalking = false;
+            isFleeing = false;
+        }
 
     }
-
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
     void FleeingFromBattle() //opcional
     {
 
     }
 
-    void HeldByShepherd()
-    {
-
-    }
     #endregion
 
 
@@ -139,27 +163,18 @@ public class SheepAI : MonoBehaviour
     {
         int walkWait = Random.Range(4, 11);
         int walkTime = Random.Range(0, 3);
-        int flipWait = Random.Range(0, 8);
+        int flipWait = Random.Range(5, 8);
         bool flippingASheep = Random.Range(0, 2) == 0;
 
         isWandering = true;
-
         yield return new WaitForSeconds(walkWait);
-
         isWalking = true;
-
         yield return new WaitForSeconds(walkTime);
-
         isWalking = false;
-
         yield return new WaitForSeconds(flipWait);
-
         if (flippingASheep) Flip();
-
         isWandering = false;
-
         //Meter tmb que pueda bajar la cabeza tipo ñam ñam hierba
-
     }
 
     void Flip()
