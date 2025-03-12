@@ -423,7 +423,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
@@ -591,6 +603,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
@@ -653,6 +677,22 @@ PrefabInstance:
     - target: {fileID: 900434455682774485, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
@@ -6642,6 +6682,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2
@@ -6816,7 +6872,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
@@ -7085,6 +7153,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (4)
@@ -7345,7 +7429,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
@@ -7476,6 +7572,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (7)
@@ -7537,6 +7649,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (9)
@@ -7597,6 +7725,22 @@ PrefabInstance:
     - target: {fileID: 900434455682774485, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: sheepSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: wanderingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: distanceBetween
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
