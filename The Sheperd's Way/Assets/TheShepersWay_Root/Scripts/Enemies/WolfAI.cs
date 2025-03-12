@@ -25,11 +25,19 @@ public class WolfAI : MonoBehaviour
         }
     }
 
+    void SearchForVictims()
+    {
+        //Encuentra todas las ovejas y va a por la más cercana
+        //Si en el camino se encuentra con el pastor/perro, cambia su focus a el otro hasta que lo mate o una oveja esté más cerca
+    }
+
     public void TakeDamage(int damage)
     {
         wolfLife -= damage;
         wolfAnim.SetTrigger("Hurt");
     }
+
+    //Hacer que si de repente recibe mucho daño en pocos segundos que se aparte pa tras
 
     void Death()
     {
