@@ -7,83 +7,47 @@ public class FormationLeader : MonoBehaviour
     [SerializeField] float distanceBetweenSheeps = 2;
     [SerializeField] bool isEmpty = true;
     //[SerializeField] bool inLine;
-    public Transform[] sheepsInLine; //publico para que cuando una oveja deje de estar inLine pueda salirse del array para evitar problemas de seguimiento
-    [SerializeField] int nextSheepIndex;
+    public List<Transform> sheepsInLine = new List<Transform>();
 
-    private void Start()
-    {
-        sheepsInLine = new Transform[10];
-    }
-    private void Update()
-    {
-        if(isEmpty) nextSheepIndex = 0;
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Sheep"))
+        if (collision.gameObject.CompareTag("Sheep"))
         {
-            if(!collision.GetComponent<SheepAI>().sheepInLine)
-            {
-                IsArrayEmpty();
-                sheepsInLine[nextSheepIndex] = collision.GetComponent<Transform>();
-                Debug.Log("Nueva oveja al array, en el espacio " + (nextSheepIndex));
-                collision.GetComponent<SheepAI>().sheepInLine = true;
-                //if (collision.GetComponent<Transform>() == sheepsInLine[0]) collision.GetComponent<SheepAI>().objectToFollow = transform;
-                if (nextSheepIndex == 0) collision.GetComponent<SheepAI>().objectToFollow = transform;
-                else collision.GetComponent<SheepAI>().objectToFollow = sheepsInLine[nextSheepIndex-1];
-                nextSheepIndex++;
-                Debug.Log("Meta cambiada");
-                isEmpty = false;
+            SheepAI sheepAI = collision.GetComponent<SheepAI>();
 
+            if (!sheepAI.sheepInLine)
+            {
+                sheepsInLine.Add(collision.transform);  // Agregar oveja a la lista
+                sheepAI.sheepInLine = true;
+
+                // Asignar el objeto a seguir
+                if (sheepsInLine.Count == 1)
+                    sheepAI.objectToFollow = transform;
+                else
+                    sheepAI.objectToFollow = sheepsInLine[sheepsInLine.Count - 2];
+
+                Debug.Log("Nueva oveja añadida. Total: " + sheepsInLine.Count);
             }
-            else Debug.Log("Esta oveja ya te sigue");
+            else Debug.Log("Esta oveja ya está en la línea.");
         }
     }
 
-    void IsArrayEmpty()
+    public void RemoveSheep(Transform sheep)
     {
-        // Recorrer el array y comprobar si hay algún elemento null
-        foreach (Transform sheep in sheepsInLine)
+        if (sheepsInLine.Contains(sheep))
         {
-            if (sheep != null)  // Si algún elemento no es null
+            sheepsInLine.Remove(sheep);  // Eliminar la oveja de la lista
+
+            // Reasignar los objetivos a seguir
+            for (int i = 0; i < sheepsInLine.Count; i++)
             {
-                isEmpty = false;  // Se detecta un hueco vacío
-                break;  // Si ya encontramos un hueco, podemos salir del bucle
+                if (i == 0)
+                    sheepsInLine[i].GetComponent<SheepAI>().objectToFollow = transform;
+                else
+                    sheepsInLine[i].GetComponent<SheepAI>().objectToFollow = sheepsInLine[i - 1];
             }
+
+            Debug.Log("Oveja eliminada. Total restante: " + sheepsInLine.Count);
         }
-    }
-    /*
-         hacer que la primera oveja haga un move towards hasta que esté a x distancia, pero constantly
-        cuando entres en el radio de las otras, cada una empieza a seguir a la última con los mismos parámetros
-
-        public Transform leader;  // El objeto líder (el primero en la fila)
-        public float distance = 2.0f;  // Distancia entre los seguidores
-        public float speed = 3.0f;  // Velocidad de movimiento del seguidor
-
-        private void Update()
-        {
-            if (leader != null)
-            {
-                // Calculamos la dirección hacia el líder
-                Vector3 direction = leader.position - transform.position;
-
-                // Si estamos demasiado cerca, mantenemos la distancia
-                if (direction.magnitude > distance)
-                {
-                    direction.Normalize();  // Normalizamos para obtener solo la dirección
-                    transform.position += direction * speed * Time.deltaTime;  // Movimiento hacia el líder
-                }
-            }
-        }
-
-        array de followers? el primero que toques se almacena en la posición 1, el segundo en la 2, etc., despues cada uno sigue a su numero en el array -1
-
-         */
-
-    public void ResetFormation()
-    {
-        nextSheepIndex = 0;
-        sheepsInLine = null;
-        sheepsInLine = new Transform[10];
     }
 }
