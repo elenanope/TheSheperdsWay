@@ -19,7 +19,6 @@ public class DogController : MonoBehaviour
     [SerializeField] bool canBark1;
     [SerializeField] float distance;
     [SerializeField] float barkForce;
-    [SerializeField] float frenoOvejas =2f;
 
     // Start is called before the first frame update
     void Start()

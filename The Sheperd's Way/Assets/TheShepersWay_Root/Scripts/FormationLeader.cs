@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class FormationLeader : MonoBehaviour
 {
-    [SerializeField] float distanceBetweenSheeps = 2;
-    [SerializeField] bool isEmpty = true;
-    //[SerializeField] bool inLine;
     public List<Transform> sheepsInLine = new List<Transform>();
 
     private void OnTriggerEnter2D(Collider2D collision)
