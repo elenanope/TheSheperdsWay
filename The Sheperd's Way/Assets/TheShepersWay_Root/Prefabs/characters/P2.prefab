@@ -274,7 +274,12 @@ MonoBehaviour:
   isFainted: 0
   healingTime: 5
   timePassed: 0
+  detectionRadius: 3.7
   canBark1: 0
+  sheepsLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  barkRate: 1
   bark2: 0
   distance: 0
   barkForce: 0

@@ -18,6 +18,9 @@ public class DogController : MonoBehaviour
     [SerializeField] float detectionRadius;
 
     [SerializeField] bool canBark1;
+    [SerializeField] LayerMask sheepsLayer;
+    [SerializeField] float barkRate = 1f;
+    float nextBarkTime = 0f;
     public bool bark2;
     [SerializeField] float distance;
     [SerializeField] float barkForce;
@@ -52,7 +55,12 @@ public class DogController : MonoBehaviour
             if (moveInput.x > 0 && !isFacingRight) DogFlip();
             else if (moveInput.x < 0 && isFacingRight) DogFlip();
 
-            if (canBark1) Bark1();
+            if (Time.time >= nextBarkTime && canBark1)
+            {
+                Bark1();
+                canBark1 = false;
+                nextBarkTime = Time.time + 1f / barkRate;
+            }
         }
     }
 
@@ -70,10 +78,10 @@ public class DogController : MonoBehaviour
     void Bark1()
     {
         dogAnim.SetTrigger("Bark1");
-        Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+        Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
         foreach (Collider2D sheep in sheeps)
         {
-            if(sheep != null && sheep.CompareTag("Sheep"))
+            if(sheep != null)
             {
                 if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
                 else sheep.gameObject.GetComponent<SheepAI>().Running(4);
@@ -97,7 +105,6 @@ public class DogController : MonoBehaviour
             }
         }
         */
-        canBark1 = false;
     }
 
     #region Input Methods

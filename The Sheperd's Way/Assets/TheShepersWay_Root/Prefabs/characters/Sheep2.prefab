@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 892554415207555840}
   - component: {fileID: 6549027100815783126}
   - component: {fileID: 4555030604779897086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sheep2
   m_TagString: Sheep
   m_Icon: {fileID: 0}
@@ -130,18 +130,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepLife: 30
   sheepSpeed: 4
-  sheepCanDie: 0
-  sheepInLine: 0
   objectToFollow: {fileID: 0}
   distanceBetween: 2
+  wanderingSpeed: 5
+  isWandering: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   detectionRadius: 3.5
-  wanderingSpeed: 5
-  isWandering: 0
+  sheepInLine: 0
+  isFleeing: 0
   isWalking: 0
   isFacingRight: 1
+  sheepCanDie: 0
 --- !u!61 &892554415207555840
 BoxCollider2D:
   m_ObjectHideFlags: 0

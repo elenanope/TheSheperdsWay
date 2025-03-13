@@ -60,15 +60,16 @@ public class SheepAI : MonoBehaviour
         if (!sheepInLine && !isFleeing)
         {
             if (!isWandering) StartCoroutine(Wander());
-
+            float yOffset = Random.Range(-0.05f, 0.05f);
             if (isWalking)
             {
-                sheepRb.velocity = new Vector2(direction * wanderingSpeed, sheepRb.velocity.y);
+                sheepRb.velocity = new Vector2(direction * wanderingSpeed, sheepRb.velocity.y + yOffset);
             }
             else
             {
-                sheepRb.velocity = new Vector2(0, sheepRb.velocity.y);
+                sheepRb.velocity = new Vector2(0, 0);
             }
+            //Hacer que todo esto sea un punto aleatorio a x distancia
         }
         else
         {
@@ -87,6 +88,18 @@ public class SheepAI : MonoBehaviour
         if (isWalking) sheepAnim.SetBool("Walk", true);
         else sheepAnim.SetBool("Walk", false);
     }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Sheep") && isWalking)
+        {
+            StopAllCoroutines(); //Provisional: despues poner que simplemnte hagan otro camino alrededor
+            isWalking = false;
+            isWandering = false;
+            Flip();
+        }
+    }
+    
     void CheckForEnemies()
     {
         enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
@@ -179,11 +192,7 @@ public class SheepAI : MonoBehaviour
             StartCoroutine(RunToPoint(fleePoint));
             //isWalking = true; //cambiar por velocidad fleeing y que sea más rápida?
     }
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-    }
+    
     void FleeingFromBattle() //opcional
     {
 
@@ -237,5 +246,10 @@ public class SheepAI : MonoBehaviour
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
-    } 
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
 }
