@@ -7811,6 +7811,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2161648445178151716, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: wolfSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2256498054313422727, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -7858,6 +7862,14 @@ PrefabInstance:
     - target: {fileID: 3349662732001282637, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286101316169229083, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: m_Radius
+      value: 2.6535003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286101316169229083, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.38944697
       objectReference: {fileID: 0}
     - target: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_Name

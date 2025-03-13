@@ -244,9 +244,10 @@ MonoBehaviour:
     m_Bits: 8
   attackDamage: 10
   canAttack: 0
+  sheepHeld: 0
   canSheep: 0
   heldSheep: {fileID: 0}
-  attackRate: 2
+  attackRate: 4
 --- !u!61 &6997521228524715640
 BoxCollider2D:
   m_ObjectHideFlags: 0

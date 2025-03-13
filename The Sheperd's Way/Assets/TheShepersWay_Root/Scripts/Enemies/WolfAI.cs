@@ -5,31 +5,78 @@ using UnityEngine;
 public class WolfAI : MonoBehaviour
 {
     [SerializeField] int wolfLife = 50;
+    [SerializeField] float wolfSpeed = 3;
+    Transform[] sheeps;
+    Transform closestSheep = null;
+    Transform nearbyPlayer = null;
+    bool searchIsOver;
+
     Animator wolfAnim;
+    Rigidbody2D wolfRb;
     // es mejor poner una variable de currentLife y otra de max??
 
-    // Start is called before the first frame update
     void Start()
     {
         wolfAnim = GetComponent<Animator>();
+        wolfRb = GetComponent<Rigidbody2D>();
+        FindSheeps();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        if(wolfLife <= 0)
+        if (nearbyPlayer != null) //si detecta a uno de los players
         {
-            //wolfLife = 0;
-            
-            Death();
+            //calcular si aun asi hay una oveja más cerca del player
+            transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (searchIsOver)
+            {
+                if (closestSheep.gameObject.activeSelf)
+                {
+                    transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
+                }
+                else FindSheeps();
+            }
         }
     }
-
-    void SearchForVictims()
+    
+    void Update()
     {
-        //Encuentra todas las ovejas y va a por la más cercana
-        //Si en el camino se encuentra con el pastor/perro, cambia su focus a el otro hasta que lo mate o una oveja esté más cerca
+        if(wolfLife <= 0) Death();//wolfLife = 0;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) nearbyPlayer = collision.gameObject.transform; // o poner que si se va bastante lejos sí vaya a por una oveja
+    }
+    /*
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject == nearbyPlayer) nearbyPlayer = null;
+    }
+    */
+    void FindSheeps()
+    {
+        GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
+        float closestSheepDistance = 30;
+
+        closestSheep = null;
+        searchIsOver = false;
+        for (int i = 0; i < sheeps.Length; ++i)
+        {
+            float distanceToSheep = Vector2.Distance(sheeps[i].transform.position, wolfRb.transform.position);
+            if (distanceToSheep < closestSheepDistance)
+            {
+                closestSheepDistance = distanceToSheep;
+                closestSheep = sheeps[i].transform;
+            }
+        }
+        searchIsOver = true;
+    }
+
+    //TakeAturdir
 
     public void TakeDamage(int damage)
     {
@@ -44,6 +91,7 @@ public class WolfAI : MonoBehaviour
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
+        wolfRb.isKinematic = true;
         this.enabled = false;
     }
 }
