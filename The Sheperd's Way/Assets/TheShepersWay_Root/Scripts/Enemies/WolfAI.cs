@@ -5,11 +5,13 @@ using UnityEngine;
 public class WolfAI : MonoBehaviour
 {
     [SerializeField] int wolfLife = 50;
+    [SerializeField] int wolfDamage = 10;
     [SerializeField] float wolfSpeed = 3;
-    Transform[] sheeps;
-    Transform closestSheep = null;
-    Transform nearbyPlayer = null;
-    bool searchIsOver;
+    [SerializeField] float wolfAttackRange = 1.5f;
+    [SerializeField] Transform closestSheep = null;
+    [SerializeField] Transform nearbyPlayer = null;
+    [SerializeField] bool searchIsOver;
+    [SerializeField] bool isFacingRight;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -28,6 +30,12 @@ public class WolfAI : MonoBehaviour
         {
             //calcular si aun asi hay una oveja más cerca del player
             transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
+            if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
+            else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
+            if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange)
+            {
+                //Attack(nearbyPlayer.GetComponent<Collider2D>(), 1);
+            }
         }
         else
         {
@@ -36,8 +44,18 @@ public class WolfAI : MonoBehaviour
                 if (closestSheep.gameObject.activeSelf)
                 {
                     transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
+                    if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
+                    else if(closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
+                    if(Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange)
+                    {
+                        //Attack(closestSheep.GetComponent<Collider2D>(), 0);
+                    }
                 }
-                else FindSheeps();
+                else
+                {
+                    transform.position = transform.position;
+                    FindSheeps();
+                }
             }
         }
     }
@@ -57,6 +75,11 @@ public class WolfAI : MonoBehaviour
         if (collision.gameObject == nearbyPlayer) nearbyPlayer = null;
     }
     */
+
+    void Attack()
+    {
+        //Collider2D[] hitEnemies;
+    }
     void FindSheeps()
     {
         GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
@@ -78,6 +101,13 @@ public class WolfAI : MonoBehaviour
 
     //TakeAturdir
 
+    void WolfFlip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+        isFacingRight = !isFacingRight;
+    }
     public void TakeDamage(int damage)
     {
         wolfLife -= damage;
