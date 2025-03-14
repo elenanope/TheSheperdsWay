@@ -12,6 +12,9 @@ public class WolfAI : MonoBehaviour
     [SerializeField] Transform nearbyPlayer = null;
     [SerializeField] bool searchIsOver;
     [SerializeField] bool isFacingRight;
+    [SerializeField] bool canAttack;
+    [SerializeField] float attackRate = 2f;
+    float nextAttackTime = 0f;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -26,32 +29,42 @@ public class WolfAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (nearbyPlayer != null) //si detecta a uno de los players
+        if(!canAttack)
         {
-            //calcular si aun asi hay una oveja más cerca del player
-            transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
-            if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
-            else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
-            if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) Attack();
-        }
-        else
-        {
-            if (searchIsOver)
+            if (nearbyPlayer != null) //si detecta a uno de los players
             {
-                if (closestSheep.gameObject.activeSelf)
+                //calcular si aun asi hay una oveja más cerca del player
+                transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
+                if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
+                else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
+                if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) canAttack = true;
+            }
+            else
+            {
+                if (searchIsOver)
                 {
-                    transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
-                    if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
-                    else if(closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
-                    if(Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) Attack();
-                }
-                else
-                {
-                    transform.position = transform.position;
-                    FindSheeps();
+                    if (closestSheep.gameObject.activeSelf)
+                    {
+                        transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
+                        if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
+                        else if (closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
+                        if (Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) canAttack = true;
+                    }
+                    else
+                    {
+                        transform.position = transform.position;
+                        FindSheeps();
+                    }
                 }
             }
         }
+        if (Time.time >= nextAttackTime && canAttack)
+        {
+            Attack();
+            canAttack = false;
+            nextAttackTime = Time.time + 1f / attackRate;
+        }
+
     }
     
     void Update()
@@ -72,6 +85,7 @@ public class WolfAI : MonoBehaviour
 
     void Attack()
     {
+        transform.position = transform.position;
         wolfAnim.SetTrigger("Attack");
     }
     void FindSheeps()

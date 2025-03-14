@@ -41,19 +41,23 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
-        if (isFainted) timePassed += Time.deltaTime;
+        if (isFainted)
+        {
+            timePassed += Time.deltaTime; //arreglar
+        }
         if (timePassed >= healingTime)
         {
             isFainted = false;
             dogLife = 100;
+            dogAnim.SetBool("Fainted", false);
+            gameObject.GetComponent<Collider2D>().enabled = true;
         }
         
         if (!isFainted)// Hacer que no pueda hacer NADA
         {
             if (dogLife <= 0)
             {
-                dogLife = 0;
-                isFainted = true;
+                Faint();
             }
 
             if (moveInput.x > 0 && !isFacingRight) DogFlip();
@@ -67,7 +71,14 @@ public class DogController : MonoBehaviour
             }
         }
     }
+    void Faint()
+    {
+        dogLife = 0;
+        isFainted = true;
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        dogAnim.SetBool("Fainted", true);
 
+    }
     void Move()
     {
         dogRb.velocity = moveInput * dogSpeed;

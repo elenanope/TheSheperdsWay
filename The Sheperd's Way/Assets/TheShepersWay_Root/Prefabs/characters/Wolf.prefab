@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2419951218753031341}
   m_Layer: 3
   m_Name: BitePoint
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,9 +64,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0560944, y: 0.9228933}
+  m_Offset: {x: -0.94376564, y: 0.83864677}
   serializedVersion: 2
-  m_Radius: 0.7854314
+  m_Radius: 0.44142485
 --- !u!1 &8162909146365520081
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +243,8 @@ MonoBehaviour:
   nearbyPlayer: {fileID: 0}
   searchIsOver: 0
   isFacingRight: 0
+  canAttack: 0
+  attackRate: 0.8
 --- !u!50 &5555978383101749874
 Rigidbody2D:
   serializedVersion: 4

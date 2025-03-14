@@ -35,14 +35,18 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if ((moveInput.x > 0 && !isFacingRight) || (moveInput.x < 0 && isFacingRight)) Flip();
-        if (Time.time >= nextAttackTime && canAttack)
+        if(shepherdLife<=0) P1Death();
+        else
         {
-            Attack();
-            canAttack = false;
-            nextAttackTime = Time.time + 1f / attackRate;
+
+            if ((moveInput.x > 0 && !isFacingRight) || (moveInput.x < 0 && isFacingRight)) Flip();
+            if (Time.time >= nextAttackTime && canAttack)
+            {
+                Attack();
+                canAttack = false;
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
         }
-        if(GameManager.Instance != null) if (GameManager.Instance.totalLife <= 0) P1Death();
         // Seguramente acabe poniendo la P1Life aquí en vez del GameManager
     }
 
@@ -162,9 +166,9 @@ public class PlayerController : MonoBehaviour
     void P1Death()
     {
         Debug.Log("P1 died");
-        shepherdAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
         GameManager.Instance.currentGameState = GameState.gameOver;
+        shepherdAnim.SetTrigger("Death");
         this.enabled = false;
     }
 }
