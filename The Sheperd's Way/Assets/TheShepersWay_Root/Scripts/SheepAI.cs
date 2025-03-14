@@ -235,7 +235,7 @@ public class SheepAI : MonoBehaviour
         transform.localScale = currentScale;
         isFacingRight = !isFacingRight;
     }
-    public void SheepTakesDamage(int damage)
+    public void TakeDamage(int damage)
     {
         sheepAnim.SetTrigger("Hurt");
         sheepLife -= damage;

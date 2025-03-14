@@ -125,7 +125,7 @@ public class DogController : MonoBehaviour
 
     #endregion
 
-    public void P2TakesDamage(int damage)
+    public void TakeDamage(int damage)
     {
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
