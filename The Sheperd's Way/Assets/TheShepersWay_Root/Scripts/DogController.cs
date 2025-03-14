@@ -35,6 +35,10 @@ public class DogController : MonoBehaviour
     {
         if(!isFainted) Move();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+    }
     void Update()
     {
         if (isFainted) timePassed += Time.deltaTime;

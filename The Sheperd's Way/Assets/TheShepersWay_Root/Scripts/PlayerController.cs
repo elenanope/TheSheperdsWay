@@ -6,6 +6,7 @@ using static GameManager;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] int shepherdLife = 100;
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
     Vector2 moveInput;
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour
                 canSheep = 1;
                 heldSheep = collision.gameObject;
             }
+        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -148,7 +150,11 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-
+    public void TakeDamage(int damage)
+    {
+        shepherdLife -= damage;
+        shepherdAnim.SetTrigger("Hurt");
+    }
     void GrabTheSheep()
     {
 

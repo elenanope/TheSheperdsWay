@@ -7319,7 +7319,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7863,6 +7863,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5555978383101749874, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7286101316169229083, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_Radius
       value: 2.6535003
@@ -7874,6 +7878,10 @@ PrefabInstance:
     - target: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_Name
       value: Wolf
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

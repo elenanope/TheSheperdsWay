@@ -99,7 +99,11 @@ public class SheepAI : MonoBehaviour
             Flip();
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+    }
     void CheckForEnemies()
     {
         enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);

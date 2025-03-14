@@ -32,10 +32,7 @@ public class WolfAI : MonoBehaviour
             transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
             if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
             else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
-            if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange)
-            {
-                //Attack(nearbyPlayer.GetComponent<Collider2D>(), 1);
-            }
+            if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) Attack();
         }
         else
         {
@@ -46,10 +43,7 @@ public class WolfAI : MonoBehaviour
                     transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
                     if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
                     else if(closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
-                    if(Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange)
-                    {
-                        //Attack(closestSheep.GetComponent<Collider2D>(), 0);
-                    }
+                    if(Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) Attack();
                 }
                 else
                 {
@@ -78,7 +72,7 @@ public class WolfAI : MonoBehaviour
 
     void Attack()
     {
-        //Collider2D[] hitEnemies;
+        wolfAnim.SetTrigger("Attack");
     }
     void FindSheeps()
     {
