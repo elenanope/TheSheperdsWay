@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -165,10 +166,13 @@ public class PlayerController : MonoBehaviour
     }
     void P1Death()
     {
+        shepherdAnim.ResetTrigger("Hurt");
         Debug.Log("P1 died");
+        //shepherdAnim.SetTrigger("Death");
+        shepherdAnim.Play("P1_Death");
+
         GetComponent<Collider2D>().enabled = false;
-        GameManager.Instance.currentGameState = GameState.gameOver;
-        shepherdAnim.SetTrigger("Death");
-        this.enabled = false;
+        //GameManager.Instance.currentGameState = GameState.gameOver;
+        //this.enabled = false;
     }
 }

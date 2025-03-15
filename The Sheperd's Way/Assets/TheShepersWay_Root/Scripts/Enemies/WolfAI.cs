@@ -24,7 +24,7 @@ public class WolfAI : MonoBehaviour
     {
         wolfAnim = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody2D>();
-        FindSheeps();
+        InvokeRepeating("FindSheeps",0, 4f);
     }
 
     private void FixedUpdate()
@@ -38,17 +38,20 @@ public class WolfAI : MonoBehaviour
                 if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
                 else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
                 if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) canAttack = true;
+                else canAttack = false;
+                
             }
             else
             {
                 if (searchIsOver)
                 {
-                    if (closestSheep.gameObject.activeSelf)
+                    if (closestSheep != null)
                     {
                         transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
                         if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
                         else if (closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
                         if (Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) canAttack = true;
+                        else canAttack = false;
                     }
                     else
                     {
@@ -58,6 +61,17 @@ public class WolfAI : MonoBehaviour
                 }
             }
         }
+        if (nearbyPlayer != null && !nearbyPlayer.GetComponent<Collider2D>().enabled)
+        {
+            nearbyPlayer = null;
+            FindSheeps(); // Buscar una nueva oveja si no hay jugador
+        }
+        if (closestSheep != null && !closestSheep.GetComponent<Collider2D>().enabled)
+        {
+            closestSheep = null;
+            FindSheeps(); // Buscar una nueva oveja si desaparece
+        }
+
         if (Time.time >= nextAttackTime && canAttack)
         {
             Attack();
@@ -76,12 +90,6 @@ public class WolfAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) nearbyPlayer = collision.gameObject.transform; // o poner que si se va bastante lejos sí vaya a por una oveja
     }
-    /*
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject == nearbyPlayer) nearbyPlayer = null;
-    }
-    */
 
     void Attack()
     {
@@ -91,14 +99,13 @@ public class WolfAI : MonoBehaviour
     void FindSheeps()
     {
         GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
-        float closestSheepDistance = 30;
+        float closestSheepDistance = 50;
 
-        closestSheep = null;
         searchIsOver = false;
         for (int i = 0; i < sheeps.Length; ++i)
         {
             float distanceToSheep = Vector2.Distance(sheeps[i].transform.position, wolfRb.transform.position);
-            if (distanceToSheep < closestSheepDistance)
+            if (distanceToSheep < closestSheepDistance && sheeps[i].GetComponent<Collider2D>().enabled)
             {
                 closestSheepDistance = distanceToSheep;
                 closestSheep = sheeps[i].transform;

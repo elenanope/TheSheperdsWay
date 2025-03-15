@@ -9,7 +9,7 @@ public class DogController : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D dogRb;
     Animator dogAnim;
-    [SerializeField] int dogLife = 100;
+    [SerializeField] int dogLife = 50;
     [SerializeField] float dogSpeed;
     [SerializeField] bool isFacingRight;
     public bool isFainted;
@@ -51,6 +51,7 @@ public class DogController : MonoBehaviour
             dogLife = 100;
             dogAnim.SetBool("Fainted", false);
             gameObject.GetComponent<Collider2D>().enabled = true;
+            timePassed = 0;
         }
         
         if (!isFainted)// Hacer que no pueda hacer NADA
@@ -73,11 +74,12 @@ public class DogController : MonoBehaviour
     }
     void Faint()
     {
+        dogAnim.ResetTrigger("Hurt");
         dogLife = 0;
         isFainted = true;
-        gameObject.GetComponent<Collider2D>().enabled = false;
         dogAnim.SetBool("Fainted", true);
-
+        dogAnim.SetTrigger("Faints"); // el anim aqui y en el player 1 hace el tonto
+        gameObject.GetComponent<Collider2D>().enabled = false;
     }
     void Move()
     {
@@ -144,6 +146,7 @@ public class DogController : MonoBehaviour
     {
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
+
     }
     void OnDrawGizmosSelected()
     {

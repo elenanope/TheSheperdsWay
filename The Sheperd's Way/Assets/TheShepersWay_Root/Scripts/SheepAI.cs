@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class SheepAI : MonoBehaviour
@@ -107,7 +105,7 @@ public class SheepAI : MonoBehaviour
     void CheckForEnemies()
     {
         enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
-        if (enemies.Length > 0) FleeingFromEnemy();
+        if (enemies.Length > 0) FleeingFromEnemy();  //hacer que no huyan o no tanto si esta muerto
     }
 
     #region Sheep Behaviours
