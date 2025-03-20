@@ -247,7 +247,7 @@ public class SheepAI : MonoBehaviour
         Debug.Log("A sheep died");
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
-        this.enabled = false;
+        //this.enabled = false;
     }
     void OnDrawGizmosSelected()
     {

@@ -6823,8 +6823,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 36.42
+  m_fontSizeBase: 36.42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6835,7 +6835,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 24.1
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -7598,9 +7598,9 @@ MonoBehaviour:
   dialoguePanel: {fileID: 696702834}
   dialogueText: {fileID: 956779663}
   dialogueLines:
-  - "Hola, qu\xE9 tal? Qu\xE9 buenas ovejas tienes! Me dejas una para quitarle la
-    lana y vestir a mi familia."
-  - :(
+  - Hi, how are you? Those are some beautiful sheeps you have there! You mind lending
+    me one?
+  - okay :(
 --- !u!61 &1792882275
 BoxCollider2D:
   m_ObjectHideFlags: 0
