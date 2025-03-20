@@ -12,6 +12,8 @@ public class WolfAI : MonoBehaviour
     [SerializeField] Transform nearbyPlayer = null;
     [SerializeField] bool searchIsOver;
     [SerializeField] bool isFacingRight;
+    [SerializeField] bool isFleeing;
+    [SerializeField] bool wasHurt;
     [SerializeField] bool canAttack;
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
@@ -29,7 +31,7 @@ public class WolfAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!canAttack)
+        if(!canAttack && !isFleeing)
         {
             if (nearbyPlayer != null) //si detecta a uno de los players
             {
@@ -125,11 +127,41 @@ public class WolfAI : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        StopAllCoroutines();
         wolfLife -= damage;
         wolfAnim.SetTrigger("Hurt");
+        StartCoroutine(ResetHurt());
     }
 
     //Hacer que si de repente recibe mucho daño en pocos segundos que se aparte pa tras
+
+    IEnumerator ResetHurt()
+    {
+        if (!wasHurt) wasHurt = true;
+        else
+        {
+            // Dirección opuesta al jugador
+            Vector2 direccionHuida = (transform.position - nearbyPlayer.position).normalized;
+
+            isFleeing = true;
+            // Elegimos una distancia aleatoria para la huida
+            float distanciaHuida = Random.Range(4f, 7f);
+            Vector2 puntoHuir = (Vector2)transform.position + (direccionHuida * distanciaHuida);
+
+            StartCoroutine(RunToPoint(puntoHuir));
+        }
+        yield return new WaitForSeconds(2);
+        wasHurt = false;
+        isFleeing = false;
+    }
+    IEnumerator RunToPoint(Vector2 destino)
+    {
+        while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
+        {
+            transform.position = Vector2.MoveTowards(transform.position, destino, wolfSpeed * Time.deltaTime);
+            yield return null; // Esperar al siguiente frame
+        }
+    }
 
     void Death()
     {
