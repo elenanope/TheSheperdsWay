@@ -129,29 +129,21 @@ public class PlayerController : MonoBehaviour
             heldSheep.SetActive(false);
             canSheep = 2;
         }
-            
-        
-            //if (context.performed) canSheep = 1;
-            //if (context.canceled) canSheep = 0;
-        
-        //else Debug.Log("You are currently holding a sheep");
-        
-    }
-    public void OnLeaveSheep(InputAction.CallbackContext context)
-    {
-        if(context.performed)
+        else if (context.performed && canSheep == 2)
         {
-            if (heldSheep != null)
-            {
+            OnLeaveSheep();
+        }
+    }
+    void OnLeaveSheep()
+    {   
+        if (heldSheep != null)
+        {
                 heldSheep.SetActive(true);
                 heldSheep.transform.SetParent(null);
                 shepherdAnim.SetBool("GrabSheep", false);
                 canSheep = 0;
                 sheepHeld = false;
-            }
-            else Debug.Log("NOT currently holding a sheep");
         }
-        
     }
 
     #endregion
@@ -161,16 +153,9 @@ public class PlayerController : MonoBehaviour
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
     }
-    void GrabTheSheep()
-    {
-
-    }
     void P1Death()
     {
-        if(heldSheep != null)
-        {
-            heldSheep.SetActive(true);
-        }
+        OnLeaveSheep();
         shepherdAnim.ResetTrigger("Hurt");
         Debug.Log("P1 died");
         //shepherdAnim.SetTrigger("Death");

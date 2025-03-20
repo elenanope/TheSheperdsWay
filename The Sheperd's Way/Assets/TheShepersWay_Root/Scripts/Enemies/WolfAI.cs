@@ -44,8 +44,7 @@ public class WolfAI : MonoBehaviour
         {
             StopAllCoroutines();
             if (nearbyPlayer != null) //si detecta a uno de los players
-            {
-                //calcular si aun asi hay una oveja más cerca del player
+            {   //calcular si aun asi hay una oveja más cerca del player
 
                 if ((playerInRange && Vector2.Distance(transform.position, nearbyPlayer.position) < 20) || attackedByPlayer)
                 {
