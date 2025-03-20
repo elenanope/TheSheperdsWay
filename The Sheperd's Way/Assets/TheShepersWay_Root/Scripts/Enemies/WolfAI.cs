@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class WolfAI : MonoBehaviour
 {
+    [Header("Wolf Movement Parameters")]
     [SerializeField] int wolfLife = 50;
-    [SerializeField] int wolfDamage = 10;
     [SerializeField] float wolfSpeed = 3;
+
+    [Header("Wolf Attack Parameters")]
     [SerializeField] float wolfAttackRange = 1.5f;
     [SerializeField] Transform closestSheep = null;
-    [SerializeField] Transform nearbyPlayer = null;
+    public Transform nearbyPlayer = null;
+    [SerializeField] bool playerInRange;
+    [SerializeField] float persecutionTime = 7f;
+    [SerializeField] float persecutionTimePassed;
+    [SerializeField] float attackRate = 2f;
+    float nextAttackTime = 0f;
+
+    [Header("Wolf States")]
+    [SerializeField] bool attackedByPlayer;
     [SerializeField] bool searchIsOver;
     [SerializeField] bool isFacingRight;
     [SerializeField] bool isFleeing;
     [SerializeField] bool wasHurt;
     [SerializeField] bool canAttack;
-    [SerializeField] float attackRate = 2f;
-    float nextAttackTime = 0f;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -31,17 +39,23 @@ public class WolfAI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if(!canAttack && !isFleeing)
         {
+            StopAllCoroutines();
             if (nearbyPlayer != null) //si detecta a uno de los players
             {
                 //calcular si aun asi hay una oveja más cerca del player
-                transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
-                if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
-                else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
-                if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) canAttack = true;
-                else canAttack = false;
-                
+
+                if ((playerInRange && Vector2.Distance(transform.position, nearbyPlayer.position) < 20) || attackedByPlayer)
+                {
+                    transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
+                    if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
+                    else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
+                    if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) canAttack = true;
+                    else canAttack = false;
+                }
+                else nearbyPlayer = null;
             }
             else
             {
@@ -86,11 +100,24 @@ public class WolfAI : MonoBehaviour
     void Update()
     {
         if(wolfLife <= 0) Death();//wolfLife = 0;
+        if (attackedByPlayer)
+        {
+            persecutionTimePassed += Time.deltaTime;
+            if (persecutionTimePassed > persecutionTime) attackedByPlayer = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) nearbyPlayer = collision.gameObject.transform; // o poner que si se va bastante lejos sí vaya a por una oveja
+        if (collision.gameObject.CompareTag("Player")) playerInRange = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) playerInRange = false;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && nearbyPlayer == null) nearbyPlayer = collision.gameObject.transform;
     }
 
     void Attack()
@@ -128,26 +155,22 @@ public class WolfAI : MonoBehaviour
     public void TakeDamage(int damage)
     {
         StopAllCoroutines();
+        persecutionTimePassed = 0;
+        attackedByPlayer = true;
         wolfLife -= damage;
         wolfAnim.SetTrigger("Hurt");
         StartCoroutine(ResetHurt());
     }
-
-    //Hacer que si de repente recibe mucho daño en pocos segundos que se aparte pa tras
 
     IEnumerator ResetHurt()
     {
         if (!wasHurt) wasHurt = true;
         else
         {
-            // Dirección opuesta al jugador
             Vector2 direccionHuida = (transform.position - nearbyPlayer.position).normalized;
-
             isFleeing = true;
-            // Elegimos una distancia aleatoria para la huida
-            float distanciaHuida = Random.Range(4f, 7f);
+            float distanciaHuida = Random.Range(3f, 5f);
             Vector2 puntoHuir = (Vector2)transform.position + (direccionHuida * distanciaHuida);
-
             StartCoroutine(RunToPoint(puntoHuir));
         }
         yield return new WaitForSeconds(2);
@@ -165,6 +188,8 @@ public class WolfAI : MonoBehaviour
 
     void Death()
     {
+        transform.position = transform.position;
+        attackedByPlayer = false;
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;

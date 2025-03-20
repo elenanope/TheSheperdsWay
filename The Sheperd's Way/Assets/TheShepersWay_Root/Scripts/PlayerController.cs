@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
             if(enemy is BoxCollider2D)
             {
                 enemy.GetComponent<WolfAI>().TakeDamage(attackDamage);
+                enemy.GetComponent<WolfAI>().nearbyPlayer = gameObject.transform;
                 Debug.Log("You hit " + enemy.name);
             }
         }
@@ -166,6 +167,10 @@ public class PlayerController : MonoBehaviour
     }
     void P1Death()
     {
+        if(heldSheep != null)
+        {
+            heldSheep.SetActive(true);
+        }
         shepherdAnim.ResetTrigger("Hurt");
         Debug.Log("P1 died");
         //shepherdAnim.SetTrigger("Death");
