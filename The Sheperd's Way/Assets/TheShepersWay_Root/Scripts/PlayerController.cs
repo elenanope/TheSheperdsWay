@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static GameManager;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] int shepherdLife = 100;
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
+    [SerializeField] bool canDie;
     Vector2 moveInput;
     Rigidbody2D rb;
     Animator shepherdAnim;
@@ -33,10 +35,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         shepherdAnim = GetComponent<Animator>();
         heldSheep = null;
+        canDie = true;
     }
     private void Update()
     {
-        if(shepherdLife<=0) P1Death();
+        if(shepherdLife<=0 && canDie) P1Death();
         else
         {
 
@@ -156,10 +159,11 @@ public class PlayerController : MonoBehaviour
     void P1Death()
     {
         OnLeaveSheep();
+        canDie = false;
         shepherdAnim.ResetTrigger("Hurt");
         Debug.Log("P1 died");
         //shepherdAnim.SetTrigger("Death");
-        shepherdAnim.Play("P1_Death");
+        shepherdAnim.SetTrigger("Death");
 
         GetComponent<Collider2D>().enabled = false;
         //GameManager.Instance.currentGameState = GameState.gameOver;

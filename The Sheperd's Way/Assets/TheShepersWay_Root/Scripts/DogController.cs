@@ -78,7 +78,7 @@ public class DogController : MonoBehaviour
         dogLife = 0;
         isFainted = true;
         dogAnim.SetBool("Fainted", true);
-        dogAnim.SetTrigger("Faints"); // el anim aqui y en el player 1 hace el tonto
+        dogAnim.SetTrigger("Faints"); // el anim aqui hace el tonto
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
     void Move()

@@ -25,6 +25,7 @@ public class WolfAI : MonoBehaviour
     [SerializeField] bool isFleeing;
     [SerializeField] bool wasHurt;
     [SerializeField] bool canAttack;
+    [SerializeField] bool canDie;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -34,6 +35,7 @@ public class WolfAI : MonoBehaviour
     {
         wolfAnim = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody2D>();
+        canDie = true;
         InvokeRepeating("FindSheeps",0, 4f);
     }
 
@@ -95,7 +97,7 @@ public class WolfAI : MonoBehaviour
     
     void Update()
     {
-        if(wolfLife <= 0) Death();//wolfLife = 0;
+        if(wolfLife <= 0 && canDie) Death();//wolfLife = 0;
         if (attackedByPlayer)
         {
             persecutionTimePassed += Time.deltaTime;
@@ -167,12 +169,13 @@ public class WolfAI : MonoBehaviour
     }
     void Death()
     {
+        canDie = false;
         transform.position = transform.position;
-        attackedByPlayer = false;
+        //attackedByPlayer = false;
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
-        wolfRb.isKinematic = true;
+        //wolfRb.isKinematic = true;
         this.enabled = false;
     }
     #endregion

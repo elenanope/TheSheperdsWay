@@ -78,8 +78,7 @@ public class SheepAI : MonoBehaviour
 
     void Update()
     {
-        if (!sheepCanDie) sheepCol.enabled = false;
-        if (sheepLife <= 0) SheepDeath();
+        if (sheepLife <= 0 && sheepCanDie) SheepDeath();
         if (sheepInLine) FollowingDog();
         if (leader.sheepsInLine.Count == 0) StopFollowing();
 
@@ -244,10 +243,13 @@ public class SheepAI : MonoBehaviour
     }
     void SheepDeath()
     {
+        sheepCanDie = false;
+        transform.position = transform.position;
+        sheepRb.isKinematic = true;
         Debug.Log("A sheep died");
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
-        //this.enabled = false;
+        this.enabled = false;
     }
     void OnDrawGizmosSelected()
     {
