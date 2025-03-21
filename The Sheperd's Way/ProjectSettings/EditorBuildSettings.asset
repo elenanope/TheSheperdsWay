@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/TheShepersWay_Root/Scenes/TestScene.unity
     guid: c5411e06eba53654fb73c89311786f7d
   - enabled: 1
+    path: Assets/TheShepersWay_Root/Scenes/Test2.unity
+    guid: 55ce49470724b1c4db610c481819ea4b
+  - enabled: 1
     path: Assets/TheShepersWay_Root/Scenes/WinScene.unity
     guid: 4acd5b50c91d45b4d9d61580647ec828
   - enabled: 1
