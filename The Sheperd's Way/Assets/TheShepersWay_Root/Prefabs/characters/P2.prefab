@@ -202,10 +202,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6d2483ba-fdcf-4c69-ac38-fcc2159d31bc
     m_ActionName: P2/Bark2[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 81705f61-d561-4e14-978c-027e0ee8b458
-    m_ActionName: P1/LeaveSheep[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: P2
@@ -279,6 +275,9 @@ MonoBehaviour:
   sheepsLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   barkRate: 1
   bark2: 0
   distance: 0

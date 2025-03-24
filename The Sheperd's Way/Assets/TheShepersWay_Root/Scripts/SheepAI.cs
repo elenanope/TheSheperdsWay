@@ -78,8 +78,7 @@ public class SheepAI : MonoBehaviour
 
     void Update()
     {
-        if (!sheepCanDie) sheepCol.enabled = false;
-        if (sheepLife <= 0) SheepDeath();
+        if (sheepLife <= 0 && sheepCanDie) SheepDeath();
         if (sheepInLine) FollowingDog();
         if (leader.sheepsInLine.Count == 0) StopFollowing();
 
@@ -122,13 +121,13 @@ public class SheepAI : MonoBehaviour
         if (barkZone == 1)
         {
             xDirection = Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f);
-            yDirection = Random.Range(transform.position.y + 0.3f, transform.position.y + 4);
+            yDirection = Random.Range(transform.position.y + 1f, transform.position.y + 6);
             puntoCorrer = new Vector2(xDirection, yDirection);
         }
 
         else if (barkZone == 2)
         {
-            xDirection = Random.Range(transform.position.x + 0.3f, transform.position.x + 4);
+            xDirection = Random.Range(transform.position.x + 1f, transform.position.x + 6);
             yDirection = Random.Range(transform.position.y - 0.5f, transform.position.y + 0.5f);
             puntoCorrer = new Vector2(xDirection, yDirection);
             if(!isFacingRight) Flip();
@@ -137,13 +136,13 @@ public class SheepAI : MonoBehaviour
         else if (barkZone == 3)
         {
             xDirection = Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f);
-            yDirection = Random.Range(transform.position.y - 4, transform.position.y - 0.3f);
+            yDirection = Random.Range(transform.position.y - 6, transform.position.y - 1);
             puntoCorrer = new Vector2(xDirection, yDirection);
         }
 
         else if (barkZone == 4)
         {
-            xDirection = Random.Range(transform.position.x - 4, transform.position.x - 0.3f);
+            xDirection = Random.Range(transform.position.x - 6, transform.position.x - 1);
             yDirection = Random.Range(transform.position.y - 0.5f, transform.position.y + 0.5f);
             puntoCorrer = new Vector2(xDirection, yDirection);
             if (isFacingRight) Flip();
@@ -244,6 +243,10 @@ public class SheepAI : MonoBehaviour
     }
     void SheepDeath()
     {
+        sheepCanDie = false;
+        sheepAnim.ResetTrigger("Hurt");
+        transform.position = transform.position;
+        sheepRb.isKinematic = true;
         Debug.Log("A sheep died");
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;

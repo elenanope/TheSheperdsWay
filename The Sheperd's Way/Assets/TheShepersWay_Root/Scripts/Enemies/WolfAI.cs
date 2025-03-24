@@ -25,6 +25,7 @@ public class WolfAI : MonoBehaviour
     [SerializeField] bool isFleeing;
     [SerializeField] bool wasHurt;
     [SerializeField] bool canAttack;
+    [SerializeField] bool canDie;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -34,6 +35,7 @@ public class WolfAI : MonoBehaviour
     {
         wolfAnim = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody2D>();
+        canDie = true;
         InvokeRepeating("FindSheeps",0, 4f);
     }
 
@@ -43,14 +45,12 @@ public class WolfAI : MonoBehaviour
         if(!canAttack && !isFleeing)
         {
             StopAllCoroutines();
-            if (nearbyPlayer != null) //si detecta a uno de los players
-            {   //calcular si aun asi hay una oveja más cerca del player
+            if (nearbyPlayer != null)
+            {  
 
                 if ((playerInRange && Vector2.Distance(transform.position, nearbyPlayer.position) < 20) || attackedByPlayer)
                 {
-                    transform.position = Vector2.MoveTowards(wolfRb.position, nearbyPlayer.position, wolfSpeed * Time.deltaTime);
-                    if (nearbyPlayer.position.x > transform.position.x && !isFacingRight) WolfFlip();
-                    else if (nearbyPlayer.position.x < transform.position.x && isFacingRight) WolfFlip();
+                    StartCoroutine(RunToPoint(nearbyPlayer.position));
                     if (Vector2.Distance(transform.position, nearbyPlayer.position) <= wolfAttackRange) canAttack = true;
                     else canAttack = false;
                 }
@@ -62,9 +62,7 @@ public class WolfAI : MonoBehaviour
                 {
                     if (closestSheep != null)
                     {
-                        transform.position = Vector2.MoveTowards(wolfRb.position, closestSheep.position, wolfSpeed * Time.deltaTime);
-                        if (closestSheep.position.x > transform.position.x && !isFacingRight) WolfFlip();
-                        else if (closestSheep.position.x < transform.position.x && isFacingRight) WolfFlip();
+                        StartCoroutine(RunToPoint(closestSheep.position));
                         if (Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) canAttack = true;
                         else canAttack = false;
                     }
@@ -89,6 +87,7 @@ public class WolfAI : MonoBehaviour
 
         if (Time.time >= nextAttackTime && canAttack)
         {
+            StopAllCoroutines();
             Attack();
             canAttack = false;
             nextAttackTime = Time.time + 1f / attackRate;
@@ -98,7 +97,7 @@ public class WolfAI : MonoBehaviour
     
     void Update()
     {
-        if(wolfLife <= 0) Death();//wolfLife = 0;
+        if(wolfLife <= 0 && canDie) Death();//wolfLife = 0;
         if (attackedByPlayer)
         {
             persecutionTimePassed += Time.deltaTime;
@@ -106,6 +105,7 @@ public class WolfAI : MonoBehaviour
         }
     }
 
+    #region Player In Range
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")) playerInRange = true;
@@ -116,13 +116,20 @@ public class WolfAI : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && nearbyPlayer == null) nearbyPlayer = collision.gameObject.transform;
+        if (collision.gameObject.CompareTag("Player") && nearbyPlayer == null)
+        {
+            playerInRange = true;
+            nearbyPlayer = collision.gameObject.transform;
+        }
     }
+    #endregion
 
+    #region Actions
     void Attack()
     {
-        transform.position = transform.position;
-        wolfAnim.SetTrigger("Attack");
+        //transform.position = transform.position;
+        wolfAnim.SetTrigger("Attack"); //Aqui mientras patina algo hacia ti, quitar si eso
+        wolfRb.velocity = Vector2.zero;
     }
     void FindSheeps()
     {
@@ -142,8 +149,6 @@ public class WolfAI : MonoBehaviour
         searchIsOver = true;
     }
 
-    //TakeAturdir
-
     void WolfFlip()
     {
         Vector3 currentScale = transform.localScale;
@@ -160,6 +165,18 @@ public class WolfAI : MonoBehaviour
         wolfAnim.SetTrigger("Hurt");
         StartCoroutine(ResetHurt());
     }
+    void Death()
+    {
+        canDie = false;
+        transform.position = transform.position;
+        //attackedByPlayer = false;
+        Debug.Log("Enemy died");
+        wolfAnim.SetTrigger("Death");
+        GetComponent<Collider2D>().enabled = false;
+        //wolfRb.isKinematic = true;
+        this.enabled = false;
+    }
+    #endregion
 
     IEnumerator ResetHurt()
     {
@@ -168,31 +185,28 @@ public class WolfAI : MonoBehaviour
         {
             Vector2 direccionHuida = (transform.position - nearbyPlayer.position).normalized;
             isFleeing = true;
+            attackedByPlayer = false;
             float distanciaHuida = Random.Range(3f, 5f);
             Vector2 puntoHuir = (Vector2)transform.position + (direccionHuida * distanciaHuida);
             StartCoroutine(RunToPoint(puntoHuir));
         }
-        yield return new WaitForSeconds(2);
-        wasHurt = false;
-        isFleeing = false;
+        yield return new WaitForSeconds(1);
+        if (wasHurt)
+        {
+            wasHurt = false;  // Solo resetea si no ha vuelto a ser herido durante el tiempo
+            isFleeing = false;
+        }
     }
     IEnumerator RunToPoint(Vector2 destino)
     {
         while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
         {
             transform.position = Vector2.MoveTowards(transform.position, destino, wolfSpeed * Time.deltaTime);
+            if (destino.x > transform.position.x && !isFacingRight) WolfFlip();
+            else if (destino.x < transform.position.x && isFacingRight) WolfFlip();
             yield return null; // Esperar al siguiente frame
         }
+        if (Vector2.Distance(transform.position, destino) < 0.1f && isFleeing) isFleeing = false;
     }
 
-    void Death()
-    {
-        transform.position = transform.position;
-        attackedByPlayer = false;
-        Debug.Log("Enemy died");
-        wolfAnim.SetTrigger("Death");
-        GetComponent<Collider2D>().enabled = false;
-        wolfRb.isKinematic = true;
-        this.enabled = false;
-    }
 }

@@ -19,6 +19,7 @@ public class DogController : MonoBehaviour
 
     [SerializeField] bool canBark1;
     [SerializeField] LayerMask sheepsLayer;
+    [SerializeField] LayerMask enemyLayer;
     [SerializeField] float barkRate = 1f;
     float nextBarkTime = 0f;
     public bool bark2;
@@ -78,7 +79,7 @@ public class DogController : MonoBehaviour
         dogLife = 0;
         isFainted = true;
         dogAnim.SetBool("Fainted", true);
-        dogAnim.SetTrigger("Faints"); // el anim aqui y en el player 1 hace el tonto
+        dogAnim.SetTrigger("Faints"); // el anim aqui hace el tonto
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
     void Move()
@@ -96,12 +97,22 @@ public class DogController : MonoBehaviour
     {
         dogAnim.SetTrigger("Bark1");
         Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
         foreach (Collider2D sheep in sheeps)
         {
             if(sheep != null)
             {
+                //Hacer que simplemente se muevan en contra de él?
                 if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
                 else sheep.gameObject.GetComponent<SheepAI>().Running(4);
+            }
+        }
+
+        foreach (Collider2D enemy in enemies)
+        {
+            if(enemy != null)
+            {
+                enemy.gameObject.GetComponent<TakeStun>().TakePause();
             }
         }
 
