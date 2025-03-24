@@ -244,6 +244,7 @@ public class SheepAI : MonoBehaviour
     void SheepDeath()
     {
         sheepCanDie = false;
+        sheepAnim.ResetTrigger("Hurt");
         transform.position = transform.position;
         sheepRb.isKinematic = true;
         Debug.Log("A sheep died");
