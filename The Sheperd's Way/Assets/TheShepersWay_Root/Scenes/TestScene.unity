@@ -445,6 +445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -706,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -786,6 +794,10 @@ PrefabInstance:
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13676,6 +13688,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13920,6 +13936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14054,6 +14074,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1515091685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+  m_PrefabInstance: {fileID: 2063078615629134728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1515091688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515091685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58075300b443bd640a16eb223a08205e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetCautionTime: 12
+  cautionTime: 0
+  barkedTimes: 0
+  timeStunnedPassed: 0
+  stunningTime: 2
+  stunned: 0
+  ignoringStun: 0
+  wolfAI: {fileID: 0}
 --- !u!1 &1659464579
 GameObject:
   m_ObjectHideFlags: 0
@@ -14206,6 +14251,10 @@ PrefabInstance:
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14485,6 +14534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14711,6 +14764,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14869,6 +14926,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheep2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14949,6 +15010,10 @@ PrefabInstance:
     - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_Name
       value: Sheep2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338142010495864615, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15050,5 +15115,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 1515091688}
   m_SourcePrefab: {fileID: 100100000, guid: 15590c3621817004c88154a6a0643a5f, type: 3}

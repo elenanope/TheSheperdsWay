@@ -40,12 +40,16 @@ public class GameManager : MonoBehaviour
     {
         if (appearingOfSheeps)
         {
+            spawnArea = GameObject.Find("Area").GetComponent<BoxCollider2D>();
+
             for (int i = 0; i < sheepsAlive; i++)
             {
+                Vector3 colliderCenter = spawnArea.transform.position; 
+                Vector3 colliderSize = spawnArea.size; 
 
                 // Generar una posición aleatoria dentro del BoxCollider
-                float randomX = Random.Range(-4, 4);
-                float randomY = Random.Range(-4, 4);
+                float randomX = Random.Range(colliderCenter.x - colliderSize.x / 2, colliderCenter.x + colliderSize.x / 2);
+                float randomY = Random.Range(colliderCenter.y - colliderSize.y / 2, colliderCenter.y + colliderSize.y / 2);
 
                 Vector3 randomPosition = new Vector2(randomX, randomY);
 
@@ -58,7 +62,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Condición para perder la partida
         if (totalLife <= 0)
         {
             totalLife = 0;
@@ -71,7 +74,6 @@ public class GameManager : MonoBehaviour
             currentGameState = GameState.gameOver;
             Debug.Log("Se han muerto todas las ovejas!");
         }
-
     }
 
 }

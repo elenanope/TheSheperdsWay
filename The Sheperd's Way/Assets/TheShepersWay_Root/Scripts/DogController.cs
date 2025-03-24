@@ -19,6 +19,7 @@ public class DogController : MonoBehaviour
 
     [SerializeField] bool canBark1;
     [SerializeField] LayerMask sheepsLayer;
+    [SerializeField] LayerMask enemyLayer;
     [SerializeField] float barkRate = 1f;
     float nextBarkTime = 0f;
     public bool bark2;
@@ -96,12 +97,22 @@ public class DogController : MonoBehaviour
     {
         dogAnim.SetTrigger("Bark1");
         Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
         foreach (Collider2D sheep in sheeps)
         {
             if(sheep != null)
             {
+                
                 if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
                 else sheep.gameObject.GetComponent<SheepAI>().Running(4);
+            }
+        }
+
+        foreach (Collider2D enemy in enemies)
+        {
+            if(enemy != null)
+            {
+                enemy.gameObject.GetComponent<TakeStun>().TakePause();
             }
         }
 

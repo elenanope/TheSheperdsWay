@@ -149,8 +149,6 @@ public class WolfAI : MonoBehaviour
         searchIsOver = true;
     }
 
-    //TakeAturdir
-
     void WolfFlip()
     {
         Vector3 currentScale = transform.localScale;
