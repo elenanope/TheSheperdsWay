@@ -102,7 +102,7 @@ public class DogController : MonoBehaviour
         {
             if(sheep != null)
             {
-                
+                //Hacer que simplemente se muevan en contra de él?
                 if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
                 else sheep.gameObject.GetComponent<SheepAI>().Running(4);
             }

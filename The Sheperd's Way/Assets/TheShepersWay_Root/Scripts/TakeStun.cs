@@ -32,6 +32,7 @@ public class TakeStun : MonoBehaviour
     }
     private void Update()
     {
+        //Stunning
         if (stunned)
         {
             timeStunnedPassed += Time.deltaTime;
@@ -57,7 +58,7 @@ public class TakeStun : MonoBehaviour
                 Debug.Log("Se va a ignorar el ladrido");
             }
         }
-
+        //si no te pasas está OK
         if(cautionTime >= resetCautionTime && barkedTimes > 0 && !ignoringStun)
         {
             cautionTime = 0;
@@ -65,6 +66,7 @@ public class TakeStun : MonoBehaviour
             Debug.Log("Veces ladradas reseteadas");
         }
 
+        //si te has pasado...
         if(ignoringStun)
         {
             currentWaitingTime += Time.deltaTime;
