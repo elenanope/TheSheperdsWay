@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static GameManager;
 using static UnityEngine.Rendering.VirtualTexturing.Debugging;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool sheepHeld;
     [SerializeField] int canSheep; // 0 = no sheep near and none grabbed, 1 = sheep near, 2 = sheep grabbed
 
+    [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject heldSheep;
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
@@ -36,10 +38,12 @@ public class PlayerController : MonoBehaviour
         shepherdAnim = GetComponent<Animator>();
         heldSheep = null;
         canDie = true;
+
     }
     private void Update()
     {
-        if(shepherdLife<=0 && canDie) P1Death();
+        playerHealthBar.fillAmount = shepherdLife / 100;
+        if (shepherdLife<=0 && canDie) P1Death();
         else
         {
 
@@ -53,7 +57,6 @@ public class PlayerController : MonoBehaviour
         }
         // Seguramente acabe poniendo la P1Life aquí en vez del GameManager
     }
-
     private void FixedUpdate()
     {
         Move();

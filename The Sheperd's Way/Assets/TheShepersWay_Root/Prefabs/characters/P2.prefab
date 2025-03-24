@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e185a49e3798e447bc62c52513abbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dogLife: 100
+  dogLife: 50
   dogSpeed: 6
   isFacingRight: 1
   isFainted: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   bark2: 0
   distance: 0
   barkForce: 0
+  playerHealthBar: {fileID: 0}
 --- !u!95 &3354525872764531709
 Animator:
   serializedVersion: 5

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DogController : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class DogController : MonoBehaviour
     [SerializeField] float distance;
     [SerializeField] float barkForce;
 
+    [SerializeField] Image playerHealthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,7 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        playerHealthBar.fillAmount = dogLife/50;
         if (isFainted)
         {
             timePassed += Time.deltaTime; //arreglar
