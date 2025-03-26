@@ -64,7 +64,11 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = moveInput * speed;
+        if(canSheep != 2 && canSheep!= 4) //Porque si está cerca y la registra se ralentiza
+        {
+            rb.velocity = moveInput * speed;
+        }
+        else rb.velocity = moveInput * (speed/2);
     }
     void Flip()
     {
@@ -97,15 +101,26 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Sheep") && canSheep == 0)
-            {
+        {
                 canSheep = 1;
                 heldSheep = collision.gameObject;
-            }
+        }
+        if (collision.CompareTag("Player") && canSheep == 0)
+        {
+            canSheep = 3;
+            heldSheep = collision.gameObject;
+            Debug.Log("Estás cerca del perro");
+        }
         if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Sheep") && !sheepHeld)
+        {
+            canSheep = 0;
+            heldSheep = null;
+        }
+        if (collision.CompareTag("Player") && !sheepHeld)
         {
             canSheep = 0;
             heldSheep = null;
@@ -127,6 +142,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnGrabSheep(InputAction.CallbackContext context)
     {
+
         if (context.performed && canSheep == 1)
         {
             sheepHeld = true;
@@ -137,6 +153,23 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.performed && canSheep == 2)
         {
+            shepherdAnim.SetBool("GrabSheep", false);
+            OnLeaveSheep();
+        }
+        else if (context.performed && canSheep == 3) //Pillar perro
+        {
+            sheepHeld = true;
+            //shepherdAnim.SetBool("GrabDog", true);
+            heldSheep.GetComponent<DogController>().heldByP1 = true;
+            heldSheep.transform.SetParent(transform);
+            if (isFacingRight && !heldSheep.GetComponent<DogController>().isFacingRight) heldSheep.GetComponent<DogController>().DogFlip();
+            else if (!isFacingRight && heldSheep.GetComponent<DogController>().isFacingRight) heldSheep.GetComponent<DogController>().DogFlip();
+            //heldSheep.SetActive(false);
+            canSheep = 4;
+        }
+        else if (context.performed && canSheep == 4)
+        {
+            heldSheep.GetComponent<DogController>().heldByP1 = false;
             OnLeaveSheep();
         }
     }
@@ -144,11 +177,14 @@ public class PlayerController : MonoBehaviour
     {   
         if (heldSheep != null)
         {
+            if(!heldSheep.activeSelf) //no se si va
+            {
                 heldSheep.SetActive(true);
-                heldSheep.transform.SetParent(null);
-                shepherdAnim.SetBool("GrabSheep", false);
-                canSheep = 0;
-                sheepHeld = false;
+            }
+            heldSheep.transform.SetParent(null);
+            
+            canSheep = 0;
+            sheepHeld = false;
         }
     }
 

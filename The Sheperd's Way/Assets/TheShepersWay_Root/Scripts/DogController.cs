@@ -12,7 +12,8 @@ public class DogController : MonoBehaviour
     Animator dogAnim;
     [SerializeField] int dogLife = 50;
     [SerializeField] float dogSpeed;
-    [SerializeField] bool isFacingRight;
+    public bool isFacingRight;
+    public bool heldByP1;
     public bool isFainted;
     [SerializeField] float healingTime = 5;
     [SerializeField] float timePassed;
@@ -45,6 +46,8 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        if (heldByP1) dogRb.isKinematic = true;
+        if (!heldByP1 && dogRb.isKinematic) dogRb.isKinematic = false;
         playerHealthBar.fillAmount = dogLife/50;
         if (isFainted)
         {
@@ -66,9 +69,12 @@ public class DogController : MonoBehaviour
                 Faint();
             }
 
-            if (moveInput.x > 0 && !isFacingRight) DogFlip();
-            else if (moveInput.x < 0 && isFacingRight) DogFlip();
-
+            if(!heldByP1)
+            {
+                if (moveInput.x > 0 && !isFacingRight) DogFlip();
+                else if (moveInput.x < 0 && isFacingRight) DogFlip();
+            }
+            
             if (Time.time >= nextBarkTime && canBark1)
             {
                 Bark1();
@@ -88,20 +94,24 @@ public class DogController : MonoBehaviour
     }
     void Move()
     {
-        dogRb.velocity = moveInput * dogSpeed;
+        if(!heldByP1) dogRb.velocity = moveInput * dogSpeed;
+
     }
-    void DogFlip()
+    public void DogFlip()
     {
-        Vector3 currentScale = transform.localScale;
-        currentScale.x *= -1;
-        transform.localScale = currentScale;
-        isFacingRight = !isFacingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -1;
+            transform.localScale = currentScale;
+            isFacingRight = !isFacingRight;
     }
     void Bark1()
     {
         dogAnim.SetTrigger("Bark1");
         Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
+        Collider2D[] enemies;
+        if (!heldByP1) enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayer);
+        else enemies = Physics2D.OverlapCircleAll(transform.position, detectionRadius + 2, enemyLayer);
+
         foreach (Collider2D sheep in sheeps)
         {
             if(sheep != null)
@@ -158,14 +168,14 @@ public class DogController : MonoBehaviour
     #endregion
 
     public void TakeDamage(int damage)
-    {
+    {//El perro tmb recibe daño aunque esté heldByP1
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
-
     }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        if(heldByP1) Gizmos.DrawWireSphere(transform.position, detectionRadius +2);
+        else Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
