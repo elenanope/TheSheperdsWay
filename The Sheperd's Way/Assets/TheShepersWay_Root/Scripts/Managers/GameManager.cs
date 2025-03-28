@@ -32,9 +32,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // Mantiene el objeto al cambiar de escena
         }
         else Destroy(gameObject); // Si ya hay un GameManager, destruye el nuevo
-        
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void OnEnable()
     {

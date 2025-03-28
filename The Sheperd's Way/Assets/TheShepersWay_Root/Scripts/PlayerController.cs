@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        playerHealthBar.fillAmount = shepherdLife / 100;
+        if (playerHealthBar != null) playerHealthBar.fillAmount = shepherdLife / 100;
         if (shepherdLife<=0 && canDie) P1Death();
         else
         {

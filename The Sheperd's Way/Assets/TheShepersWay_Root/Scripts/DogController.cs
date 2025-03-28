@@ -48,7 +48,7 @@ public class DogController : MonoBehaviour
     {
         if (heldByP1) dogRb.isKinematic = true;
         if (!heldByP1 && dogRb.isKinematic) dogRb.isKinematic = false;
-        playerHealthBar.fillAmount = dogLife/50;
+        if (playerHealthBar != null) playerHealthBar.fillAmount = dogLife/50;
         if (isFainted)
         {
             timePassed += Time.deltaTime; //arreglar
