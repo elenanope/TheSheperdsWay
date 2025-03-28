@@ -16,10 +16,11 @@ public class DogController : MonoBehaviour
     public bool isFacingRight;
     public bool heldByP1;
     public bool isFainted;
-    [SerializeField] float healingTime = 5;
+    [SerializeField] float healingTime = 10;
     [SerializeField] float timePassed;
     [SerializeField] float detectionRadius;
 
+    public bool helpedByP1;
     [SerializeField] bool canBark1;
     [SerializeField] LayerMask sheepsLayer;
     [SerializeField] LayerMask enemyLayer;
@@ -30,6 +31,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float barkForce;
 
     [SerializeField] Image playerHealthBar;
+    [SerializeField] GameObject vfx;
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +54,15 @@ public class DogController : MonoBehaviour
         if (playerHealthBar != null) playerHealthBar.fillAmount = dogLife/50f;
         if (isFainted)
         {
-            timePassed += Time.deltaTime; //arreglar
+            if (helpedByP1)
+            {
+                timePassed += Time.deltaTime * 2; //arreglar
+                if (vfx != null) vfx.SetActive(true);
+            }
+            else timePassed += Time.deltaTime; //arreglar
+            //Seguramente cambiar esto
         }
+
         if (timePassed >= healingTime)
         {
             isFainted = false;
@@ -61,8 +70,9 @@ public class DogController : MonoBehaviour
             dogAnim.SetBool("Fainted", false);
             gameObject.GetComponent<Collider2D>().enabled = true;
             timePassed = 0;
+            if (vfx.activeSelf) vfx.SetActive(false);
         }
-        
+
         if (!isFainted)// Hacer que no pueda hacer NADA
         {
             if (dogLife <= 0)

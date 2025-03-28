@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject heldSheep;
+    [SerializeField] DogController player2;
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
 
@@ -38,6 +39,10 @@ public class PlayerController : MonoBehaviour
         shepherdAnim = GetComponent<Animator>();
         heldSheep = null;
         canDie = true;
+
+        //Temporal, despues hacer por colliders o mejorar
+        player2 = GameObject.Find("P2").GetComponent<DogController>();
+
 
     }
     private void Update()
@@ -55,6 +60,12 @@ public class PlayerController : MonoBehaviour
                 nextAttackTime = Time.time + 1f / attackRate;
             }
         }
+
+        if (Vector2.Distance(transform.position, player2.transform.position) < 3)
+        {
+            player2.helpedByP1 = true;
+        }
+        else player2.helpedByP1 = false;
         // Seguramente acabe poniendo la P1Life aquí en vez del GameManager
     }
     private void FixedUpdate()

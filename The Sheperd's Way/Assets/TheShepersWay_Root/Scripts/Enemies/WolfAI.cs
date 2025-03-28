@@ -108,7 +108,8 @@ public class WolfAI : MonoBehaviour
     #region Player In Range
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) playerInRange = true;
+        if (collision.gameObject.CompareTag("Player")) playerInRange = true; 
+        //Que solo pille boxcollider, y ponerle otro al perro para qque cuando este aturdido solo se le desactive uno y el perro pueda ser curado
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
