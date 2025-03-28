@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ public class DogController : MonoBehaviour
 
     [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject vfx;
+    BoxCollider2D[] boxColDog;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +53,21 @@ public class DogController : MonoBehaviour
     {
         if (heldByP1) dogRb.isKinematic = true;
         if (!heldByP1 && dogRb.isKinematic) dogRb.isKinematic = false;
-        if (playerHealthBar != null) playerHealthBar.fillAmount = dogLife/50f;
+        if (playerHealthBar != null)
+        {
+            
+            if (isFainted)
+            {
+                playerHealthBar.color = HexToColor("#F1FF00", 210/255f);
+                playerHealthBar.fillAmount = timePassed / healingTime;
+            }
+            else
+            {
+                playerHealthBar.color = HexToColor("#78800E", 255f);
+                playerHealthBar.fillAmount = dogLife / 50f;
+            }
+
+        }
         if (isFainted)
         {
             if (helpedByP1)
@@ -68,7 +84,7 @@ public class DogController : MonoBehaviour
             isFainted = false;
             dogLife = 100;
             dogAnim.SetBool("Fainted", false);
-            gameObject.GetComponent<Collider2D>().enabled = true;
+            foreach (BoxCollider2D col in boxColDog) col.enabled = true;
             timePassed = 0;
             if (vfx.activeSelf) vfx.SetActive(false);
         }
@@ -94,6 +110,19 @@ public class DogController : MonoBehaviour
             }
         }
     }
+    // Método para convertir hexadecimal a Color
+    Color HexToColor(string hex, float alpha = 1f)
+    {
+        // Eliminar el símbolo # si está presente
+        hex = hex.Replace("#", "");
+
+        // Convertir los valores hexadecimales a RGB
+        float r = Convert.ToInt32(hex.Substring(0, 2), 16) / 255f;
+        float g = Convert.ToInt32(hex.Substring(2, 2), 16) / 255f;
+        float b = Convert.ToInt32(hex.Substring(4, 2), 16) / 255f;
+
+        return new Color(r, g, b, alpha);
+    }
     void Faint()
     {
         dogAnim.ResetTrigger("Hurt");
@@ -101,8 +130,8 @@ public class DogController : MonoBehaviour
         isFainted = true;
         dogAnim.SetBool("Fainted", true);
         dogAnim.SetTrigger("Faints"); // el anim aqui hace el tonto
-        BoxCollider2D[] boxCol = gameObject.GetComponents<BoxCollider2D>();
-        foreach (BoxCollider2D col in boxCol) col.enabled = false;
+        boxColDog = gameObject.GetComponents<BoxCollider2D>();
+        foreach (BoxCollider2D col in boxColDog) col.enabled = false;
     }
 
     void Move()
