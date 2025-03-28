@@ -13,6 +13,9 @@ public class SheepAI : MonoBehaviour
     FormationLeader leader;
     int direction = 1; // 1 = derecha, -1 = izquierda
 
+    [SerializeField] float limitX = 28;
+    [SerializeField] float limitY = 16;
+
     [SerializeField] float wanderingSpeed = 5;
     [SerializeField] bool isWandering;
 
@@ -78,6 +81,11 @@ public class SheepAI : MonoBehaviour
 
     void Update()
     {
+        if (transform.position.x > limitX) RunToPoint(new Vector2(transform.position.x - 5f, transform.position.y));
+        else if (transform.position.x < -limitX) RunToPoint(new Vector2(transform.position.x + 5f, transform.position.y));
+        else if (transform.position.y > limitY) RunToPoint(new Vector2(transform.position.x, transform.position.y - 5f));
+        else if (transform.position.y < -limitY) RunToPoint(new Vector2(transform.position.x, transform.position.y + 5f));
+        //Poner todo lo siguiente en un else?
         if (sheepLife <= 0 && sheepCanDie) SheepDeath();
         if (sheepInLine) FollowingDog();
         if (leader.sheepsInLine.Count == 0) StopFollowing();

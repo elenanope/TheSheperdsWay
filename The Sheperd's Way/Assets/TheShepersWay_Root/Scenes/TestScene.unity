@@ -430,6 +430,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -696,6 +704,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -779,6 +795,14 @@ PrefabInstance:
     - target: {fileID: 900434455682774485, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
@@ -13826,6 +13850,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -14160,6 +14192,14 @@ PrefabInstance:
     - target: {fileID: 900434455682774485, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
@@ -14602,6 +14642,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -14934,6 +14982,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -15174,6 +15230,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -15336,6 +15400,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed
       value: 4
       objectReference: {fileID: 0}
@@ -15419,6 +15491,14 @@ PrefabInstance:
     - target: {fileID: 900434455682774485, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitX
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
+      propertyPath: limitY
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7210381794785184110, guid: d1fcbcdbd2164fd4fb28734c6ecdce08, type: 3}
       propertyPath: sheepSpeed

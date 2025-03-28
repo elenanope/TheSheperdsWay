@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -48,7 +49,7 @@ public class DogController : MonoBehaviour
     {
         if (heldByP1) dogRb.isKinematic = true;
         if (!heldByP1 && dogRb.isKinematic) dogRb.isKinematic = false;
-        if (playerHealthBar != null) playerHealthBar.fillAmount = dogLife/50;
+        if (playerHealthBar != null) playerHealthBar.fillAmount = dogLife/50f;
         if (isFainted)
         {
             timePassed += Time.deltaTime; //arreglar
@@ -90,8 +91,10 @@ public class DogController : MonoBehaviour
         isFainted = true;
         dogAnim.SetBool("Fainted", true);
         dogAnim.SetTrigger("Faints"); // el anim aqui hace el tonto
-        gameObject.GetComponent<Collider2D>().enabled = false;
+        BoxCollider2D[] boxCol = gameObject.GetComponents<BoxCollider2D>();
+        foreach (BoxCollider2D col in boxCol) col.enabled = false;
     }
+
     void Move()
     {
         if(!heldByP1) dogRb.velocity = moveInput * dogSpeed;
