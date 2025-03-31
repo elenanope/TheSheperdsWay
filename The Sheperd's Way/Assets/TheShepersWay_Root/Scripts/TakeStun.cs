@@ -13,12 +13,14 @@ public class TakeStun : MonoBehaviour
     [SerializeField] bool ignoringStun;
     [SerializeField] WolfAI wolfAI;
 
+    Animator wolfAnim;
     float waitingTime = 10;
     float currentWaitingTime;
 
     private void Start()
     {
         wolfAI = GetComponent<WolfAI>();
+        wolfAnim = GetComponent<Animator>();
     }
     public void TakePause()
     {
@@ -26,6 +28,7 @@ public class TakeStun : MonoBehaviour
         {
             wolfAI.enabled = false;
             stunned = true;
+            wolfAnim.SetBool("Stun", true);
             barkedTimes += 1;
         }
         else Debug.Log("Enemy is already stunned/is used to it");
@@ -36,14 +39,15 @@ public class TakeStun : MonoBehaviour
         if (stunned)
         {
             timeStunnedPassed += Time.deltaTime;
+            if (timeStunnedPassed >= stunningTime) //sino, sacar
+            {
+                wolfAnim.SetBool("Stun", false);
+                timeStunnedPassed = 0;
+                wolfAI.enabled = true;
+                stunned = false;
+            }
         }
-        if (timeStunnedPassed >= stunningTime)
-        {
-            stunned = false;
-            //anim.SetBool("Stunned", false);
-            timeStunnedPassed = 0;
-            wolfAI.enabled = true;
-        }
+        
 
         //Mide si sigues ladrando
         if(barkedTimes >= 1 && !ignoringStun)

@@ -31,6 +31,7 @@ public class SheepAI : MonoBehaviour
     [SerializeField] bool isWalking;
     [SerializeField] bool isFacingRight = true;
     [SerializeField] bool sheepCanDie;
+    public bool dogBarked;
     //Autoreferences
     BoxCollider2D sheepCol;
     Rigidbody2D sheepRb;
