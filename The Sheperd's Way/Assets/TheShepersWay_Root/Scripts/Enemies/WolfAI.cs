@@ -60,7 +60,8 @@ public class WolfAI : MonoBehaviour
             {
                 if (searchIsOver)
                 {
-                    if (closestSheep != null)
+                    if (closestSheep != null && Vector2.Distance(transform.position, closestSheep.position) <= 5) //añadir tmb que si aunque esto no se cumpla,
+                                                                                                                  //si el raycast de hacia donde mira te ve (esto será más amplio pq te verá de lejos)
                     {
                         StartCoroutine(RunToPoint(closestSheep.position));
                         if (Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) canAttack = true;

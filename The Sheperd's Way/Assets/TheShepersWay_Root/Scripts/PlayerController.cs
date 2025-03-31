@@ -206,6 +206,16 @@ public class PlayerController : MonoBehaviour
     {
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
+        if(enemyPos.position.x < transform.position.x)
+        {
+            Debug.Log("Aplicando fuerza hacia la derecha");
+            rb.AddForce(transform.right * impulseForce, ForceMode2D.Impulse);
+        }
+        else //no vannnn ni este ni el otro
+        {
+            Debug.Log("Aplicando fuerza hacia la izquierda");
+            rb.AddForce(-transform.right * impulseForce, ForceMode2D.Impulse);
+        }
         //no va: rb.AddForce((transform.position - enemyPos.position).normalized * impulseForce, ForceMode2D.Impulse);
     }
     void P1Death()

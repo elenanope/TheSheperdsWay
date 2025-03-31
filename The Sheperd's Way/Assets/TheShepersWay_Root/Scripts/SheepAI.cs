@@ -268,6 +268,7 @@ public class SheepAI : MonoBehaviour
         sheepAnim.ResetTrigger("Hurt");
         transform.position = transform.position;
         sheepRb.isKinematic = true;
+        StopFollowing();
         Debug.Log("A sheep died");
         sheepAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;

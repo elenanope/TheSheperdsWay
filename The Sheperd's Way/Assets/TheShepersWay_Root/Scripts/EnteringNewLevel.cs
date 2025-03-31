@@ -7,6 +7,7 @@ public class EnteringNewLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Time.timeScale = 0;
         /*
         APAGAR Collider del inicio de la pantalla
         (poner area fuera de la pantalla por donde vayan a entrar)
@@ -21,9 +22,4 @@ public class EnteringNewLevel : MonoBehaviour
          */
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
