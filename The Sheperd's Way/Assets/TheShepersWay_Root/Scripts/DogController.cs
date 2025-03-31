@@ -51,8 +51,17 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
-        if (heldByP1) dogRb.isKinematic = true;
-        if (!heldByP1 && dogRb.isKinematic) dogRb.isKinematic = false;
+        if (heldByP1)
+        {
+            dogRb.isKinematic = true;
+            dogAnim.SetBool("Held", true);
+        }
+        if (!heldByP1)
+        {
+            if(dogAnim.GetBool("Held")) dogAnim.SetBool("Held", false);
+            if (dogRb.isKinematic) dogRb.isKinematic = false;
+        }
+            
         if (playerHealthBar != null)
         {
             
