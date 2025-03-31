@@ -170,11 +170,9 @@ public class WolfAI : MonoBehaviour
     {
         canDie = false;
         transform.position = transform.position;
-        //attackedByPlayer = false;
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
-        //wolfRb.isKinematic = true;
         this.enabled = false;
     }
     #endregion

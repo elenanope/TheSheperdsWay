@@ -93,6 +93,11 @@ public class SheepAI : MonoBehaviour
 
         if (isWalking) sheepAnim.SetBool("Walk", true);
         else sheepAnim.SetBool("Walk", false);
+        if(dogBarked)
+        {
+            ObeyingDog();
+            dogBarked = false;
+        }
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -160,6 +165,13 @@ public class SheepAI : MonoBehaviour
         StartCoroutine(RunToPoint(puntoCorrer));
     }
 
+    void ObeyingDog()
+    {
+        StopAllCoroutines();
+        Transform p2 = GameObject.Find("P2").transform;
+        Vector3 oppositeDirection = transform.position - p2.position;
+        StartCoroutine(RunToPoint(transform.position + oppositeDirection));
+    }
     void FollowingDog ()
     {
         if (objectToFollow != null)

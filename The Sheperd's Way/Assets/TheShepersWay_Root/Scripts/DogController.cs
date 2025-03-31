@@ -51,6 +51,7 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        if (transform.localScale.x < 0) isFacingRight = false;
         if (heldByP1)
         {
             dogRb.isKinematic = true;
@@ -167,9 +168,10 @@ public class DogController : MonoBehaviour
         {
             if(sheep != null)
             {
+                sheep.gameObject.GetComponent<SheepAI>().dogBarked = true;
                 //Hacer que simplemente se muevan en contra de él?
-                if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
-                else sheep.gameObject.GetComponent<SheepAI>().Running(4);
+                //if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
+                //else sheep.gameObject.GetComponent<SheepAI>().Running(4);
             }
         }
 

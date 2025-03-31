@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("Attack Variables")]
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange;
+    [SerializeField] float impulseForce = 3;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] int attackDamage = 10;
     [SerializeField] bool canAttack;
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
             heldSheep = collision.gameObject;
             Debug.Log("Estás cerca del perro");
         }
-        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10, collision.gameObject.transform);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -201,10 +202,11 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Transform enemyPos)
     {
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
+        //no va: rb.AddForce((transform.position - enemyPos.position).normalized * impulseForce, ForceMode2D.Impulse);
     }
     void P1Death()
     {
