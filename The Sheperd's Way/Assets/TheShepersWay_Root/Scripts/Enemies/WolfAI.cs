@@ -75,7 +75,7 @@ public class WolfAI : MonoBehaviour
                 }
             }
         }
-        if (nearbyPlayer != null && !nearbyPlayer.GetComponent<Collider2D>().enabled)
+        if (nearbyPlayer != null && !nearbyPlayer.GetComponent<BoxCollider2D>().enabled)
         {
             nearbyPlayer = null;
             FindSheeps(); // Buscar una nueva oveja si no hay jugador

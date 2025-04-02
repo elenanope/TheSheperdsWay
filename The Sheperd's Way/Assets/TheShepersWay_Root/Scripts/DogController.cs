@@ -13,14 +13,14 @@ public class DogController : MonoBehaviour
     Rigidbody2D dogRb;
     Animator dogAnim;
     [SerializeField] int dogLife = 50;
-    [SerializeField] float dogSpeed;
+    [SerializeField] float dogSpeed = 6;
     public bool isFacingRight;
     [SerializeField] bool isBurning;
     public bool heldByP1;
     public bool isFainted;
     [SerializeField] float healingTime = 10;
     [SerializeField] float timePassed;
-    [SerializeField] float detectionRadius;
+    [SerializeField] float detectionRadius = 3.7f;
 
     public bool helpedByP1;
     [SerializeField] bool canBark1;
@@ -30,18 +30,19 @@ public class DogController : MonoBehaviour
     [SerializeField] float barkRate = 1f;
     float nextBarkTime = 0f;
     public bool bark2;
-    [SerializeField] float distance;
-    [SerializeField] float barkForce;
 
     [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject vfx;
-    BoxCollider2D[] boxColDog;
+    [SerializeField]BoxCollider2D boxColDog;
+    CircleCollider2D circleColDog;
 
     // Start is called before the first frame update
     void Start()
     {
         dogRb = GetComponent<Rigidbody2D>();
         dogAnim = GetComponent<Animator>();
+        circleColDog = GetComponent<CircleCollider2D>();
+        boxColDog = GetComponent<BoxCollider2D>();
     }
     private void FixedUpdate()
     {
@@ -50,7 +51,7 @@ public class DogController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
-        if (collision.gameObject.CompareTag("Fire")) isBurning = true;
+        if (collision.gameObject.CompareTag("Fire") && !isFainted) isBurning = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -107,9 +108,10 @@ public class DogController : MonoBehaviour
         if (timePassed >= healingTime)
         {
             isFainted = false;
-            dogLife = 100;
+            dogLife = 50;
             dogAnim.SetBool("Fainted", false);
-            foreach (BoxCollider2D col in boxColDog) col.enabled = true;
+            boxColDog.enabled = true;
+            circleColDog.enabled = true;
             timePassed = 0;
             if (vfx.activeSelf) vfx.SetActive(false);
         }
@@ -155,8 +157,9 @@ public class DogController : MonoBehaviour
         isFainted = true;
         dogAnim.SetBool("Fainted", true);
         dogAnim.SetTrigger("Faints"); // el anim aqui hace el tonto
-        boxColDog = gameObject.GetComponents<BoxCollider2D>();
-        foreach (BoxCollider2D col in boxColDog) col.enabled = false;
+        boxColDog.enabled = false;
+        Debug.Log("Se desaciva el collider!!!!");
+        circleColDog.enabled = false;
     }
 
     void Move()

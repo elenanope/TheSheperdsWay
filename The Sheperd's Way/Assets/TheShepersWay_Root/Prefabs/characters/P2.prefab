@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3136634806769774642}
   - component: {fileID: 3354525872764531709}
   - component: {fileID: 3671474978162934113}
+  - component: {fileID: 5001832454931361808}
   m_Layer: 0
   m_Name: P2
   m_TagString: Player
@@ -269,6 +270,7 @@ MonoBehaviour:
   dogLife: 50
   dogSpeed: 6
   isFacingRight: 1
+  isBurning: 0
   heldByP1: 0
   isFainted: 0
   healingTime: 5
@@ -276,6 +278,7 @@ MonoBehaviour:
   detectionRadius: 3.7
   helpedByP1: 0
   canBark1: 0
+  lastDirection: 0
   sheepsLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -284,8 +287,6 @@ MonoBehaviour:
     m_Bits: 8
   barkRate: 1
   bark2: 0
-  distance: 0
-  barkForce: 0
   playerHealthBar: {fileID: 0}
   vfx: {fileID: 4127457558016777472}
 --- !u!95 &3354525872764531709
@@ -323,6 +324,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sheepsInLine: []
   dogController: {fileID: 3136634806769774642}
+--- !u!58 &5001832454931361808
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025729966514146915}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.38495612}
+  serializedVersion: 2
+  m_Radius: 1.473707
 --- !u!1001 &3440959892192248317
 PrefabInstance:
   m_ObjectHideFlags: 0

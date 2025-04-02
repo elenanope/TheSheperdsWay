@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
         else if (context.performed && canSheep == 4)
         {
             heldSheep.GetComponent<DogController>().heldByP1 = false;
+            heldSheep.GetComponent<BoxCollider2D>().enabled = true;
             OnLeaveSheep();
         }
     }
