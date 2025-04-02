@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 185136999}
   m_Layer: 0
   m_Name: FireHarm
-  m_TagString: Weapon
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shepherdLife = 100;
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
+    [SerializeField] bool isBurning;
     [SerializeField] bool canDie;
     Vector2 moveInput;
     Rigidbody2D rb;
@@ -20,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [Header("Attack Variables")]
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange;
-    [SerializeField] float impulseForce = 3;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] int attackDamage = 10;
     [SerializeField] bool canAttack;
@@ -48,6 +48,14 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (isBurning)
+        {
+            if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
+        }
+        else
+        {
+            if (IsInvoking("FireDamage")) CancelInvoke("FireDamage");
+        }
         if (playerHealthBar != null) playerHealthBar.fillAmount = shepherdLife / 100f;
         if (shepherdLife<=0 && canDie) P1Death();
         else
@@ -123,7 +131,8 @@ public class PlayerController : MonoBehaviour
             heldSheep = collision.gameObject;
             Debug.Log("Estás cerca del perro");
         }
-        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10, collision.gameObject.transform);
+        if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+        if (collision.gameObject.CompareTag("Fire")) isBurning = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -137,6 +146,7 @@ public class PlayerController : MonoBehaviour
             canSheep = 0;
             heldSheep = null;
         }
+        if (collision.gameObject.CompareTag("Fire")) isBurning = false;
     }
 
 
@@ -202,21 +212,14 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public void TakeDamage(int damage, Transform enemyPos)
+    public void TakeDamage(int damage)
     {
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
-        if(enemyPos.position.x < transform.position.x)
-        {
-            Debug.Log("Aplicando fuerza hacia la derecha");
-            rb.AddForce(transform.right * impulseForce, ForceMode2D.Impulse);
-        }
-        else //no vannnn ni este ni el otro
-        {
-            Debug.Log("Aplicando fuerza hacia la izquierda");
-            rb.AddForce(-transform.right * impulseForce, ForceMode2D.Impulse);
-        }
-        //no va: rb.AddForce((transform.position - enemyPos.position).normalized * impulseForce, ForceMode2D.Impulse);
+    }
+    void FireDamage()
+    {
+        TakeDamage(5);
     }
     void P1Death()
     {

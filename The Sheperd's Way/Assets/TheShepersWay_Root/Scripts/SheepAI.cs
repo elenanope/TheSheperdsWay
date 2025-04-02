@@ -30,6 +30,7 @@ public class SheepAI : MonoBehaviour
     [SerializeField] bool isFleeing;
     [SerializeField] bool isWalking;
     [SerializeField] bool isFacingRight = true;
+    [SerializeField] bool isBurning;
     [SerializeField] bool sheepCanDie;
     public bool dogBarked;
     //Autoreferences
@@ -82,6 +83,14 @@ public class SheepAI : MonoBehaviour
 
     void Update()
     {
+        if (isBurning)
+        {
+            if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
+        }
+        else
+        {
+            if (IsInvoking("FireDamage"))CancelInvoke("FireDamage");
+        }
         if (transform.position.x > limitX) RunToPoint(new Vector2(transform.position.x - 5f, transform.position.y));
         else if (transform.position.x < -limitX) RunToPoint(new Vector2(transform.position.x + 5f, transform.position.y));
         else if (transform.position.y > limitY) RunToPoint(new Vector2(transform.position.x, transform.position.y - 5f));
@@ -114,6 +123,11 @@ public class SheepAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+        if (collision.gameObject.CompareTag("Fire")) isBurning = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Fire")) isBurning = false;
     }
     void CheckForEnemies()
     {
@@ -132,14 +146,14 @@ public class SheepAI : MonoBehaviour
         isWandering = false;
         isFleeing = false;
 
-        if (barkZone == 1)
+        if (barkZone == 1) //up
         {
             xDirection = Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f);
             yDirection = Random.Range(transform.position.y + 1f, transform.position.y + 6);
             puntoCorrer = new Vector2(xDirection, yDirection);
         }
 
-        else if (barkZone == 2)
+        else if (barkZone == 2) //right
         {
             xDirection = Random.Range(transform.position.x + 1f, transform.position.x + 6);
             yDirection = Random.Range(transform.position.y - 0.5f, transform.position.y + 0.5f);
@@ -147,14 +161,14 @@ public class SheepAI : MonoBehaviour
             if(!isFacingRight) Flip();
         }
 
-        else if (barkZone == 3)
+        else if (barkZone == 3) // down
         {
             xDirection = Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f);
             yDirection = Random.Range(transform.position.y - 6, transform.position.y - 1);
             puntoCorrer = new Vector2(xDirection, yDirection);
         }
 
-        else if (barkZone == 4)
+        else if (barkZone == 4) //left
         {
             xDirection = Random.Range(transform.position.x - 6, transform.position.x - 1);
             yDirection = Random.Range(transform.position.y - 0.5f, transform.position.y + 0.5f);
@@ -261,6 +275,10 @@ public class SheepAI : MonoBehaviour
     {
         sheepAnim.SetTrigger("Hurt");
         sheepLife -= damage;
+    }
+    void FireDamage()
+    {
+        TakeDamage(5);
     }
     void SheepDeath()
     {

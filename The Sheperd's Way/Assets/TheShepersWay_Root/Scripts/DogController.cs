@@ -15,6 +15,7 @@ public class DogController : MonoBehaviour
     [SerializeField] int dogLife = 50;
     [SerializeField] float dogSpeed;
     public bool isFacingRight;
+    [SerializeField] bool isBurning;
     public bool heldByP1;
     public bool isFainted;
     [SerializeField] float healingTime = 10;
@@ -23,6 +24,7 @@ public class DogController : MonoBehaviour
 
     public bool helpedByP1;
     [SerializeField] bool canBark1;
+    [SerializeField] int lastDirection; // 1 up, 2 right, 3 down, 4 left
     [SerializeField] LayerMask sheepsLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float barkRate = 1f;
@@ -48,9 +50,22 @@ public class DogController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Weapon")) TakeDamage(10);
+        if (collision.gameObject.CompareTag("Fire")) isBurning = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Fire")) isBurning = false;
     }
     void Update()
     {
+        if (isBurning)
+        {
+            if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
+        }
+        else
+        {
+            if (IsInvoking("FireDamage")) CancelInvoke("FireDamage");
+        }
         if (transform.localScale.x < 0) isFacingRight = false;
         if (heldByP1)
         {
@@ -166,40 +181,13 @@ public class DogController : MonoBehaviour
 
         foreach (Collider2D sheep in sheeps)
         {
-            if(sheep != null)
-            {
-                sheep.gameObject.GetComponent<SheepAI>().dogBarked = true;
-                //Hacer que simplemente se muevan en contra de él?
-                //if(isFacingRight) sheep.gameObject.GetComponent<SheepAI>().Running(2);
-                //else sheep.gameObject.GetComponent<SheepAI>().Running(4);
-            }
+            if(sheep != null) sheep.gameObject.GetComponent<SheepAI>().Running(lastDirection);
         }
 
         foreach (Collider2D enemy in enemies)
         {
-            if(enemy != null)
-            {
-                enemy.gameObject.GetComponent<TakeStun>().TakePause();
-            }
+            if(enemy != null) enemy.gameObject.GetComponent<TakeStun>().TakePause();
         }
-
-        /*
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.right * transform.localScale.x, rayDistance);
-        Debug.DrawRay(transform.position, transform.right * transform.localScale.x * rayDistance, Color.yellow);
-
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider != null)
-            {
-                Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-                if (hit.collider.CompareTag("Sheep"))
-                {
-                    //Cambiar para que las ovejas hagan un MoveTowards ese punto, de esa manera pueden parar si alguien les ataca por ejemplo
-                    Rigidbody2D hitRb = hit.collider.GetComponent<Rigidbody2D>();
-                }
-            }
-        }
-        */
     }
 
     #region Input Methods
@@ -207,6 +195,27 @@ public class DogController : MonoBehaviour
     public void OnMoveDog(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        if (moveInput.y > 0)
+        {
+            lastDirection = 1;
+            Debug.Log("Up pressed");
+        }
+        else if (moveInput.y < 0)
+        {
+            lastDirection = 3;
+            Debug.Log("Down pressed");
+        }
+
+        if (moveInput.x > 0)
+        {
+            lastDirection = 2;
+            Debug.Log("Right pressed");
+        }
+        else if (moveInput.x < 0)
+        {
+            lastDirection = 4;
+            Debug.Log("Left pressed");
+        }
     }
 
     public void OnBark1(InputAction.CallbackContext context)
@@ -224,6 +233,10 @@ public class DogController : MonoBehaviour
     {//El perro tmb recibe daño aunque esté heldByP1
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
+    }
+    void FireDamage()
+    {
+        TakeDamage(5);
     }
     void OnDrawGizmosSelected()
     {
