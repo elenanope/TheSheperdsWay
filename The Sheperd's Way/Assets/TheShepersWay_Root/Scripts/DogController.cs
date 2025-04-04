@@ -32,6 +32,7 @@ public class DogController : MonoBehaviour
     public bool bark2;
 
     [SerializeField] Image playerHealthBar;
+    [SerializeField] GameObject[] barkDirectionUI;
     [SerializeField] GameObject vfx;
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
@@ -202,22 +203,38 @@ public class DogController : MonoBehaviour
         {
             lastDirection = 1;
             Debug.Log("Up pressed");
+            barkDirectionUI[0].SetActive(true);
+            barkDirectionUI[1].SetActive(false);
+            barkDirectionUI[2].SetActive(false);
+            barkDirectionUI[3].SetActive(false);
         }
         else if (moveInput.y < 0)
         {
             lastDirection = 3;
             Debug.Log("Down pressed");
+            barkDirectionUI[2].SetActive(true);
+            barkDirectionUI[1].SetActive(false);
+            barkDirectionUI[3].SetActive(false);
+            barkDirectionUI[0].SetActive(false);
         }
 
         if (moveInput.x > 0)
         {
             lastDirection = 2;
             Debug.Log("Right pressed");
+            barkDirectionUI[1].SetActive(true);
+            barkDirectionUI[2].SetActive(false);
+            barkDirectionUI[0].SetActive(false);
+            barkDirectionUI[3].SetActive(false);
         }
         else if (moveInput.x < 0)
         {
             lastDirection = 4;
             Debug.Log("Left pressed");
+            barkDirectionUI[3].SetActive(true);
+            barkDirectionUI[1].SetActive(false);
+            barkDirectionUI[2].SetActive(false);
+            barkDirectionUI[0].SetActive(false);
         }
     }
 
