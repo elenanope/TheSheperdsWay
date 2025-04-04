@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 63fce16f36b4d2a46ba2d4da070e11e5
+guid: 7e05a9dc7d03d4e4881d1253f1a99e98
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,12 +136,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: uiP2Bark_0
+      name: UIBark2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 31.5
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -150,19 +150,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7a114ec63fa4064f8350b687a11592a
-      internalID: 1873616436
+      spriteID: fdf7a1c8eb373a149929cc809c6287ec
+      internalID: 502363033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiP2Bark_1
+      name: UIBark2_1
       rect:
         serializedVersion: 2
-        x: 31
+        x: 32
         y: 32
-        width: 31.5
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -171,19 +171,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fee0a449864d80344b8e2a095d9c4647
-      internalID: 1311251818
+      spriteID: 25da00f477cfb644aa8e2d96c44bcda3
+      internalID: 1950399419
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiP2Bark_2
+      name: UIBark2_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 31.5
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -192,19 +192,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de38685f16554f429be405f7344442d
-      internalID: 1716678089
+      spriteID: 53a07cf20df805c42857aea909f86445
+      internalID: 956231091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiP2Bark_3
+      name: UIBark2_3
       rect:
         serializedVersion: 2
-        x: 31
+        x: 32
         y: 0
-        width: 31.5
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -213,8 +213,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a78598848f332344cb70103c4100d043
-      internalID: 1066273266
+      spriteID: c9e853d071ab79240a49b1e8ae83ea24
+      internalID: 1173446777
       vertices: []
       indices: 
       edges: []
@@ -230,10 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      uiP2Bark_0: 1873616436
-      uiP2Bark_1: 1311251818
-      uiP2Bark_2: 1716678089
-      uiP2Bark_3: 1066273266
+      UIBark2_0: 502363033
+      UIBark2_1: 1950399419
+      UIBark2_2: 956231091
+      UIBark2_3: 1173446777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
