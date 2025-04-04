@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8666c0c811e6042971c5f094dc8539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inMaximum: 0
+  turnSpeed: 25
 --- !u!1 &1659437338114307899
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +128,7 @@ GameObject:
   - component: {fileID: 2161648445178151716}
   - component: {fileID: 5555978383101749874}
   - component: {fileID: 7286101316169229083}
+  - component: {fileID: -2159103613756224684}
   m_Layer: 3
   m_Name: Wolf
   m_TagString: Untagged
@@ -361,3 +364,25 @@ CircleCollider2D:
   m_Offset: {x: -0.6437006, y: 0.09109211}
   serializedVersion: 2
   m_Radius: 2.764483
+--- !u!195 &-2159103613756224684
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8162909146365520081}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 8
+  m_BaseOffset: 4
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

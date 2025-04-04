@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SheepAI : MonoBehaviour
 {
@@ -34,9 +35,10 @@ public class SheepAI : MonoBehaviour
     [SerializeField] bool sheepCanDie;
     public bool dogBarked;
     //Autoreferences
-    BoxCollider2D sheepCol;
+    [SerializeField] BoxCollider2D[] sheepCols;
     Rigidbody2D sheepRb;
     Animator sheepAnim;
+    NavMeshAgent agent;
 
     private void OnDisable()
     {
@@ -49,9 +51,11 @@ public class SheepAI : MonoBehaviour
     void Start()
     {
         leader = FindObjectOfType<FormationLeader>();
-        sheepCol = GetComponent<BoxCollider2D>();
         sheepRb = GetComponent<Rigidbody2D>();
         sheepAnim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
     private void OnEnable()
     {
@@ -240,7 +244,8 @@ public class SheepAI : MonoBehaviour
     {
         while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
         {
-            transform.position = Vector2.MoveTowards(transform.position, destino, sheepSpeed * Time.deltaTime);
+            //transform.position = Vector2.MoveTowards(transform.position, destino, sheepSpeed * Time.deltaTime);
+            agent.SetDestination(destino);
             yield return null; // Esperar al siguiente frame
         }
     }
@@ -289,7 +294,8 @@ public class SheepAI : MonoBehaviour
         StopFollowing();
         Debug.Log("A sheep died");
         sheepAnim.SetTrigger("Death");
-        GetComponent<Collider2D>().enabled = false;
+        sheepCols[0].enabled = false;
+        sheepCols[1].enabled = false;
         this.enabled = false;
     }
     void OnDrawGizmosSelected()

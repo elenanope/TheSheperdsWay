@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 892554415207555840}
   - component: {fileID: 6549027100815783126}
   - component: {fileID: 4555030604779897086}
+  - component: {fileID: 2495676929491225534}
   m_Layer: 6
   m_Name: Sheep2
   m_TagString: Sheep
@@ -132,6 +133,8 @@ MonoBehaviour:
   sheepSpeed: 4
   objectToFollow: {fileID: 0}
   distanceBetween: 2
+  limitX: 28
+  limitY: 16
   wanderingSpeed: 5
   isWandering: 0
   enemyLayer:
@@ -142,7 +145,12 @@ MonoBehaviour:
   isFleeing: 0
   isWalking: 0
   isFacingRight: 1
+  isBurning: 0
   sheepCanDie: 0
+  dogBarked: 0
+  sheepCols:
+  - {fileID: 892554415207555840}
+  - {fileID: 4555030604779897086}
 --- !u!61 &892554415207555840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -254,3 +262,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.464553, y: 2.0152302}
   m_EdgeRadius: 0
+--- !u!195 &2495676929491225534
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8338142010495864615}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 5.55
+  m_BaseOffset: 4
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

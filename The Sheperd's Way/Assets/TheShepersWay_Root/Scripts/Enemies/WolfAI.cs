@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WolfAI : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class WolfAI : MonoBehaviour
     [SerializeField] bool canDie;
 
     [SerializeField] Transform sensor;
-
+    NavMeshAgent agent;
     Animator wolfAnim;
     Rigidbody2D wolfRb;
     // es mejor poner una variable de currentLife y otra de max??
@@ -39,7 +40,10 @@ public class WolfAI : MonoBehaviour
     {
         wolfAnim = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
         canDie = true;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         InvokeRepeating("FindSheeps",0, 4f);
     }
 
@@ -217,7 +221,7 @@ public class WolfAI : MonoBehaviour
     {
         while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
         {
-            transform.position = Vector2.MoveTowards(transform.position, destino, wolfSpeed * Time.deltaTime);
+            agent.SetDestination(destino);
             if (destino.x > transform.position.x && !isFacingRight) WolfFlip();
             else if (destino.x < transform.position.x && isFacingRight) WolfFlip();
             yield return null; // Esperar al siguiente frame
