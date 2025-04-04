@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &937784328675340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4523168076252919895}
+  - component: {fileID: 458109625996335313}
+  m_Layer: 3
+  m_Name: Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4523168076252919895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937784328675340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3349662732001282637}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &458109625996335313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937784328675340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8666c0c811e6042971c5f094dc8539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659437338114307899
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +146,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2041309287852358360}
+  - {fileID: 4523168076252919895}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -236,15 +281,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wolfLife: 50
-  wolfDamage: 10
   wolfSpeed: 3
   wolfAttackRange: 1.5
   closestSheep: {fileID: 0}
   nearbyPlayer: {fileID: 0}
+  playerInRange: 0
+  persecutionTime: 7
+  persecutionTimePassed: 0
+  attackRate: 0.8
+  rayDistance: 8
+  objectDetected: 0
+  attackedByPlayer: 0
   searchIsOver: 0
   isFacingRight: 0
+  isFleeing: 0
+  wasHurt: 0
   canAttack: 0
-  attackRate: 0.8
+  canDie: 0
+  sensor: {fileID: 4523168076252919895}
 --- !u!50 &5555978383101749874
 Rigidbody2D:
   serializedVersion: 4

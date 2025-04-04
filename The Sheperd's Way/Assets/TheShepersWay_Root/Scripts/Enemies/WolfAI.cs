@@ -16,9 +16,11 @@ public class WolfAI : MonoBehaviour
     [SerializeField] float persecutionTime = 7f;
     [SerializeField] float persecutionTimePassed;
     [SerializeField] float attackRate = 2f;
+    [SerializeField] float rayDistance = 8f;
     float nextAttackTime = 0f;
 
     [Header("Wolf States")]
+    [SerializeField] bool objectDetected;
     [SerializeField] bool attackedByPlayer;
     [SerializeField] bool searchIsOver;
     [SerializeField] bool isFacingRight;
@@ -26,6 +28,8 @@ public class WolfAI : MonoBehaviour
     [SerializeField] bool wasHurt;
     [SerializeField] bool canAttack;
     [SerializeField] bool canDie;
+
+    [SerializeField] Transform sensor;
 
     Animator wolfAnim;
     Rigidbody2D wolfRb;
@@ -40,13 +44,13 @@ public class WolfAI : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    { //añadirle tipo patrol/wander
         
-        if(!canAttack && !isFleeing)
+        if (!canAttack && !isFleeing)
         {
             StopAllCoroutines();
             if (nearbyPlayer != null)
-            {  
+            {
 
                 if ((playerInRange && Vector2.Distance(transform.position, nearbyPlayer.position) < 20) || attackedByPlayer)
                 {
@@ -60,8 +64,7 @@ public class WolfAI : MonoBehaviour
             {
                 if (searchIsOver)
                 {
-                    if (closestSheep != null && Vector2.Distance(transform.position, closestSheep.position) <= 5) //añadir tmb que si aunque esto no se cumpla,
-                                                                                                                  //si el raycast de hacia donde mira te ve (esto será más amplio pq te verá de lejos)
+                    if (closestSheep != null && Vector2.Distance(transform.position, closestSheep.position) <= 5 || objectDetected)
                     {
                         StartCoroutine(RunToPoint(closestSheep.position));
                         if (Vector2.Distance(transform.position, closestSheep.position) <= wolfAttackRange) canAttack = true;
@@ -71,6 +74,19 @@ public class WolfAI : MonoBehaviour
                     {
                         transform.position = transform.position;
                         FindSheeps();
+                    }
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, -sensor.right, rayDistance); //error de ref?
+                    Debug.DrawRay(sensor.position, -sensor.right * rayDistance, Color.blue);
+                    foreach (RaycastHit2D hit in hits)
+                    {
+                        if (hit.collider != null)
+                        {
+                            if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                            {
+                                Debug.Log("Objeto detectado: " + hit.collider.name);
+                                objectDetected = true;
+                            }
+                        } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
                     }
                 }
             }
