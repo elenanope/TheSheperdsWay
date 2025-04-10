@@ -23,18 +23,25 @@ public class OnTriggersEvent : MonoBehaviour
         }
 
         if (isPressed) contadorTiempo += Time.deltaTime;
+        else
+        {
+            if (contadorTiempo > 0)
+            {
+                contadorTiempo -= Time.deltaTime;
+            }
+            else contadorTiempo = 0;
+        }
         if (chargingSymbol != null) chargingSymbol.transform.localScale = new Vector3(chargingSymbol.transform.localScale.x, Mathf.Clamp(contadorTiempo / secondsToWait, 0f, maxEscalaY), chargingSymbol.transform.localScale.z);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        contadorTiempo = 0f;
         isPressed = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        contadorTiempo = 0f;
+        //contadorTiempo = 0f;
         isPressed = false;
         if (chargingSymbol != null)
         {
