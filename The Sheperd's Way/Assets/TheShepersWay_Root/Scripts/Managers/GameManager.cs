@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int sheepsAlive;
     BoxCollider2D spawnArea;
     [SerializeField] GameObject sheepPrefab;
+    [SerializeField] PlayerController player;
     public bool appearingOfSheeps;
     // para cuando haya distintas: public List<GameObject> sheepsPrefabs = new List<GameObject>();
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
@@ -58,21 +60,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
-        if (totalLife <= 0)
+        if(player == null) player = GameObject.Find("P1")?.GetComponent<PlayerController>();
+        else
         {
-            totalLife = 0;
-            currentGameState = GameState.gameOver;
-            Debug.Log("No tienes más vida!");
+            if (player.shepherdLife <= 0 && currentGameState != GameState.gameOver)
+            {
+                StartCoroutine(LoadLoseScene(4));
+                currentGameState = GameState.gameOver;
+                Debug.Log("No tienes más vida!");
+            }
         }
-        if (sheepsAlive <= 0)
+        
+        if (sheepsAlive <= 0 && currentGameState != GameState.gameOver)
         {
             sheepsAlive = 0;
+            StartCoroutine(LoadLoseScene(5));
             currentGameState = GameState.gameOver;
             Debug.Log("Se han muerto todas las ovejas!");
         }
     }
 
+    IEnumerator LoadLoseScene(int sceneToLoad)
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }

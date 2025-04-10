@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TheShepersWay_Root/Scenes/DeathScene.unity
     guid: 42610c8d06fceff4fb20d21b87396e54
+  - enabled: 1
+    path: Assets/TheShepersWay_Root/Scenes/DeathSheeps.unity
+    guid: bfcc6871a9e365d4d8e72f109c65e410
   m_configObjects: {}

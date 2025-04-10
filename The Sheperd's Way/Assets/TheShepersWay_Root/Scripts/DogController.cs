@@ -198,43 +198,52 @@ public class DogController : MonoBehaviour
 
     public void OnMoveDog(InputAction.CallbackContext context)
     {
+        int canShowUI = 0;
         moveInput = context.ReadValue<Vector2>();
-        if (moveInput.y > 0)
+        for (int i = 0; i < barkDirectionUI.Length; i++)
         {
-            lastDirection = 1;
-            Debug.Log("Up pressed");
-            barkDirectionUI[0].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-        }
-        else if (moveInput.y < 0)
-        {
-            lastDirection = 3;
-            Debug.Log("Down pressed");
-            barkDirectionUI[2].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
+            if (barkDirectionUI[i] != null) canShowUI++;
         }
 
-        if (moveInput.x > 0)
-        {
-            lastDirection = 2;
-            Debug.Log("Right pressed");
-            barkDirectionUI[1].SetActive(true);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-        }
-        else if (moveInput.x < 0)
-        {
-            lastDirection = 4;
-            Debug.Log("Left pressed");
-            barkDirectionUI[3].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
+            if (canShowUI >=4)
+            {
+                if (moveInput.y > 0)
+                {
+                    lastDirection = 1;
+                    Debug.Log("Up pressed");
+                    barkDirectionUI[0].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                }
+                else if (moveInput.y < 0)
+                {
+                    lastDirection = 3;
+                    Debug.Log("Down pressed");
+                    barkDirectionUI[2].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                }
+
+                if (moveInput.x > 0)
+                {
+                    lastDirection = 2;
+                    Debug.Log("Right pressed");
+                    barkDirectionUI[1].SetActive(true);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                }
+                else if (moveInput.x < 0)
+                {
+                    lastDirection = 4;
+                    Debug.Log("Left pressed");
+                    barkDirectionUI[3].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                }
         }
     }
 

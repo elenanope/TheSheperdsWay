@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] int shepherdLife = 100;
+    public int shepherdLife = 100;
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
     [SerializeField] bool isBurning;
