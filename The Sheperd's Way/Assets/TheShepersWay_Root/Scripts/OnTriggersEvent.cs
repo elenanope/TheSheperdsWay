@@ -18,8 +18,6 @@ public class OnTriggersEvent : MonoBehaviour
         if (contadorTiempo >= secondsToWait)
         {
             OnTrigger.Invoke();
-            contadorTiempo = 0f;
-            isPressed = false;
         }
 
         if (isPressed) contadorTiempo += Time.deltaTime;
@@ -41,13 +39,11 @@ public class OnTriggersEvent : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //contadorTiempo = 0f;
         isPressed = false;
         if (chargingSymbol != null)
         {
             chargingSymbol.transform.localScale = new Vector3(chargingSymbol.transform.localScale.x, 0f, chargingSymbol.transform.localScale.z);
         }
-        //me da error  chargingSymbol.SetActive(false);
     }
 
 }

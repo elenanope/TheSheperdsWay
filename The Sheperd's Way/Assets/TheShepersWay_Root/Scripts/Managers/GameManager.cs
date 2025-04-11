@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadLoseScene(int sceneToLoad)
     {
         float fadeSpeed = 1f;
-        Color actualColor = new Color(0/255f, 11 / 255f, 20 / 255f, fadePanel.color.a);
+        Color actualColor = new Color(0/255f, 11/255f, 20/255f, fadePanel.color.a);
 
         yield return new WaitForSecondsRealtime(1.5f);
         while (actualColor.a < 1f)
