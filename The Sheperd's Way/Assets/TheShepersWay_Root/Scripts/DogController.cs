@@ -34,6 +34,7 @@ public class DogController : MonoBehaviour
     [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject[] barkDirectionUI;
     [SerializeField] GameObject vfx;
+    [SerializeField] GameObject vfxDust;
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
 
@@ -60,6 +61,12 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        if(!gameObject.GetComponent<SpriteRenderer>().enabled) vfxDust.SetActive(false);
+        else vfxDust.SetActive(true);
+        if(moveInput != null && moveInput.x == 0 && moveInput.y  == 0) 
+        {
+            dogAnim.SetBool("Walk", false);
+        }
         if (isBurning)
         {
             if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
@@ -165,7 +172,11 @@ public class DogController : MonoBehaviour
 
     void Move()
     {
-        if(!heldByP1) dogRb.velocity = moveInput * dogSpeed;
+        if(!heldByP1)
+        {
+            dogAnim.SetBool("Walk", true);
+            dogRb.velocity = moveInput * dogSpeed;
+        }
 
     }
     public void DogFlip()
