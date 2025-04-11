@@ -1,55 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FadingScript : MonoBehaviour
 {
-    [SerializeField] CanvasGroup canvasGroup;
-    public float fadeOutDuration = 3f;
-    public float fadeInDuration = 3f;
+    [SerializeField] Image fadePanel;
+    public float fadeInSpeed = 3f;
 
     private void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        StartCoroutine(nameof(StartGameFadeOut));
-    }
-    public void FadeOut()
-    {
-        StartCoroutine(FadeOutCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeOutDuration));
+        StartCoroutine(StartFade());
     }
 
-    public void FadeIn()
+    IEnumerator StartFade()
     {
-        StartCoroutine(FadeInCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeInDuration));
-    }
+        Color actualColor = fadePanel.color;
 
-    private IEnumerator FadeOutCanvasGroup(CanvasGroup cg, float start, float end, float duration)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeOutDuration)
+        yield return new WaitForSecondsRealtime(1.5f);
+        while (actualColor.a > 0f)
         {
-            elapsedTime += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(start, end, elapsedTime / duration);
+            actualColor.a -= fadeInSpeed * Time.deltaTime;
+            actualColor.a = Mathf.Clamp01(actualColor.a);
+
+            fadePanel.color = actualColor;
+
             yield return null;
         }
-        cg.alpha = end;
-    }
-    private IEnumerator FadeInCanvasGroup(CanvasGroup cg, float start, float end, float duration)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeInDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(start, end, elapsedTime / duration);
-            yield return null;
-        }
-        cg.alpha = end;
-    }
-
-    private IEnumerator StartGameFadeOut()
-    {
-        yield return new WaitForSeconds(1);
-        FadeOut();
-        yield return null;
+        gameObject.SetActive(false);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -14,13 +15,17 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-    public int totalLife = 100;
+    public int cruelty = 0;
     public int sheepsAlive;
-    BoxCollider2D spawnArea;
+    BoxCollider2D spawnArea = null;
+    [SerializeField] Image crueltyBar;
     [SerializeField] GameObject sheepPrefab;
+    [SerializeField] Image fadePanel;
     [SerializeField] PlayerController player;
     public bool appearingOfSheeps;
     // para cuando haya distintas: public List<GameObject> sheepsPrefabs = new List<GameObject>();
+    //cruelty points whenever you hit a wolf it increases, different endings for each,
+    //if you surpass the limit you lose life (1 heart of love, only have three, and have already a bad ending) 
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
     public GameState currentGameState = GameState.gameStarted;
 
@@ -62,6 +67,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(fadePanel == null) fadePanel = GameObject.Find("FadePanel")?.GetComponent<Image>();
+
+        if (crueltyBar != null) crueltyBar.fillAmount = cruelty / 100f;
+        else crueltyBar = GameObject.Find("P1crueltyBarFill")?.GetComponent<Image>();
+        
         if(player == null) player = GameObject.Find("P1")?.GetComponent<PlayerController>();
         else
         {
@@ -84,7 +94,19 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadLoseScene(int sceneToLoad)
     {
+        float fadeSpeed = 1f;
+        Color actualColor = new Color(0/255f, 11 / 255f, 20 / 255f, fadePanel.color.a);
+
         yield return new WaitForSecondsRealtime(1.5f);
+        while (actualColor.a < 1f)
+        {
+            actualColor.a += fadeSpeed * Time.deltaTime;
+            actualColor.a = Mathf.Clamp01(actualColor.a);
+
+            fadePanel.color = actualColor;
+
+            yield return null;
+        }
         SceneManager.LoadScene(sceneToLoad);
     }
 }

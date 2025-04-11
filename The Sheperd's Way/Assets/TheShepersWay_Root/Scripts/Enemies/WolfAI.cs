@@ -185,6 +185,7 @@ public class WolfAI : MonoBehaviour
         attackedByPlayer = true;
         wolfLife -= damage;
         wolfAnim.SetTrigger("Hurt");
+        GameManager.Instance.cruelty += 5;
         StartCoroutine(ResetHurt());
     }
     void Death()
@@ -206,7 +207,7 @@ public class WolfAI : MonoBehaviour
             Vector2 direccionHuida = (transform.position - nearbyPlayer.position).normalized;
             isFleeing = true;
             attackedByPlayer = false;
-            float distanciaHuida = Random.Range(3f, 5f);
+            float distanciaHuida = Random.Range(11f, 18f);
             Vector2 puntoHuir = (Vector2)transform.position + (direccionHuida * distanciaHuida);
             StartCoroutine(RunToPoint(puntoHuir));
         }

@@ -35,6 +35,7 @@ public class DogController : MonoBehaviour
     [SerializeField] GameObject[] barkDirectionUI;
     [SerializeField] GameObject vfx;
     [SerializeField] GameObject vfxDust;
+    [SerializeField] GameObject uiBark2;
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
 
@@ -45,6 +46,7 @@ public class DogController : MonoBehaviour
         dogAnim = GetComponent<Animator>();
         circleColDog = GetComponent<CircleCollider2D>();
         boxColDog = GetComponent<BoxCollider2D>();
+        lastDirection = 2;
     }
     private void FixedUpdate()
     {
@@ -61,6 +63,12 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        if(uiBark2 != null)
+        {
+            if (bark2 && !uiBark2.activeSelf) uiBark2.SetActive(true);
+            else if (!bark2 && uiBark2.activeSelf) uiBark2.SetActive(false);
+        }
+        
         if(!gameObject.GetComponent<SpriteRenderer>().enabled) vfxDust.SetActive(false);
         else vfxDust.SetActive(true);
         if(moveInput != null && moveInput.x == 0 && moveInput.y  == 0) 
