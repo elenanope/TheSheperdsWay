@@ -14,6 +14,8 @@ public class TakeStun : MonoBehaviour
     [SerializeField] WolfAI wolfAI;
 
     Animator wolfAnim;
+    SpriteRenderer wolfRenderer;
+    Rigidbody2D wolfRb;
     float waitingTime = 10;
     float currentWaitingTime;
 
@@ -21,6 +23,8 @@ public class TakeStun : MonoBehaviour
     {
         wolfAI = GetComponent<WolfAI>();
         wolfAnim = GetComponent<Animator>();
+        wolfRenderer = GetComponent<SpriteRenderer>();
+        wolfRb = GetComponent<Rigidbody2D>();
     }
     public void TakePause()
     {
@@ -28,6 +32,7 @@ public class TakeStun : MonoBehaviour
         {
             wolfAI.enabled = false;
             stunned = true;
+            wolfRb.bodyType = RigidbodyType2D.Static;
             wolfAnim.SetBool("Stun", true);
             barkedTimes += 1;
         }
@@ -44,13 +49,13 @@ public class TakeStun : MonoBehaviour
                 wolfAnim.SetBool("Stun", false);
                 timeStunnedPassed = 0;
                 wolfAI.enabled = true;
+                wolfRb.bodyType = RigidbodyType2D.Dynamic;
                 stunned = false;
             }
         }
         
-
         //Mide si sigues ladrando
-        if(barkedTimes >= 1 && !ignoringStun)
+        if (barkedTimes >= 1 && !ignoringStun)
         {
             cautionTime += Time.deltaTime;
         }

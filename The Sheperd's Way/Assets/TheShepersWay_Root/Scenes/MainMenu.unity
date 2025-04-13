@@ -835,9 +835,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1473987540}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1938426787}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -847,9 +847,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 559073024}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 977910677}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1428,17 +1428,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &559073024 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3136634806769774642, guid: 9f1d3e79e07e6364c90a192015720709, type: 3}
-  m_PrefabInstance: {fileID: 287418120}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e185a49e3798e447bc62c52513abbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &565536583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +2241,8 @@ MonoBehaviour:
   secondsToWait: 1
   maxEscalaY: 1.1
   chargingSymbol: {fileID: 1982190428}
+  collisionedObject: {fileID: 0}
+  objectTimes: 0
   OnTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -2279,9 +2270,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1473987540}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1938426787}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2291,9 +2282,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 559073024}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 977910677}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3302,7 +3293,7 @@ MonoBehaviour:
   fadePanel: {fileID: 1887155185}
   panel: {fileID: 1887155182}
   fadeInSpeed: 3
-  fadeOutSpeed: 3
+  fadeOutSpeed: 2
 --- !u!1 &867052183
 GameObject:
   m_ObjectHideFlags: 0
@@ -3996,9 +3987,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1473987540}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1938426787}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4008,9 +3999,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 559073024}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 977910677}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4058,6 +4049,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974075214}
   m_CullTransparentMesh: 1
+--- !u!1 &977910677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1025729966514146915, guid: 9f1d3e79e07e6364c90a192015720709, type: 3}
+  m_PrefabInstance: {fileID: 287418120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &980532467
 GameObject:
   m_ObjectHideFlags: 0
@@ -5810,6 +5806,8 @@ MonoBehaviour:
   secondsToWait: 1
   maxEscalaY: 1.1
   chargingSymbol: {fileID: 185904744}
+  collisionedObject: {fileID: 0}
+  objectTimes: 0
   OnTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -6299,17 +6297,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1473987540 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7959022819495471361, guid: 91c649578e20cc64ebc2947d05f37d4b, type: 3}
-  m_PrefabInstance: {fileID: 1856382625}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d1fedfd18f357439869b37b5e45c38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1626297263
 GameObject:
   m_ObjectHideFlags: 0
@@ -6413,6 +6400,8 @@ MonoBehaviour:
   secondsToWait: 1
   maxEscalaY: 1.1
   chargingSymbol: {fileID: 714970853}
+  collisionedObject: {fileID: 0}
+  objectTimes: 0
   OnTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -7324,6 +7313,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924049053}
   m_CullTransparentMesh: 1
+--- !u!1 &1938426787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1017798225894325583, guid: 91c649578e20cc64ebc2947d05f37d4b, type: 3}
+  m_PrefabInstance: {fileID: 1856382625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1979112457
 GameObject:
   m_ObjectHideFlags: 0
@@ -7767,9 +7761,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1473987540}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1938426787}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7779,9 +7773,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 559073024}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 977910677}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7953,6 +7947,8 @@ MonoBehaviour:
   secondsToWait: 1
   maxEscalaY: 1.1
   chargingSymbol: {fileID: 1000761088}
+  collisionedObject: {fileID: 0}
+  objectTimes: 0
   OnTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -7980,9 +7976,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1473987540}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1938426787}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7992,9 +7988,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 559073024}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 977910677}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

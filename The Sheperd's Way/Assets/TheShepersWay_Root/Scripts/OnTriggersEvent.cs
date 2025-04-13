@@ -10,6 +10,8 @@ public class OnTriggersEvent : MonoBehaviour
     [SerializeField] float maxEscalaY = 1.1f;
     bool isPressed;
     [SerializeField] GameObject chargingSymbol;
+    [SerializeField] GameObject collisionedObject = null;
+    [SerializeField] int objectTimes;
 
     public UnityEvent OnTrigger; // Se verá en el inspector
 
@@ -20,7 +22,7 @@ public class OnTriggersEvent : MonoBehaviour
             OnTrigger.Invoke();
         }
 
-        if (isPressed) contadorTiempo += Time.deltaTime;
+        if (isPressed && objectTimes == 1) contadorTiempo += Time.deltaTime;
         else
         {
             if (contadorTiempo > 0)
@@ -34,15 +36,31 @@ public class OnTriggersEvent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isPressed = true;
+            isPressed = true;
+        if (collisionedObject != collision.gameObject)
+        {
+            objectTimes = 1;
+            collisionedObject = collision.gameObject;
+        }
+        else
+        {
+            objectTimes = 2;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         isPressed = false;
+        
         if (chargingSymbol != null)
         {
             chargingSymbol.transform.localScale = new Vector3(chargingSymbol.transform.localScale.x, 0f, chargingSymbol.transform.localScale.z);
+        }
+        if (objectTimes == 1) objectTimes = 0;
+        else if(objectTimes == 2)
+        {
+            objectTimes = 0;
+            collisionedObject = null;
         }
     }
 

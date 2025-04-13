@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -95,7 +96,9 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadLoseScene(int sceneToLoad)
     {
         float fadeSpeed = 1f;
-        Color actualColor = new Color(0/255f, 11/255f, 20/255f, fadePanel.color.a);
+        Color actualColor = fadePanel.color;
+        actualColor.a = 0f;
+        fadePanel.gameObject.SetActive(true);
 
         yield return new WaitForSecondsRealtime(1.5f);
         while (actualColor.a < 1f)
@@ -108,5 +111,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         SceneManager.LoadScene(sceneToLoad);
+        
+        
     }
 }

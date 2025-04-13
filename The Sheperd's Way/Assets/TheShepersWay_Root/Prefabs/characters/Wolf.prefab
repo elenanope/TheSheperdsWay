@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 5555978383101749874}
   - component: {fileID: 7286101316169229083}
   - component: {fileID: -2159103613756224684}
+  - component: {fileID: 8391080234110020180}
   m_Layer: 3
   m_Name: Wolf
   m_TagString: Untagged
@@ -386,3 +387,23 @@ NavMeshAgent:
   m_BaseOffset: 4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8391080234110020180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8162909146365520081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58075300b443bd640a16eb223a08205e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetCautionTime: 12
+  cautionTime: 0
+  barkedTimes: 0
+  timeStunnedPassed: 0
+  stunningTime: 2
+  stunned: 0
+  ignoringStun: 0
+  wolfAI: {fileID: 0}
