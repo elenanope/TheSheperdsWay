@@ -134,10 +134,7 @@ public class DogController : MonoBehaviour
 
         if (!isFainted)// Hacer que no pueda hacer NADA
         {
-            if (dogLife <= 0)
-            {
-                Faint();
-            }
+            if (dogLife <= 0) Faint();
 
             if(!heldByP1)
             {

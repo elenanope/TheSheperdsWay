@@ -105,7 +105,6 @@ public class WolfAI : MonoBehaviour
             closestSheep = null;
             FindSheeps(); // Buscar una nueva oveja si desaparece
         }
-
         if (Time.time >= nextAttackTime && canAttack)
         {
             StopAllCoroutines();
@@ -113,7 +112,6 @@ public class WolfAI : MonoBehaviour
             canAttack = false;
             nextAttackTime = Time.time + 1f / attackRate;
         }
-
     }
     
     void Update()
@@ -229,5 +227,4 @@ public class WolfAI : MonoBehaviour
         }
         if (Vector2.Distance(transform.position, destino) < 0.1f && isFleeing) isFleeing = false;
     }
-
 }

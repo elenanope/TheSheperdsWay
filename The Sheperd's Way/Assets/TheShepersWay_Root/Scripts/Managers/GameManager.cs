@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerController player;
     public bool appearingOfSheeps;
     // para cuando haya distintas: public List<GameObject> sheepsPrefabs = new List<GameObject>();
+
     //cruelty points whenever you hit a wolf it increases, different endings for each,
     //if you surpass the limit you lose life (1 heart of love, only have three, and have already a bad ending) 
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
@@ -92,6 +93,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Se han muerto todas las ovejas!");
         }
     }
+
+    //añadir cercados a final de nivel y que se cierre cuando todas las que queden vivas hayan pasado, sino, solo pasarán esas y no se cerrará
 
     IEnumerator LoadLoseScene(int sceneToLoad)
     {
