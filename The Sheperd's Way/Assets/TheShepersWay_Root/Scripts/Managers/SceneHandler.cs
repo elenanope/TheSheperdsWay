@@ -29,9 +29,14 @@ public class SceneHandler : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.sheepsAlive = sheepsArrived; //asi solo pasan las vivas a la siguiente pantalla
-            //audioSource.Stop();
-            SceneManager.LoadScene(specificSceneToLoad);
+            if(collision.gameObject.name == "P1")
+            {
+                GameManager.Instance.sheepsAlive = sheepsArrived; //asi solo pasan las vivas a la siguiente pantalla
+                                                                  //audioSource.Stop();
+                SceneManager.LoadScene(specificSceneToLoad);
+            }
+            //and el perro esta con las ovejas
+            
         }
     }
     public void SceneLoader(int sceneToLoad)

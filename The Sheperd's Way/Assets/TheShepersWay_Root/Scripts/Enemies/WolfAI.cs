@@ -193,6 +193,7 @@ public class WolfAI : MonoBehaviour
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
+        GetComponent<TakeStun>().enabled = false;
         this.enabled = false;
     }
     #endregion

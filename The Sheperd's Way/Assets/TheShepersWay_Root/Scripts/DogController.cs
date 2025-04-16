@@ -201,7 +201,8 @@ public class DogController : MonoBehaviour
 
         foreach (Collider2D sheep in sheeps)
         {
-            if(sheep != null) sheep.gameObject.GetComponent<SheepAI>().Running(lastDirection);
+            SheepAI sheepAi = sheep.GetComponent<SheepAI>();
+            if(sheep != null && !sheepAi.sheepInLine) sheepAi.Running(lastDirection);
         }
 
         foreach (Collider2D enemy in enemies)
