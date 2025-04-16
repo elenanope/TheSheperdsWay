@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TakeStun : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TakeStun : MonoBehaviour
     [SerializeField] bool stunned;
     [SerializeField] bool ignoringStun;
     [SerializeField] WolfAI wolfAI;
+    [SerializeField] GameObject particles;
 
     Animator wolfAnim;
     SpriteRenderer wolfRenderer;
@@ -30,10 +32,14 @@ public class TakeStun : MonoBehaviour
     {
         if (!stunned && !ignoringStun)
         {
+            wolfAI.StopAllCoroutines();
             wolfAI.enabled = false;
             stunned = true;
+            //velocity 0 new
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(transform.position);
             wolfRb.bodyType = RigidbodyType2D.Static;
-            wolfAnim.SetBool("Stun", true);
+            //wolfAnim.SetBool("Stun", true);
+            particles.SetActive(true);
             barkedTimes += 1;
         }
         else Debug.Log("Enemy is already stunned/is used to it");
@@ -46,7 +52,9 @@ public class TakeStun : MonoBehaviour
             timeStunnedPassed += Time.deltaTime;
             if (timeStunnedPassed >= stunningTime) //sino, sacar
             {
-                wolfAnim.SetBool("Stun", false);
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                //wolfAnim.SetBool("Stun", false);
+                particles.SetActive(false);
                 timeStunnedPassed = 0;
                 wolfAI.enabled = true;
                 wolfRb.bodyType = RigidbodyType2D.Dynamic;

@@ -9862,7 +9862,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.3853456, g: 0.4716981, b: 0.21656577, a: 1}
+  m_Color: {r: 0.46631157, g: 0.5849056, b: 0.23451404, a: 1}
   m_Origin: {x: -29, y: -16, z: 0}
   m_Size: {x: 58, y: 32, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -11816,7 +11816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &660803388
 Transform:
   m_ObjectHideFlags: 0
@@ -25675,7 +25675,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.3474783, g: 0.41509432, b: 0.22190574, a: 1}
+  m_Color: {r: 0.41442502, g: 0.5188679, b: 0.21782662, a: 1}
   m_Origin: {x: -29, y: -16, z: 0}
   m_Size: {x: 58, y: 33, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -35490,7 +35490,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.38679248, g: 0.36266053, b: 0.23596773, a: 1}
+  m_BackGroundColor: {r: 0.5188679, g: 0.37827513, b: 0.23740655, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

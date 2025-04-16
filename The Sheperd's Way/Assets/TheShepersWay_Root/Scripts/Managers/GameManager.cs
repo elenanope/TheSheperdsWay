@@ -31,7 +31,11 @@ public class GameManager : MonoBehaviour
     public enum GameState { gameOver, gameStarted, gamePaused, gameCompleted }
     public GameState currentGameState = GameState.gameStarted;
 
-
+    // niveles:
+    // nivel1: bien
+    //nivel 2, sitio más ancho donde más lobos haya, sitio peor es más gratificante así, hacer puente más grande o viceversa
+    //nivel 3: partes de laberinto visibles asi hay hints de lo que se va a ver, poner que uno de los caminos llegue al final
+    //nivel 4 bien
     private void Awake()
     {
         

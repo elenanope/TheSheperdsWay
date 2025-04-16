@@ -761,7 +761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &274698667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1803,7 +1803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1918857960331613596, guid: 098cc42174b64f74096c2ec3130eed55, type: 3}
       propertyPath: specificSceneToLoad
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6324188673703638305, guid: 098cc42174b64f74096c2ec3130eed55, type: 3}
       propertyPath: m_Name
@@ -10061,6 +10061,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4169187124158208665, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
+      propertyPath: m_Name
+      value: PS_Electr
+      objectReference: {fileID: 0}
     - target: {fileID: 8162909146365520081, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_Name
       value: Wolf (4)
@@ -16649,7 +16653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5555978383101749874, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_BodyType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7286101316169229083, guid: 15590c3621817004c88154a6a0643a5f, type: 3}
       propertyPath: m_Radius
