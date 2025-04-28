@@ -16,6 +16,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float dogSpeed = 6;
     public bool isFacingRight;
     [SerializeField] bool isBurning;
+    [SerializeField] bool initialScene;
     public bool heldByP1;
     public bool isFainted;
     [SerializeField] float healingTime = 10;
@@ -39,6 +40,10 @@ public class DogController : MonoBehaviour
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
 
+    private void Awake()
+    {
+        if(!initialScene) DontDestroyOnLoad(this);
+    }
     // Start is called before the first frame update
     void Start()
     {

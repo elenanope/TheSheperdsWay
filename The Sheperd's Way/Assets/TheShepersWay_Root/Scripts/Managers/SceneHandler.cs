@@ -13,7 +13,7 @@ public class SceneHandler : MonoBehaviour
 
     private void Start()
     {
-        fadeo = GameObject.Find("Canvas").GetComponent<FadingScript>();
+        fadeo = GameObject.Find("Canvas").GetComponent<FadingScript>(); //Arreglar, creo que no va
     }
     private void Update()
     {

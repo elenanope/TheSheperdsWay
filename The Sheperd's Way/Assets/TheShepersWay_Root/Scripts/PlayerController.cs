@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
     [SerializeField] bool isBurning;
+    [SerializeField] bool initialScene;
     [SerializeField] bool canDie;
     Vector2 moveInput;
     Rigidbody2D rb;
@@ -33,7 +34,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if (!initialScene) DontDestroyOnLoad(this);
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

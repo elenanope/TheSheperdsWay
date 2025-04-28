@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInRange = true; dialogueHint.SetActive(true);
+            if (collision.gameObject.name == "P1") playerInRange = true; dialogueHint.SetActive(true);
         }
             
     }
