@@ -24,7 +24,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float detectionRadius = 3.7f;
 
     public bool helpedByP1;
-    [SerializeField] bool canBark1;
+    public bool canBark1;
     [SerializeField] int lastDirection; // 1 up, 2 right, 3 down, 4 left
     [SerializeField] LayerMask sheepsLayer;
     [SerializeField] LayerMask enemyLayer;
@@ -110,7 +110,7 @@ public class DogController : MonoBehaviour
             }
             else
             {
-                playerHealthBar.color = HexToColor("#78800E", 255f);
+                playerHealthBar.color = HexToColor("#4C7370", 255f);
                 playerHealthBar.fillAmount = dogLife / 50f;
             }
 

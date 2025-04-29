@@ -10,6 +10,7 @@ public class SceneHandler : MonoBehaviour
     bool lastScene;
     int sheepsArrived;
     FadingScript fadeo;
+    [SerializeField] SheepHandler sheepHandler;
 
     private void Start()
     {
@@ -26,13 +27,7 @@ public class SceneHandler : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Sheep"))
-        {
-            sheepsArrived++;
-            collision.GetComponent<SheepAI>().Running(2);
-            //collision.attachedRigidbody.AddForce(transform.right);
-            collision.gameObject.SetActive(false);
-        }
+       
         if (collision.gameObject.CompareTag("Player"))
         {
             if(collision.gameObject.name == "P1")
@@ -41,7 +36,7 @@ public class SceneHandler : MonoBehaviour
                 else if(lastScene &&GameManager.Instance.cruelty<50) fadeo.FadingOut(3);
                 else
                 {
-                    GameManager.Instance.sheepsAlive = sheepsArrived; //asi solo pasan las vivas a la siguiente pantalla
+                    GameManager.Instance.sheepsAlive = sheepHandler.sheepsInside; //asi solo pasan las vivas a la siguiente pantalla
                                                                       //audioSource.Stop();
                     fadeo.FadingOut(specificSceneToLoad); 
                 }

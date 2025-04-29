@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inMaximum: 0
   turnSpeed: 25
+  max: 55
+  min: -55
 --- !u!1 &1659437338114307899
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2041309287852358360
 Transform:
   m_ObjectHideFlags: 0
@@ -110,9 +112,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0817258, y: 0.9904028}
+  m_Offset: {x: 0.8355899, y: 0.9904016}
   serializedVersion: 2
-  m_Radius: 0.6207731
+  m_Radius: 0.4703958
 --- !u!1 &4169187124158208665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,7 +5026,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 1259904073, guid: 56269c58102d163488fb29acd805f1c1, type: 3}
+  m_Sprite: {fileID: -1588622322, guid: 1df3af7968abb8c4ba2c6b89676f3abf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5091,7 +5093,7 @@ BoxCollider2D:
   m_Offset: {x: 0.00726521, y: 0.5760257}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.53, y: 0.26}
     oldSize: {x: 4, y: 4}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
@@ -5126,7 +5128,7 @@ MonoBehaviour:
   objectDetected: 0
   attackedByPlayer: 0
   searchIsOver: 0
-  isFacingRight: 0
+  isFacingRight: 1
   isFleeing: 0
   wasHurt: 0
   canAttack: 0
@@ -5191,7 +5193,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6437006, y: 0.09109211}
+  m_Offset: {x: 0.69, y: 0.09109211}
   serializedVersion: 2
   m_Radius: 2.764483
 --- !u!195 &-2159103613756224684
@@ -5212,8 +5214,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 8
-  m_BaseOffset: 4
+  m_Height: 1.06
+  m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8391080234110020180

@@ -221,11 +221,13 @@ public class WolfAI : MonoBehaviour
     {
         while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
         {
+            wolfAnim.SetBool("Walk", true);
             agent.SetDestination(destino);
             if (destino.x > transform.position.x && !isFacingRight) WolfFlip();
             else if (destino.x < transform.position.x && isFacingRight) WolfFlip();
             yield return null; // Esperar al siguiente frame
         }
+        wolfAnim.SetBool("Walk", false);
         if (Vector2.Distance(transform.position, destino) < 0.1f && isFleeing) isFleeing = false;
     }
 }

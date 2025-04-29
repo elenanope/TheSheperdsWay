@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/TheShepersWay_Root/Scenes/Level1.unity
     guid: 7db46cb99a5ac934c9bb0259ba2b4a24
   - enabled: 1
-    path: Assets/TheShepersWay_Root/Scenes/Test2.unity
-    guid: 55ce49470724b1c4db610c481819ea4b
+    path: Assets/TheShepersWay_Root/Scenes/Level2.unity
+    guid: ac7d6f5552748734ab58cd04733615b0
   - enabled: 1
     path: Assets/TheShepersWay_Root/Scenes/WinScene.unity
     guid: 4acd5b50c91d45b4d9d61580647ec828
@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TheShepersWay_Root/Scenes/WinWithCruelty.unity
     guid: 1bf59e67da24a0045b4cf05036636680
+  - enabled: 1
+    path: Assets/TheShepersWay_Root/Scenes/Level3.unity
+    guid: d58ed4a26ff4d314390319c28b1a5fd7
+  - enabled: 1
+    path: Assets/TheShepersWay_Root/Scenes/FinalLevel.unity
+    guid: 4fde1bc93863fad43a8ba72532c8c9fd
   m_configObjects: {}

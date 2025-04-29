@@ -6,6 +6,8 @@ public class SensorRotator : MonoBehaviour
 {
     [SerializeField] bool inMaximum;
     [SerializeField] float turnSpeed = 25f;
+    [SerializeField] float max = 55f;
+    [SerializeField] float min = -55f;
     void Update()
     {
         float zRotation = transform.eulerAngles.z;
@@ -19,12 +21,12 @@ public class SensorRotator : MonoBehaviour
         {
             transform.Rotate(0, 0, turnSpeed * Time.deltaTime);
         }
-        if(zRotation >= 55f) inMaximum = true;
+        if(zRotation >= max) inMaximum = true;
         if(inMaximum)
         {
             transform.Rotate(0, 0, -turnSpeed * Time.deltaTime);
         }
-        if (zRotation <= -55f) inMaximum = false;
+        if (zRotation <= min) inMaximum = false;
 
     }
 }

@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1990143539, guid: 81ef80d97081a514580e401b3b1a6900, type: 3}
+  m_Sprite: {fileID: -515728888, guid: 1fc14b1653f410d49957822e05b06703, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -203,22 +203,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 6d2483ba-fdcf-4c69-ac38-fcc2159d31bc
     m_ActionName: P2/Bark2[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7959022819495471361}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnLeaveSheep
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 81705f61-d561-4e14-978c-027e0ee8b458
-    m_ActionName: P1/LeaveSheep[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: P1
@@ -239,6 +223,8 @@ MonoBehaviour:
   shepherdLife: 100
   speed: 4
   isFacingRight: 0
+  isBurning: 0
+  initialScene: 0
   canDie: 0
   attackPoint: {fileID: 5692848950084751239}
   attackRange: 1.17
@@ -288,7 +274,7 @@ BoxCollider2D:
   m_Offset: {x: 0.0951547, y: 1.1304666}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.55, y: 0.05}
     oldSize: {x: 4, y: 4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
