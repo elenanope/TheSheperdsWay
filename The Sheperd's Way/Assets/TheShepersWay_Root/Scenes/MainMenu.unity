@@ -10032,7 +10032,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.54509807, g: 0.6509804, b: 0.3372549, a: 1}
+  m_Color: {r: 0.54509807, g: 0.6509804, b: 0.3372549, a: 0.45882353}
   m_Origin: {x: -29, y: -16, z: 0}
   m_Size: {x: 58, y: 32, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -26893,7 +26893,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.54586446, g: 0.6509434, b: 0.33570662, a: 1}
+  m_Color: {r: 0.54586446, g: 0.6509434, b: 0.33570662, a: 0.48235294}
   m_Origin: {x: -29, y: -16, z: 0}
   m_Size: {x: 58, y: 33, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -35677,6 +35677,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5692848950084751239, guid: 91c649578e20cc64ebc2947d05f37d4b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.29
+      objectReference: {fileID: 0}
     - target: {fileID: 6362140609528531266, guid: 91c649578e20cc64ebc2947d05f37d4b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -36882,7 +36886,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5, g: 0.44180173, b: 0.3852201, a: 1}
+  m_BackGroundColor: {r: 0.44313726, g: 0.44180173, b: 0.23529412, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
