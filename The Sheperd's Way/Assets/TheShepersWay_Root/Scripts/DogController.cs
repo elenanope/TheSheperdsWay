@@ -40,6 +40,10 @@ public class DogController : MonoBehaviour
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioClip[] sfxList;
+
     private void Awake()
     {
         //if(!initialScene) DontDestroyOnLoad(this);
@@ -119,6 +123,7 @@ public class DogController : MonoBehaviour
         {
             if (helpedByP1)
             {
+                if(!sfxSource.isPlaying) PlaySFX(2);
                 timePassed += Time.deltaTime * 2; //arreglar
                 if (vfx != null) vfx.SetActive(true);
             }
@@ -170,6 +175,7 @@ public class DogController : MonoBehaviour
     }
     void Faint()
     {
+        
         dogAnim.ResetTrigger("Hurt");
         dogLife = 0;
         isFainted = true;
@@ -198,6 +204,7 @@ public class DogController : MonoBehaviour
     }
     void Bark1()
     {
+        PlaySFX(0);
         dogAnim.SetTrigger("Bark1");
         Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
         Collider2D[] enemies;
@@ -282,12 +289,17 @@ public class DogController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {//El perro tmb recibe daño aunque esté heldByP1
+        PlaySFX(1);
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
     }
     void FireDamage()
     {
         TakeDamage(5);
+    }
+    void PlaySFX(int sfxIndex)
+    {
+        sfxSource.PlayOneShot(sfxList[sfxIndex]);
     }
     void OnDrawGizmosSelected()
     {

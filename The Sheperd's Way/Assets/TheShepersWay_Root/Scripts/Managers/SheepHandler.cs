@@ -9,7 +9,10 @@ public class SheepHandler : MonoBehaviour
     [SerializeField] bool dogInside;
     [SerializeField] DogController dog;
     public int sheepsInside;
-    
+    [Header("Audio")]
+    [SerializeField] AudioSource sfxSource;
+    public AudioClip[] sfxList;
+
 
     // Update is called once per frame
     void Update()
@@ -31,8 +34,9 @@ public class SheepHandler : MonoBehaviour
             }
         }
         
-        if(sheepsInside >= GameManager.Instance.sheepsAlive *2 && !dogInside)
+        if(sheepsInside >= GameManager.Instance.sheepsAlive *2 && !dogInside && !valla1.enabled)
         {
+            PlaySFX(0);
             valla1.enabled = true;
             valla2.enabled = true;
         }
@@ -66,5 +70,10 @@ public class SheepHandler : MonoBehaviour
             dogInside = false;
             Debug.Log("Perro fuera");
         }
+    }
+
+    public void PlaySFX(int sfxIndex)
+    {
+        sfxSource.PlayOneShot(sfxList[sfxIndex]);
     }
 }

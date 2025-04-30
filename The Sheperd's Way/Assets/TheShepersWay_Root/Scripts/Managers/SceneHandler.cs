@@ -35,7 +35,7 @@ public class SceneHandler : MonoBehaviour
                 else if(lastScene &&GameManager.Instance.cruelty<50 && sheepHandler.sheepsInside > 0) fadeo.FadingOut(3);
                 else if (!lastScene)
                 {
-                    GameManager.Instance.sheepsAlive = sheepHandler.sheepsInside; //asi solo pasan las vivas a la siguiente pantalla
+                    GameManager.Instance.sheepsAlive = sheepHandler.sheepsInside/2; //asi solo pasan las vivas a la siguiente pantalla
                                                                       //audioSource.Stop();
                     fadeo.FadingOut(specificSceneToLoad); 
                 }

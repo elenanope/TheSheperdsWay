@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioClip[] sfxList;
+
     private void Awake()
     {
         //if (!initialScene) DontDestroyOnLoad(this);
@@ -106,6 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     void Attack()
     {
+        PlaySFX(0);
         shepherdAnim.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemy in hitEnemies)
@@ -118,7 +123,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    void PlaySFX(int sfxIndex)
+    {
+        sfxSource.PlayOneShot(sfxList[sfxIndex]);
+    }
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;
@@ -229,6 +237,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        PlaySFX(1);
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
     }
