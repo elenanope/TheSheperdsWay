@@ -42,7 +42,7 @@ public class DogController : MonoBehaviour
 
     private void Awake()
     {
-        if(!initialScene) DontDestroyOnLoad(this);
+        //if(!initialScene) DontDestroyOnLoad(this);
     }
     // Start is called before the first frame update
     void Start()

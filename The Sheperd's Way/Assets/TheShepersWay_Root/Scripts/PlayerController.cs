@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (!initialScene) DontDestroyOnLoad(this);
+        //if (!initialScene) DontDestroyOnLoad(this);
     }
     void Start()
     {

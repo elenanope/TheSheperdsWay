@@ -79,19 +79,40 @@ public class WolfAI : MonoBehaviour
                         transform.position = transform.position;
                         FindSheeps();
                     }
-                    RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, -sensor.right, rayDistance); //error de ref?
-                    Debug.DrawRay(sensor.position, -sensor.right * rayDistance, Color.blue);
-                    foreach (RaycastHit2D hit in hits)
+                    if(isFacingRight)
                     {
-                        if (hit.collider != null)
+                        RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, sensor.right, rayDistance); //error de ref?
+                        Debug.DrawRay(sensor.position, sensor.right * rayDistance, Color.blue);
+                        foreach (RaycastHit2D hit in hits)
                         {
-                            if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                            if (hit.collider != null)
                             {
-                                Debug.Log("Objeto detectado: " + hit.collider.name);
-                                objectDetected = true;
-                            }
-                        } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                                if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                                {
+                                    Debug.Log("Objeto detectado: " + hit.collider.name);
+                                    objectDetected = true;
+                                }
+                            } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                        }
                     }
+                    else
+                    {
+                        RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, sensor.right, rayDistance); //error de ref?
+                        Debug.DrawRay(sensor.position, sensor.right * rayDistance, Color.blue);
+                        foreach (RaycastHit2D hit in hits)
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                                {
+                                    Debug.Log("Objeto detectado: " + hit.collider.name);
+                                    objectDetected = true;
+                                }
+                            } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                        }
+                    }
+                    
+                    
                 }
             }
         }

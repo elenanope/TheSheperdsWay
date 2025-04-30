@@ -31,22 +31,25 @@ public class SheepHandler : MonoBehaviour
             }
         }
         
-        if(sheepsInside >= GameManager.Instance.sheepsAlive && !dogInside)
+        if(sheepsInside >= GameManager.Instance.sheepsAlive *2 && !dogInside)
         {
             valla1.enabled = true;
             valla2.enabled = true;
         }
     }
+    private void Start()
+    {
+        dog = GameObject.Find("P2").GetComponent<DogController>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Sheep"))
         {
-            sheepsInside++;
+            sheepsInside+=1;
             Debug.Log("oveja dentro");
         }
         if (collision.gameObject.name == "P2")
         {
-            dog = GetComponent<DogController>();
             dogInside = true;
             Debug.Log("Perro dentro");
         }

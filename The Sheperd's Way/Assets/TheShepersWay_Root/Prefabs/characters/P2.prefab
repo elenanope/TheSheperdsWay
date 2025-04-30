@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1227675839, guid: 40efaff5d31373f4d859dceedba4bf33, type: 3}
+  m_Sprite: {fileID: 135357140, guid: 1df3af7968abb8c4ba2c6b89676f3abf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -245,8 +245,8 @@ BoxCollider2D:
   m_Offset: {x: 0.020819902, y: 0.49632046}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.25, y: 1.125}
+    pivot: {x: 0.5, y: 0.35}
+    oldSize: {x: 4, y: 4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
   dogSpeed: 6
   isFacingRight: 1
   isBurning: 0
+  initialScene: 0
   heldByP1: 0
   isFainted: 0
   healingTime: 5
@@ -291,6 +292,7 @@ MonoBehaviour:
   barkDirectionUI: []
   vfx: {fileID: 4127457558016777472}
   vfxDust: {fileID: 424199925499475158}
+  uiBark2: {fileID: 0}
   boxColDog: {fileID: 0}
 --- !u!95 &3354525872764531709
 Animator:

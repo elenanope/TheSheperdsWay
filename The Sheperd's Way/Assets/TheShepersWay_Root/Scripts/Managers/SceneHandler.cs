@@ -7,8 +7,7 @@ public class SceneHandler : MonoBehaviour
 {
     //[SerializeField] AudioSource audioSource;
     public int specificSceneToLoad;
-    bool lastScene;
-    int sheepsArrived;
+    [SerializeField] bool lastScene;
     FadingScript fadeo;
     [SerializeField] SheepHandler sheepHandler;
 
@@ -32,9 +31,9 @@ public class SceneHandler : MonoBehaviour
         {
             if(collision.gameObject.name == "P1")
             {
-                if(lastScene&&GameManager.Instance.cruelty>=50) fadeo.FadingOut(6);
-                else if(lastScene &&GameManager.Instance.cruelty<50) fadeo.FadingOut(3);
-                else
+                if(lastScene&&GameManager.Instance.cruelty>=50 && sheepHandler.sheepsInside > 0) fadeo.FadingOut(6);
+                else if(lastScene &&GameManager.Instance.cruelty<50 && sheepHandler.sheepsInside > 0) fadeo.FadingOut(3);
+                else if (!lastScene)
                 {
                     GameManager.Instance.sheepsAlive = sheepHandler.sheepsInside; //asi solo pasan las vivas a la siguiente pantalla
                                                                       //audioSource.Stop();
