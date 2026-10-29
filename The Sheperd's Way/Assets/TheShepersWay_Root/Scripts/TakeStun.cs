@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TakeStun : MonoBehaviour
 {
@@ -12,8 +13,11 @@ public class TakeStun : MonoBehaviour
     [SerializeField] bool stunned;
     [SerializeField] bool ignoringStun;
     [SerializeField] WolfAI wolfAI;
+    [SerializeField] GameObject particles;
 
     Animator wolfAnim;
+    SpriteRenderer wolfRenderer;
+    Rigidbody2D wolfRb;
     float waitingTime = 10;
     float currentWaitingTime;
 
@@ -21,14 +25,21 @@ public class TakeStun : MonoBehaviour
     {
         wolfAI = GetComponent<WolfAI>();
         wolfAnim = GetComponent<Animator>();
+        wolfRenderer = GetComponent<SpriteRenderer>();
+        wolfRb = GetComponent<Rigidbody2D>();
     }
     public void TakePause()
     {
         if (!stunned && !ignoringStun)
         {
+            wolfAI.StopAllCoroutines();
             wolfAI.enabled = false;
             stunned = true;
-            wolfAnim.SetBool("Stun", true);
+            //velocity 0 new
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(transform.position);
+            wolfRb.bodyType = RigidbodyType2D.Static;
+            //wolfAnim.SetBool("Stun", true);
+            particles.SetActive(true);
             barkedTimes += 1;
         }
         else Debug.Log("Enemy is already stunned/is used to it");
@@ -41,16 +52,18 @@ public class TakeStun : MonoBehaviour
             timeStunnedPassed += Time.deltaTime;
             if (timeStunnedPassed >= stunningTime) //sino, sacar
             {
-                wolfAnim.SetBool("Stun", false);
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                //wolfAnim.SetBool("Stun", false);
+                particles.SetActive(false);
                 timeStunnedPassed = 0;
                 wolfAI.enabled = true;
+                wolfRb.bodyType = RigidbodyType2D.Dynamic;
                 stunned = false;
             }
         }
         
-
         //Mide si sigues ladrando
-        if(barkedTimes >= 1 && !ignoringStun)
+        if (barkedTimes >= 1 && !ignoringStun)
         {
             cautionTime += Time.deltaTime;
         }

@@ -9,10 +9,11 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] int shepherdLife = 100;
+    public int shepherdLife = 100;
     [SerializeField] float speed;
     [SerializeField] bool isFacingRight;
     [SerializeField] bool isBurning;
+    [SerializeField] bool initialScene;
     [SerializeField] bool canDie;
     Vector2 moveInput;
     Rigidbody2D rb;
@@ -33,7 +34,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float attackRate = 2f;
     float nextAttackTime = 0f;
 
-    // Start is called before the first frame update
+    [Header("Audio")]
+    [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioClip[] sfxList;
+
+    private void Awake()
+    {
+        //if (!initialScene) DontDestroyOnLoad(this);
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +56,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if(moveInput != null && moveInput.y == 0 && moveInput.x == 0 && shepherdAnim.GetBool("Walk") == true) { shepherdAnim.SetBool("Walk", false); }
         if (isBurning)
         {
             if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
@@ -89,6 +98,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = moveInput * speed;
         }
         else rb.velocity = moveInput * (speed/2);
+        if(shepherdAnim.GetBool("Walk") == false) shepherdAnim.SetBool("Walk", true);
+
     }
     void Flip()
     {
@@ -99,6 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     void Attack()
     {
+        PlaySFX(0);
         shepherdAnim.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemy in hitEnemies)
@@ -111,7 +123,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    void PlaySFX(int sfxIndex)
+    {
+        sfxSource.PlayOneShot(sfxList[sfxIndex]);
+    }
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;
@@ -168,7 +183,8 @@ public class PlayerController : MonoBehaviour
         if (context.performed && canSheep == 1)
         {
             sheepHeld = true;
-            shepherdAnim.SetBool("GrabSheep", true);
+            if (shepherdAnim.GetBool("GrabSheep") == false) shepherdAnim.SetBool("GrabSheep", true);
+
             heldSheep.transform.SetParent(transform);
             heldSheep.SetActive(false);
             canSheep = 2;
@@ -181,18 +197,20 @@ public class PlayerController : MonoBehaviour
         else if (context.performed && canSheep == 3) //Pillar perro
         {
             sheepHeld = true;
-            //shepherdAnim.SetBool("GrabDog", true);
+            if(shepherdAnim.GetBool("GrabDog") == false) shepherdAnim.SetBool("GrabDog", true);
             heldSheep.GetComponent<DogController>().heldByP1 = true;
             heldSheep.transform.SetParent(transform);
             if (isFacingRight && !heldSheep.GetComponent<DogController>().isFacingRight) heldSheep.GetComponent<DogController>().DogFlip();
             else if (!isFacingRight && heldSheep.GetComponent<DogController>().isFacingRight) heldSheep.GetComponent<DogController>().DogFlip();
-            //heldSheep.SetActive(false);
+            heldSheep.GetComponent<SpriteRenderer>().enabled = false;
+            heldSheep.GetComponent<BoxCollider2D>().enabled = false;
             canSheep = 4;
         }
         else if (context.performed && canSheep == 4)
         {
             heldSheep.GetComponent<DogController>().heldByP1 = false;
             heldSheep.GetComponent<BoxCollider2D>().enabled = true;
+            shepherdAnim.SetBool("GrabDog", false);
             OnLeaveSheep();
         }
     }
@@ -203,6 +221,10 @@ public class PlayerController : MonoBehaviour
             if(!heldSheep.activeSelf) //no se si va
             {
                 heldSheep.SetActive(true);
+            }
+            if(!heldSheep.GetComponent<SpriteRenderer>().enabled)
+            {
+                heldSheep.GetComponent<SpriteRenderer>().enabled = true;
             }
             heldSheep.transform.SetParent(null);
             
@@ -215,6 +237,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        PlaySFX(1);
         shepherdLife -= damage;
         shepherdAnim.SetTrigger("Hurt");
     }

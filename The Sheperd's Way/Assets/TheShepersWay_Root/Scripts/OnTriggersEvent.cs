@@ -7,8 +7,11 @@ public class OnTriggersEvent : MonoBehaviour
 {
     [SerializeField] int secondsToWait = 1;
     float contadorTiempo;
+    [SerializeField] float maxEscalaY = 1.1f;
     bool isPressed;
     [SerializeField] GameObject chargingSymbol;
+    [SerializeField] GameObject collisionedObject = null;
+    [SerializeField] int objectTimes;
 
     public UnityEvent OnTrigger; // Se verá en el inspector
 
@@ -17,29 +20,48 @@ public class OnTriggersEvent : MonoBehaviour
         if (contadorTiempo >= secondsToWait)
         {
             OnTrigger.Invoke();
-            contadorTiempo = 0f;
-            isPressed = false;
         }
 
-        if (isPressed) contadorTiempo += Time.deltaTime;
+        if (isPressed && objectTimes == 1) contadorTiempo += Time.deltaTime;
+        else
+        {
+            if (contadorTiempo > 0)
+            {
+                contadorTiempo -= Time.deltaTime;
+            }
+            else contadorTiempo = 0;
+        }
+        if (chargingSymbol != null) chargingSymbol.transform.localScale = new Vector3(chargingSymbol.transform.localScale.x, Mathf.Clamp(contadorTiempo / secondsToWait, 0f, maxEscalaY), chargingSymbol.transform.localScale.z);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        contadorTiempo = 0f;
-        isPressed = true;
-
-        if (chargingSymbol != null) chargingSymbol.SetActive(false);
-
-        //Opción para botones TSW
-        chargingSymbol.SetActive(true);
+            isPressed = true;
+        if (collisionedObject != collision.gameObject)
+        {
+            objectTimes = 1;
+            collisionedObject = collision.gameObject;
+        }
+        else
+        {
+            objectTimes = 2;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        contadorTiempo = 0f;
         isPressed = false;
-        //me da error  chargingSymbol.SetActive(false);
+        
+        if (chargingSymbol != null)
+        {
+            chargingSymbol.transform.localScale = new Vector3(chargingSymbol.transform.localScale.x, 0f, chargingSymbol.transform.localScale.z);
+        }
+        if (objectTimes == 1) objectTimes = 0;
+        else if(objectTimes == 2)
+        {
+            objectTimes = 0;
+            collisionedObject = null;
+        }
     }
 
 }

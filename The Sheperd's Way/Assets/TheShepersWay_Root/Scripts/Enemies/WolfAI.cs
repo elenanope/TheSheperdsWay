@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WolfAI : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class WolfAI : MonoBehaviour
     [SerializeField] bool canDie;
 
     [SerializeField] Transform sensor;
-
+    NavMeshAgent agent;
     Animator wolfAnim;
     Rigidbody2D wolfRb;
     // es mejor poner una variable de currentLife y otra de max??
@@ -39,7 +40,10 @@ public class WolfAI : MonoBehaviour
     {
         wolfAnim = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
         canDie = true;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         InvokeRepeating("FindSheeps",0, 4f);
     }
 
@@ -75,19 +79,40 @@ public class WolfAI : MonoBehaviour
                         transform.position = transform.position;
                         FindSheeps();
                     }
-                    RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, -sensor.right, rayDistance); //error de ref?
-                    Debug.DrawRay(sensor.position, -sensor.right * rayDistance, Color.blue);
-                    foreach (RaycastHit2D hit in hits)
+                    if(isFacingRight)
                     {
-                        if (hit.collider != null)
+                        RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, sensor.right, rayDistance); //error de ref?
+                        Debug.DrawRay(sensor.position, sensor.right * rayDistance, Color.blue);
+                        foreach (RaycastHit2D hit in hits)
                         {
-                            if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                            if (hit.collider != null)
                             {
-                                Debug.Log("Objeto detectado: " + hit.collider.name);
-                                objectDetected = true;
-                            }
-                        } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                                if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                                {
+                                    Debug.Log("Objeto detectado: " + hit.collider.name);
+                                    objectDetected = true;
+                                }
+                            } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                        }
                     }
+                    else
+                    {
+                        RaycastHit2D[] hits = Physics2D.RaycastAll(sensor.position, sensor.right, rayDistance); //error de ref?
+                        Debug.DrawRay(sensor.position, sensor.right * rayDistance, Color.blue);
+                        foreach (RaycastHit2D hit in hits)
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Sheep"))
+                                {
+                                    Debug.Log("Objeto detectado: " + hit.collider.name);
+                                    objectDetected = true;
+                                }
+                            } //despues poner que si despues de x tiempo no detecta nada, que vuelva a object detected = false
+                        }
+                    }
+                    
+                    
                 }
             }
         }
@@ -101,7 +126,6 @@ public class WolfAI : MonoBehaviour
             closestSheep = null;
             FindSheeps(); // Buscar una nueva oveja si desaparece
         }
-
         if (Time.time >= nextAttackTime && canAttack)
         {
             StopAllCoroutines();
@@ -109,7 +133,6 @@ public class WolfAI : MonoBehaviour
             canAttack = false;
             nextAttackTime = Time.time + 1f / attackRate;
         }
-
     }
     
     void Update()
@@ -181,6 +204,7 @@ public class WolfAI : MonoBehaviour
         attackedByPlayer = true;
         wolfLife -= damage;
         wolfAnim.SetTrigger("Hurt");
+        GameManager.Instance.cruelty += 5;
         StartCoroutine(ResetHurt());
     }
     void Death()
@@ -190,6 +214,7 @@ public class WolfAI : MonoBehaviour
         Debug.Log("Enemy died");
         wolfAnim.SetTrigger("Death");
         GetComponent<Collider2D>().enabled = false;
+        GetComponent<TakeStun>().enabled = false;
         this.enabled = false;
     }
     #endregion
@@ -202,7 +227,7 @@ public class WolfAI : MonoBehaviour
             Vector2 direccionHuida = (transform.position - nearbyPlayer.position).normalized;
             isFleeing = true;
             attackedByPlayer = false;
-            float distanciaHuida = Random.Range(3f, 5f);
+            float distanciaHuida = Random.Range(11f, 18f);
             Vector2 puntoHuir = (Vector2)transform.position + (direccionHuida * distanciaHuida);
             StartCoroutine(RunToPoint(puntoHuir));
         }
@@ -217,12 +242,13 @@ public class WolfAI : MonoBehaviour
     {
         while (Vector2.Distance(transform.position, destino) > 0.1f) // Mientras no haya llegado
         {
-            transform.position = Vector2.MoveTowards(transform.position, destino, wolfSpeed * Time.deltaTime);
+            wolfAnim.SetBool("Walk", true);
+            agent.SetDestination(destino);
             if (destino.x > transform.position.x && !isFacingRight) WolfFlip();
             else if (destino.x < transform.position.x && isFacingRight) WolfFlip();
             yield return null; // Esperar al siguiente frame
         }
+        wolfAnim.SetBool("Walk", false);
         if (Vector2.Distance(transform.position, destino) < 0.1f && isFleeing) isFleeing = false;
     }
-
 }

@@ -16,6 +16,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float dogSpeed = 6;
     public bool isFacingRight;
     [SerializeField] bool isBurning;
+    [SerializeField] bool initialScene;
     public bool heldByP1;
     public bool isFainted;
     [SerializeField] float healingTime = 10;
@@ -23,7 +24,7 @@ public class DogController : MonoBehaviour
     [SerializeField] float detectionRadius = 3.7f;
 
     public bool helpedByP1;
-    [SerializeField] bool canBark1;
+    public bool canBark1;
     [SerializeField] int lastDirection; // 1 up, 2 right, 3 down, 4 left
     [SerializeField] LayerMask sheepsLayer;
     [SerializeField] LayerMask enemyLayer;
@@ -34,9 +35,19 @@ public class DogController : MonoBehaviour
     [SerializeField] Image playerHealthBar;
     [SerializeField] GameObject[] barkDirectionUI;
     [SerializeField] GameObject vfx;
+    [SerializeField] GameObject vfxDust;
+    [SerializeField] GameObject uiBark2;
     [SerializeField]BoxCollider2D boxColDog;
     CircleCollider2D circleColDog;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioClip[] sfxList;
+
+    private void Awake()
+    {
+        //if(!initialScene) DontDestroyOnLoad(this);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +55,7 @@ public class DogController : MonoBehaviour
         dogAnim = GetComponent<Animator>();
         circleColDog = GetComponent<CircleCollider2D>();
         boxColDog = GetComponent<BoxCollider2D>();
+        lastDirection = 2;
     }
     private void FixedUpdate()
     {
@@ -60,6 +72,18 @@ public class DogController : MonoBehaviour
     }
     void Update()
     {
+        if(uiBark2 != null)
+        {
+            if (bark2 && !uiBark2.activeSelf) uiBark2.SetActive(true);
+            else if (!bark2 && uiBark2.activeSelf) uiBark2.SetActive(false);
+        }
+        
+        if(!gameObject.GetComponent<SpriteRenderer>().enabled) vfxDust.SetActive(false);
+        else vfxDust.SetActive(true);
+        if(moveInput != null && moveInput.x == 0 && moveInput.y  == 0) 
+        {
+            dogAnim.SetBool("Walk", false);
+        }
         if (isBurning)
         {
             if (!IsInvoking("FireDamage")) InvokeRepeating("FireDamage", 0f, 1.5f);
@@ -90,7 +114,7 @@ public class DogController : MonoBehaviour
             }
             else
             {
-                playerHealthBar.color = HexToColor("#78800E", 255f);
+                playerHealthBar.color = HexToColor("#4C7370", 255f);
                 playerHealthBar.fillAmount = dogLife / 50f;
             }
 
@@ -99,6 +123,7 @@ public class DogController : MonoBehaviour
         {
             if (helpedByP1)
             {
+                if(!sfxSource.isPlaying) PlaySFX(2);
                 timePassed += Time.deltaTime * 2; //arreglar
                 if (vfx != null) vfx.SetActive(true);
             }
@@ -119,10 +144,7 @@ public class DogController : MonoBehaviour
 
         if (!isFainted)// Hacer que no pueda hacer NADA
         {
-            if (dogLife <= 0)
-            {
-                Faint();
-            }
+            if (dogLife <= 0) Faint();
 
             if(!heldByP1)
             {
@@ -153,6 +175,7 @@ public class DogController : MonoBehaviour
     }
     void Faint()
     {
+        
         dogAnim.ResetTrigger("Hurt");
         dogLife = 0;
         isFainted = true;
@@ -165,7 +188,11 @@ public class DogController : MonoBehaviour
 
     void Move()
     {
-        if(!heldByP1) dogRb.velocity = moveInput * dogSpeed;
+        if(!heldByP1)
+        {
+            dogAnim.SetBool("Walk", true);
+            dogRb.velocity = moveInput * dogSpeed;
+        }
 
     }
     public void DogFlip()
@@ -177,6 +204,7 @@ public class DogController : MonoBehaviour
     }
     void Bark1()
     {
+        PlaySFX(0);
         dogAnim.SetTrigger("Bark1");
         Collider2D[] sheeps = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepsLayer);
         Collider2D[] enemies;
@@ -185,7 +213,8 @@ public class DogController : MonoBehaviour
 
         foreach (Collider2D sheep in sheeps)
         {
-            if(sheep != null) sheep.gameObject.GetComponent<SheepAI>().Running(lastDirection);
+            SheepAI sheepAi = sheep.GetComponent<SheepAI>();
+            if(sheep != null && !sheepAi.sheepInLine) sheepAi.Running(lastDirection);
         }
 
         foreach (Collider2D enemy in enemies)
@@ -198,43 +227,52 @@ public class DogController : MonoBehaviour
 
     public void OnMoveDog(InputAction.CallbackContext context)
     {
+        int canShowUI = 0;
         moveInput = context.ReadValue<Vector2>();
-        if (moveInput.y > 0)
+        for (int i = 0; i < barkDirectionUI.Length; i++)
         {
-            lastDirection = 1;
-            Debug.Log("Up pressed");
-            barkDirectionUI[0].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-        }
-        else if (moveInput.y < 0)
-        {
-            lastDirection = 3;
-            Debug.Log("Down pressed");
-            barkDirectionUI[2].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
+            if (barkDirectionUI[i] != null) canShowUI++;
         }
 
-        if (moveInput.x > 0)
-        {
-            lastDirection = 2;
-            Debug.Log("Right pressed");
-            barkDirectionUI[1].SetActive(true);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
-            barkDirectionUI[3].SetActive(false);
-        }
-        else if (moveInput.x < 0)
-        {
-            lastDirection = 4;
-            Debug.Log("Left pressed");
-            barkDirectionUI[3].SetActive(true);
-            barkDirectionUI[1].SetActive(false);
-            barkDirectionUI[2].SetActive(false);
-            barkDirectionUI[0].SetActive(false);
+            if (canShowUI >=4)
+            {
+                if (moveInput.y > 0)
+                {
+                    lastDirection = 1;
+                    Debug.Log("Up pressed");
+                    barkDirectionUI[0].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                }
+                else if (moveInput.y < 0)
+                {
+                    lastDirection = 3;
+                    Debug.Log("Down pressed");
+                    barkDirectionUI[2].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                }
+
+                if (moveInput.x > 0)
+                {
+                    lastDirection = 2;
+                    Debug.Log("Right pressed");
+                    barkDirectionUI[1].SetActive(true);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                    barkDirectionUI[3].SetActive(false);
+                }
+                else if (moveInput.x < 0)
+                {
+                    lastDirection = 4;
+                    Debug.Log("Left pressed");
+                    barkDirectionUI[3].SetActive(true);
+                    barkDirectionUI[1].SetActive(false);
+                    barkDirectionUI[2].SetActive(false);
+                    barkDirectionUI[0].SetActive(false);
+                }
         }
     }
 
@@ -251,12 +289,17 @@ public class DogController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {//El perro tmb recibe daño aunque esté heldByP1
+        PlaySFX(1);
         dogLife -= damage;
         dogAnim.SetTrigger("Hurt");
     }
     void FireDamage()
     {
         TakeDamage(5);
+    }
+    void PlaySFX(int sfxIndex)
+    {
+        sfxSource.PlayOneShot(sfxList[sfxIndex]);
     }
     void OnDrawGizmosSelected()
     {

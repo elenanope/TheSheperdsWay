@@ -1,55 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class FadingScript : MonoBehaviour
 {
-    [SerializeField] CanvasGroup canvasGroup;
-    public float fadeOutDuration = 3f;
-    public float fadeInDuration = 3f;
+    [SerializeField] Image fadePanel;
+    [SerializeField] GameObject panel;
+    [SerializeField] float fadeInSpeed = 3f;
+    [SerializeField] float fadeOutSpeed = 3f;
+     
 
     private void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        StartCoroutine(nameof(StartGameFadeOut));
-    }
-    public void FadeOut()
-    {
-        StartCoroutine(FadeOutCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeOutDuration));
+        StartCoroutine(FadeIn());
     }
 
-    public void FadeIn()
+    IEnumerator FadeIn()
     {
-        StartCoroutine(FadeInCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeInDuration));
-    }
+        Color actualColor = fadePanel.color;
+        actualColor.a = 1f;
 
-    private IEnumerator FadeOutCanvasGroup(CanvasGroup cg, float start, float end, float duration)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeOutDuration)
+        yield return new WaitForSecondsRealtime(1.5f);
+        while (actualColor.a > 0f) //si fuera FadeOut sería <1f
         {
-            elapsedTime += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(start, end, elapsedTime / duration);
+            actualColor.a -= fadeInSpeed * Time.deltaTime; // es "menos" para FadeIn pq el panel tiene el alpha a tope 
+            actualColor.a = Mathf.Clamp01(actualColor.a);
+
+            fadePanel.color = actualColor;
+
             yield return null;
         }
-        cg.alpha = end;
+        panel.gameObject.SetActive(false);
     }
-    private IEnumerator FadeInCanvasGroup(CanvasGroup cg, float start, float end, float duration)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeInDuration)
+     IEnumerator FadeOut (int sceneToLoad, float waitTime = 0.25f)
+    { 
+        Color actualColor = fadePanel.color;
+        actualColor.a = 0f;
+        yield return new WaitForSecondsRealtime(waitTime);
+        panel.gameObject.SetActive(true);
+        while (actualColor.a < 1f)
         {
-            elapsedTime += Time.deltaTime;
-            cg.alpha = Mathf.Lerp(start, end, elapsedTime / duration);
+            actualColor.a += fadeOutSpeed * Time.deltaTime;
+            actualColor.a = Mathf.Clamp01(actualColor.a);
+
+            fadePanel.color = actualColor;
             yield return null;
         }
-        cg.alpha = end;
+        SceneManager.LoadScene(sceneToLoad);
     }
-
-    private IEnumerator StartGameFadeOut()
+    public void FadingOut(int sceneToLoad)
     {
-        yield return new WaitForSeconds(1);
-        FadeOut();
-        yield return null;
+        StartCoroutine(FadeOut(sceneToLoad));
     }
 }
