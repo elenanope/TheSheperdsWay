@@ -94,6 +94,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.ai.navigation": {
+      "version": "1.1.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.7",
       "depth": 1,
@@ -176,6 +185,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.recorder": {
+      "version": "4.0.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.render-pipelines.core": {
       "version": "14.0.8",
       "depth": 1,
@@ -226,7 +244,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
